@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://7hvs0lg6xxuc"]
+
+[ext_resource type="Texture2D" uid="uid://be08ab5nuyvuo" path="res://The_Alchemist_Quest/assets/tiles/Wall_32X32.png" id="1_2on3b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aam62"]
+size = Vector2(94, 95)
+
+[node name="Platform" type="AnimatableBody2D"]
+
+[node name="Wall" type="Sprite2D" parent="."]
+texture = ExtResource("1_2on3b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_aam62")
