@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://brffew4g3vbak"]
+
+[ext_resource type="Texture2D" uid="uid://dw52tym1sku5a" path="res://The_Alchemist_Quest/assets/button/Backpack.png" id="1_updeh"]
+[ext_resource type="Texture2D" uid="uid://xixwx1ml6wjt" path="res://The_Alchemist_Quest/assets/button/Tab_button.png" id="2_x1m6o"]
+
+[node name="Inventory" type="Sprite2D"]
+position = Vector2(471, 16)
+texture = ExtResource("1_updeh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 27)
+texture = ExtResource("2_x1m6o")

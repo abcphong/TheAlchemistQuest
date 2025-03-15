@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://k1xgqi502n3c"]
+
+[ext_resource type="Texture2D" uid="uid://bwmfseyyejlsa" path="res://The_Alchemist_Quest/assets/decor/lab table.png" id="1_wyx66"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vathp"]
+size = Vector2(63, 24.5)
+
+[node name="lab_tabel_decor" type="AnimatableBody2D"]
+position = Vector2(173, 17)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(6, 8)
+texture = ExtResource("1_wyx66")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 3)
+shape = SubResource("RectangleShape2D_vathp")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://df6aknphjx4ui"]
+
+[ext_resource type="Texture2D" uid="uid://b7vydcjo07230" path="res://The_Alchemist_Quest/assets/gameDemo/Mentor_NPC.png" id="1_k8s6w"]
+[ext_resource type="Script" uid="uid://dx7nl4f28vym1" path="res://The_Alchemist_Quest/scripts/player/mentor_npc.gd" id="1_mmuwl"]
+[ext_resource type="Texture2D" uid="uid://d2cm236gncudo" path="res://The_Alchemist_Quest/assets/gameDemo/Exclamation_mark.png" id="3_5l73w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmuwl"]
+size = Vector2(1, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5l73w"]
+size = Vector2(14, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fb6go"]
+size = Vector2(7, 20)
+
+[node name="mentorNPC" type="Area2D"]
+position = Vector2(127, 2)
+script = ExtResource("1_mmuwl")
+
+[node name="mentor" type="Sprite2D" parent="."]
+position = Vector2(1, 1)
+texture = ExtResource("1_k8s6w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 3)
+shape = SubResource("RectangleShape2D_mmuwl")
+
+[node name="DialogInteractionArea" type="Area2D" parent="."]
+process_mode = 3
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DialogInteractionArea"]
+process_mode = 3
+position = Vector2(1, 2.5)
+shape = SubResource("RectangleShape2D_5l73w")
+
+[node name="exclamination_mark" type="Area2D" parent="."]
+process_mode = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="exclamination_mark"]
+position = Vector2(1, -28)
+texture = ExtResource("3_5l73w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="exclamination_mark/Sprite2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_fb6go")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

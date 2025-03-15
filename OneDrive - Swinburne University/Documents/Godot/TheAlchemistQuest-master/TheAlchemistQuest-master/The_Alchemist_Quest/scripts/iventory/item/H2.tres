@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="inventoryItem" load_steps=3 format=3 uid="uid://c8luygwaf3c78"]
+
+[ext_resource type="Script" uid="uid://d0ir1lo3m8wuv" path="res://The_Alchemist_Quest/scripts/iventory/inventory_item.gd" id="1_aj0go"]
+[ext_resource type="Texture2D" uid="uid://ijgmgpmkjojq" path="res://The_Alchemist_Quest/assets/gameDemo/H2_gas_cylinder.png" id="2_tclc5"]
+
+[resource]
+script = ExtResource("1_aj0go")
+name = "H2"
+texture = ExtResource("2_tclc5")
+metadata/_custom_type_script = "uid://d0ir1lo3m8wuv"

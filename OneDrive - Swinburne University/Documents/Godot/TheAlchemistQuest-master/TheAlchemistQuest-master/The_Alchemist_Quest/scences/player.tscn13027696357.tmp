@@ -1,0 +1,108 @@
+[gd_scene load_steps=23 format=3 uid="uid://lelq75l35prl"]
+
+[ext_resource type="Script" uid="uid://c3wiysvwcijlr" path="res://The_Alchemist_Quest/scripts/player/player.gd" id="1_dirki"]
+[ext_resource type="Texture2D" uid="uid://cmgsnvontw14k" path="res://The_Alchemist_Quest/assets/tiles/upinipin.png" id="1_wcpwg"]
+[ext_resource type="Script" uid="uid://u1l8q0byv5mq" path="res://The_Alchemist_Quest/scripts/iventory/inventory.gd" id="2_pgpbb"]
+[ext_resource type="Script" uid="uid://dqyqnwurtctgf" path="res://The_Alchemist_Quest/scripts/iventory/item/iventory_number_slot.gd" id="3_vew2q"]
+[ext_resource type="PackedScene" uid="uid://dw1ufgnogb302" path="res://The_Alchemist_Quest/scences/player/iventory_ui.tscn" id="4_oglbh"]
+[ext_resource type="Script" uid="uid://d0ir1lo3m8wuv" path="res://The_Alchemist_Quest/scripts/iventory/inventory_item.gd" id="4_tncql"]
+[ext_resource type="Texture2D" uid="uid://ijgmgpmkjojq" path="res://The_Alchemist_Quest/assets/gameDemo/H2_gas_cylinder.png" id="5_iteoe"]
+[ext_resource type="Texture2D" uid="uid://cpdx38qhd87xv" path="res://The_Alchemist_Quest/assets/gameDemo/O2_gas_cylinder.png" id="6_kdktj"]
+[ext_resource type="Texture2D" uid="uid://1qkxsst6y7os" path="res://The_Alchemist_Quest/assets/gameDemo/Lighter.png" id="7_dsxs0"]
+[ext_resource type="Texture2D" uid="uid://negefri6il2c" path="res://The_Alchemist_Quest/assets/gameDemo/2H2O.png" id="8_m8k7r"]
+
+[sub_resource type="Resource" id="Resource_sl6fe"]
+script = ExtResource("4_tncql")
+name = "H2"
+texture = ExtResource("5_iteoe")
+metadata/_custom_type_script = "uid://d0ir1lo3m8wuv"
+
+[sub_resource type="Resource" id="Resource_yxlre"]
+script = ExtResource("3_vew2q")
+item = SubResource("Resource_sl6fe")
+amount = 1
+metadata/_custom_type_script = "uid://dqyqnwurtctgf"
+
+[sub_resource type="Resource" id="Resource_iomw2"]
+script = ExtResource("4_tncql")
+name = "O2"
+texture = ExtResource("6_kdktj")
+metadata/_custom_type_script = "uid://d0ir1lo3m8wuv"
+
+[sub_resource type="Resource" id="Resource_rvykd"]
+script = ExtResource("3_vew2q")
+item = SubResource("Resource_iomw2")
+amount = 1
+metadata/_custom_type_script = "uid://dqyqnwurtctgf"
+
+[sub_resource type="Resource" id="Resource_cng6f"]
+script = ExtResource("4_tncql")
+name = "Lighter"
+texture = ExtResource("7_dsxs0")
+metadata/_custom_type_script = "uid://d0ir1lo3m8wuv"
+
+[sub_resource type="Resource" id="Resource_5vvxd"]
+script = ExtResource("3_vew2q")
+item = SubResource("Resource_cng6f")
+amount = 1
+metadata/_custom_type_script = "uid://dqyqnwurtctgf"
+
+[sub_resource type="Resource" id="Resource_1pd2g"]
+script = ExtResource("4_tncql")
+name = "Note"
+texture = ExtResource("8_m8k7r")
+metadata/_custom_type_script = "uid://d0ir1lo3m8wuv"
+
+[sub_resource type="Resource" id="Resource_4l5tv"]
+script = ExtResource("3_vew2q")
+item = SubResource("Resource_1pd2g")
+amount = 1
+metadata/_custom_type_script = "uid://dqyqnwurtctgf"
+
+[sub_resource type="Resource" id="Resource_o5soe"]
+script = ExtResource("2_pgpbb")
+slots = Array[ExtResource("3_vew2q")]([SubResource("Resource_yxlre"), SubResource("Resource_rvykd"), SubResource("Resource_5vvxd"), SubResource("Resource_4l5tv"), null, null, null, null, null])
+metadata/_custom_type_script = "uid://u1l8q0byv5mq"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dirki"]
+atlas = ExtResource("1_wcpwg")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_556m3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dirki")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3evg"]
+size = Vector2(15, 18)
+
+[node name="Player" type="CharacterBody2D"]
+process_mode = 3
+position = Vector2(2, -2)
+script = ExtResource("1_dirki")
+inventory = SubResource("Resource_o5soe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+process_mode = 3
+position = Vector2(-1, -16)
+sprite_frames = SubResource("SpriteFrames_556m3")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.213929
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+process_mode = 3
+position = Vector2(-1.5, -8)
+shape = SubResource("RectangleShape2D_f3evg")
+
+[node name="iventory_UI" parent="." instance=ExtResource("4_oglbh")]
+offset_left = -99.0
+offset_top = -86.0
+offset_right = 63.0
+offset_bottom = 75.0
