@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cps4hl2pc7buv"]
+
+[ext_resource type="PackedScene" uid="uid://pkcunemalhiy" path="res://option/options_display_button.tscn" id="1_wrx2f"]
+[ext_resource type="Script" uid="uid://bdk64w8g5tqdb" path="res://option/windowed_mode_button.gd" id="2_k0kri"]
+[ext_resource type="FontFile" uid="uid://knq6w7rspvs8" path="res://assets/fonts/FVF Fernando 08.ttf" id="3_bfnlq"]
+
+[node name="Windowed_Mode_Button" instance=ExtResource("1_wrx2f")]
+script = ExtResource("2_k0kri")
+
+[node name="HBoxContainer" parent="." index="0"]
+layout_mode = 1
+offset_right = 844.0
+offset_bottom = 64.0
+
+[node name="Label" parent="HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("3_bfnlq")
+text = "Windowed Mode"
+
+[node name="OptionButton" parent="HBoxContainer" index="2"]
+theme_override_fonts/font = ExtResource("3_bfnlq")

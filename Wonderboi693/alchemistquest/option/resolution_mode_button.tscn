@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dccsg7pd8axxj"]
+
+[ext_resource type="PackedScene" uid="uid://pkcunemalhiy" path="res://option/options_display_button.tscn" id="1_48gvt"]
+[ext_resource type="Script" uid="uid://ddf4r62kjifuh" path="res://option/resolution_mode_button.gd" id="2_r5t1g"]
+[ext_resource type="FontFile" uid="uid://knq6w7rspvs8" path="res://assets/fonts/FVF Fernando 08.ttf" id="3_7hhje"]
+
+[node name="Resolution_Mode_Button" instance=ExtResource("1_48gvt")]
+script = ExtResource("2_r5t1g")
+
+[node name="HBoxContainer" parent="." index="0"]
+offset_right = 844.0
+offset_bottom = 64.0
+
+[node name="Label" parent="HBoxContainer" index="0"]
+theme_override_fonts/font = ExtResource("3_7hhje")
+text = "Resolution"
+
+[node name="OptionButton" parent="HBoxContainer" index="2"]
+theme_override_fonts/font = ExtResource("3_7hhje")
