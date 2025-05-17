@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://hupnwn10ee05"]
+[gd_scene load_steps=26 format=3 uid="uid://hupnwn10ee05"]
 
 [ext_resource type="Texture2D" uid="uid://cuy52n71m8yvn" path="res://The_Alchemist_Quest/assets/tiles/Floor_32X32.png" id="1_8p75x"]
 [ext_resource type="Texture2D" uid="uid://b6y7btgprc887" path="res://The_Alchemist_Quest/assets/tiles/Wall_32X32.png" id="2_7gosb"]
@@ -11,8 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://eae4bk6q5w0i" path="res://The_Alchemist_Quest/scences/dialog_player.tscn" id="9_5cjre"]
 [ext_resource type="PackedScene" uid="uid://bvn2ijvv1708u" path="res://The_Alchemist_Quest/scences/decor/lab_table_decor.tscn" id="10_mqgqj"]
 [ext_resource type="PackedScene" uid="uid://wky3sup41c8s" path="res://The_Alchemist_Quest/scences/decor/alarm_bell_decor.tscn" id="11_6hkyf"]
+[ext_resource type="Script" uid="uid://caeh8rppwadex" path="res://The_Alchemist_Quest/scripts/demo_room/label_timer.gd" id="11_p3lsj"]
 [ext_resource type="PackedScene" uid="uid://c500fti06uxfk" path="res://The_Alchemist_Quest/scences/decor/ventilation_fan_decor.tscn" id="11_uubka"]
-[ext_resource type="PackedScene" uid="uid://brffew4g3vbak" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="13_uubka"]
+[ext_resource type="PackedScene" uid="uid://bk3vj4l108qci" path="res://The_Alchemist_Quest/scences/player/inventoryUI.tscn" id="13_uubka"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="14_in84n"]
+[ext_resource type="Script" uid="uid://bhsjfqyt7fwyd" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="14_o5qgc"]
+[ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scences/player/hotbar.tscn" id="17_lfs5f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bugtt"]
 texture = ExtResource("1_8p75x")
@@ -148,13 +152,18 @@ position = Vector2(424, 37)
 position = Vector2(319, 10)
 
 [node name="Label" type="Label" parent="Map/Decor"]
-offset_left = 89.0
-offset_top = 141.0
-offset_right = 384.0
-offset_bottom = 208.0
+offset_left = 77.0
+offset_top = 142.0
+offset_right = 372.0
+offset_bottom = 209.0
 theme_override_fonts/font = ExtResource("7_x7s60")
 theme_override_font_sizes/font_size = 20
 text = "Phòng chơi thử nghiệm"
+
+[node name="Timer" type="Timer" parent="Map/Decor/Label"]
+wait_time = 3.0
+one_shot = true
+script = ExtResource("11_p3lsj")
 
 [node name="Ventilation_fan_decor" parent="Map/Decor" instance=ExtResource("11_uubka")]
 position = Vector2(175, 2)
@@ -167,9 +176,18 @@ position = Vector2(-2, -15)
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
-[node name="Inventory" parent="Player/Camera2D" instance=ExtResource("13_uubka")]
-position = Vector2(132, -69)
-scale = Vector2(0.562499, 0.515625)
+[node name="InventoryUI" parent="Player" instance=ExtResource("13_uubka")]
+position = Vector2(114.5, -78.5)
+scale = Vector2(0.71875, 0.65625)
+
+[node name="UserInterface" type="CanvasLayer" parent="Player"]
+script = ExtResource("14_o5qgc")
+
+[node name="Inventory" parent="Player/UserInterface" instance=ExtResource("14_in84n")]
+visible = false
+position = Vector2(201, 133)
+
+[node name="Hotbar" parent="Player/UserInterface" instance=ExtResource("17_lfs5f")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(176, 193)
@@ -192,3 +210,5 @@ shape = SubResource("WorldBoundaryShape2D_22yb4")
 position = Vector2(322.57, 28.4049)
 rotation = 0.137231
 shape = SubResource("WorldBoundaryShape2D_7gosb")
+
+[connection signal="timeout" from="Map/Decor/Label/Timer" to="Map/Decor/Label/Timer" method="_on_timeout"]

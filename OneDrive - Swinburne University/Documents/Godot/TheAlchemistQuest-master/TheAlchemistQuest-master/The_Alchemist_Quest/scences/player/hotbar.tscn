@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://d23hco84jrdw5"]
+
+[ext_resource type="Script" uid="uid://cs55qmx8nakq0" path="res://The_Alchemist_Quest/scripts/player/hotbar.gd" id="1_3yelt"]
+[ext_resource type="Texture2D" uid="uid://bl0l3obnqj3x2" path="res://The_Alchemist_Quest/assets/button/Hot_bar.png" id="1_uw63n"]
+[ext_resource type="Texture2D" uid="uid://bnircc0pmgkba" path="res://The_Alchemist_Quest/assets/button/Inventory_slot.png" id="2_60th3"]
+[ext_resource type="Script" uid="uid://bep0ddwfkc6nt" path="res://The_Alchemist_Quest/scripts/inventory/slot.gd" id="2_085en"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3yelt"]
+texture = ExtResource("2_60th3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ws27v"]
+texture = ExtResource("2_60th3")
+
+[node name="Hotbar" type="Node2D"]
+script = ExtResource("1_3yelt")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 534.0
+offset_top = 517.0
+offset_right = 682.0
+offset_bottom = 602.0
+texture = ExtResource("1_uw63n")
+
+[node name="HotbarSlot" type="GridContainer" parent="."]
+offset_left = 543.0
+offset_top = 524.0
+offset_right = 673.0
+offset_bottom = 594.0
+columns = 2
+
+[node name="HotbarSlot1" type="Panel" parent="HotbarSlot"]
+custom_minimum_size = Vector2(60, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_3yelt")
+script = ExtResource("2_085en")
+
+[node name="HotbarSlot2" type="Panel" parent="HotbarSlot"]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ws27v")
+script = ExtResource("2_085en")

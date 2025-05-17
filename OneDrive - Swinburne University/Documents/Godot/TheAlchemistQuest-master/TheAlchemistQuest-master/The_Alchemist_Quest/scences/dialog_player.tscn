@@ -13,10 +13,10 @@ process_mode = 3
 anchors_preset = -1
 anchor_left = -0.004
 anchor_right = -0.004
-offset_left = 208.608
-offset_top = 407.0
-offset_right = 855.608
-offset_bottom = 639.0
+offset_left = 284.608
+offset_top = 405.0
+offset_right = 931.608
+offset_bottom = 637.0
 
 [node name="Background" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
