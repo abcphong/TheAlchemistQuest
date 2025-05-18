@@ -6,22 +6,18 @@ var item_name =""
 var item_data = {}
 var item_description = {}
 
-
 @onready var popup_panel = get_node("../PopupPanel")
 @onready var popup_label = popup_panel.get_node("$VBoxContainer/DescriptionLabel")
-
 
 func _ready():
 	mouse_filter = Control.MOUSE_FILTER_PASS
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	
 	modulate = Color(0,1,0,0.3)
 	await get_tree().create_timer(0.3).timeout
 	modulate = Color(1,1,1,1)
 	
 	load_item_data()
 
-		
 func set_item(new_item_name: String):
 	item_name = new_item_name
 	print_debug("Item set in slot: ", item_name)

@@ -21,7 +21,6 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				handle_left_click(event, slot)
-				
 
 func handle_left_click(event: InputEvent, slot: InventorySlot):
 	var ui = get_tree().root.find_child("UserInterface", true, false)
@@ -32,7 +31,7 @@ func handle_left_click(event: InputEvent, slot: InventorySlot):
 		handle_place_item(ui,slot,event)
 	else:
 		handle_pick_item(ui,slot)
-		
+
 func handle_place_item(ui,slot: InventorySlot, event: InputEvent):
 		# Empty slot
 		if !slot.item:
