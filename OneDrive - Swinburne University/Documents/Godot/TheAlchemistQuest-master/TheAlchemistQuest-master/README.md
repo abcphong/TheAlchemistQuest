@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # TheAlchemistQuest
 
 ## Description
@@ -11,7 +10,7 @@ Alex dần khám phá ra rằng X-92 không chỉ là một hợp chất năng l
 
 ## Installation
 
-1. Download the latest release from [GitHub Releases](https://github.com/HaileInnoTech/TheAlchemistQuest.git).
+1. Download the latest release.
 2. Extract the ZIP file.
 3. Run `TheAlchemistsQuest.exe` (Windows) or `TheAlchemistsQuest.x86_64` (Linux).
 
@@ -33,6 +32,3 @@ Alex dần khám phá ra rằng X-92 không chỉ là một hợp chất năng l
 ## Contributing
 
 If you’d like to contribute to the development of _The Alchemist's Quest_, feel free to fork the repository and submit a pull request.
-=======
-# TheAlchemistQuest
->>>>>>> db6b480ac4e45ff5cf1617c70153970d02401fc8
