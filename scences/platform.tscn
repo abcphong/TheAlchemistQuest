@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://7hvs0lg6xxuc"]
+
+[ext_resource type="Texture2D" uid="uid://c8tk0h5xup26g" path="res://The_Alchemist_Quest/assets/gameDemo/Intro_room_shelf.png" id="4_lo50j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2on3b"]
+size = Vector2(32, 37)
+
+[node name="Platform" type="AnimatableBody2D"]
+position = Vector2(5, 16)
+
+[node name="intro_shelf" type="Sprite2D" parent="."]
+position = Vector2(5, 16)
+texture = ExtResource("4_lo50j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 23)
+shape = SubResource("RectangleShape2D_2on3b")

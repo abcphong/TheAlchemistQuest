@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://eae4bk6q5w0i"]
+
+[ext_resource type="Script" uid="uid://cictnv24kisnx" path="res://The_Alchemist_Quest/scripts/player/dialog_player.gd" id="1_221jv"]
+[ext_resource type="Texture2D" uid="uid://d2h1d7lrqmw5p" path="res://The_Alchemist_Quest/assets/tiles/Dialog_box.png" id="2_rwubx"]
+[ext_resource type="FontFile" uid="uid://ccdxh8aqwkjxn" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="3_jmcjk"]
+
+[node name="DialogPlayer" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_221jv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+process_mode = 3
+anchors_preset = -1
+anchor_left = -0.004
+anchor_right = -0.004
+offset_left = 284.608
+offset_top = 405.0
+offset_right = 931.608
+offset_bottom = 637.0
+
+[node name="Background" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("2_rwubx")
+
+[node name="Text" type="Label" parent="MarginContainer/Background"]
+process_mode = 3
+layout_mode = 2
+offset_left = 20.0
+offset_top = 26.0
+offset_right = 632.0
+offset_bottom = 218.0
+theme_override_fonts/font = ExtResource("3_jmcjk")
+text = "AASFASFASD"
+autowrap_mode = 3
+
+[node name="TurnOff" type="Label" parent="MarginContainer/Background"]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 189.0
+offset_right = 636.0
+offset_bottom = 221.0
+theme_override_fonts/font = ExtResource("3_jmcjk")
+text = "* Nhấn phim Space để tắt "
