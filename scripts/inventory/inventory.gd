@@ -18,7 +18,7 @@ func _ready():
 func initialize_inventory():
 	print("PlayerInventory content: ", PlayerInventory.inventory)
 	var slots = $GridContainer.get_children()
-	for i in range(slots.size()):
+	for i in range(slots.size()):			
 		if PlayerInventory.inventory.has(i) && PlayerInventory.inventory[i] != null:
 			var item_name = str(PlayerInventory.inventory[i][0]) if PlayerInventory.inventory[i][0] != null else ""
 			var item_quantity = int(PlayerInventory.inventory[i][1]) if PlayerInventory.inventory[i][1] != null else 0
@@ -37,39 +37,23 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 				get_viewport().set_input_as_handled()
 
 func handle_left_click(event: InputEvent, slot: SlotClass):
-	# Currently holding an Item
-	if find_parent("UserInterface").holding_item != null:
-		# Empty slot
+	var ui = find_parent("UserInterface")
+	#Currently holding an item
+	if ui.holding_item !=null:
+		#Empty slot - place item
 		if !slot.item:
-			slot.putIntoSlot(find_parent("UserInterface").holding_item)
-			find_parent("UserInterface").holding_item = null
-		# Slot already contains an item
+				left_click_empty_slot(slot)
+		#Slot has item - swap them
 		else:
-			# Different item, so swap 
-			if find_parent("UserInterface").holding_item.item_name != slot.item.item_name:
-				var temp_item = slot.item
-				slot.pickFromSlot()
-				temp_item.global_position = event.global_position
-				slot.putIntoSlot(find_parent("UserInterface").holding_item)
-				find_parent("UserInterface").holding_item = temp_item
-			# Same item, try to merge
+			#Different items - perform swap
+			if ui.holding_item.item_name != slot.item.item_name:
+				left_click_different_item(event,slot)
+			#Same item -try to merge
 			else:
-				var stack_size = int(JsonData.item_data[slot.item.item_name]["StackSize"])
-				var able_to_add = stack_size - slot.item.item_quantity
-				if able_to_add >= find_parent("UserInterface").holding_item.item_quantity:
-					slot.item.add_item_quantity(find_parent("UserInterface").holding_item.item_quantity)
-					find_parent("UserInterface").holding_item.queue_free()
-					find_parent("UserInterface").holding_item = null	
-				else:
-					slot.item.add_item_quantity(able_to_add)
-					find_parent("UserInterface").holding_item.decrease_item_quantity(able_to_add)
-	# Not holding an item
+				left_click_same_item(slot)
+	#Not holding item
 	elif slot.item:
-		find_parent("UserInterface").holding_item = slot.item
-		slot.pickFromSlot()
-		find_parent("UserInterface").holding_item.global_position = get_global_mouse_position()
-
-
+		left_click_not_holding(slot)
 func handle_right_click(event:InputEvent, slot:SlotClass):
 	if slot.item:
 		var popup = $PopupPanel/VBoxContainer/DescriptionLabel
@@ -87,18 +71,62 @@ func handle_right_click(event:InputEvent, slot:SlotClass):
 
 func show_description_popup(description: String, position: Vector2):
 	popup_label.text = description
-	
-	
 	popup_panel.global_position = position + Vector2(20, 20)  # Offset from mouse
 	popup_panel.show()
 	
 func _input(event):
-	if find_parent("UserInterface").holding_item:
-		find_parent("UserInterface").holding_item.global_position = get_global_mouse_position()
+	var ui = find_parent("UserInterface")
+	if ui.holding_item:
+		ui.holding_item.global_position = get_global_mouse_position()
 		
 	if event is InputEventMouseButton and event.pressed and popup_panel.visible:
 		if not popup_panel.get_global_rect().has_point(event.global_position):
 			popup_panel.hide()
 			
-
+func left_click_empty_slot(slot:SlotClass):
+	var ui = find_parent("UserInterface")
+	slot.putIntoSlot(ui.holding_item)
+	PlayerInventory.add_item_to_empty_slot(ui.holding_item,slot)
+	ui.holding_item = null
 	
+func left_click_different_item(event: InputEvent, slot: SlotClass):
+	PlayerInventory.remove_item(slot)
+
+	var ui = find_parent("UserInterface")
+	var temp_item = slot.pickFromSlot()  # pick the existing item from the slot
+
+	temp_item.global_position = event.get_global_position()
+	
+	if slot.putIntoSlot(ui.holding_item):  # put the held item into the slot
+		PlayerInventory.add_item_to_empty_slot(ui.holding_item, slot)
+
+		# Now hold the previously slotted item
+		ui.holding_item = temp_item
+		ui.add_child(ui.holding_item)
+		ui.holding_item.global_position = get_global_mouse_position()
+		ui.update_held_item_visibility()
+
+
+func left_click_same_item(slot:SlotClass):
+	var ui = find_parent("UserInterface")
+	var stack_size = int(JsonData.item_data[slot.item.item_name]["StackSize"])
+	var able_to_add = stack_size - slot.item.item_quantity
+	if able_to_add >= ui.holding_item.item_quantity:
+		PlayerInventory.add_item_quantity(slot,ui.holding_item.item_quantity)
+		slot.item.add_item_quantity(ui.holding_item.item_quantity)
+		ui.holding_item.queue_free()
+		ui.holding_item = null
+		initialize_inventory()
+	else:
+		PlayerInventory.add_item_quantity(slot,able_to_add)
+		slot.item.add_item_quantity(able_to_add)
+		ui.holding_item.decrease_item_quantity(able_to_add)
+		
+func left_click_not_holding(slot:SlotClass):
+	PlayerInventory.remove_item(slot)
+	var ui = find_parent("UserInterface")
+	ui.holding_item = slot.pickFromSlot()  # This now removes from slot and returns the item node
+	if ui.holding_item:
+		ui.add_child(ui.holding_item)
+		ui.holding_item.global_position = get_global_mouse_position()
+		ui.update_held_item_visibility()
