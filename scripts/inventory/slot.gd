@@ -6,6 +6,7 @@ var ItemClass = preload("res://The_Alchemist_Quest/scences/player/item.tscn")
 var item: Node2D = null
 var item_data = {}
 var slot_index = -1 
+var is_hotbar_slot := false
 
 @onready var popup_panel = get_node("../../PopupPanel")
 @onready var popup_label = get_node("../../PopupPanel/VBoxContainer/DescriptionLabel")
@@ -63,39 +64,48 @@ func _show_popup(item_name: String, description: String):
 func update_inventory_dict():
 	if slot_index == -1:
 		return
-	
+	var target_dict = PlayerInventory.hotbar if is_hotbar_slot else PlayerInventory.inventory
 	if item:
-		PlayerInventory.inventory[slot_index] = [item.item_name, item.item_quantity]
+		target_dict[slot_index] = [item.item_name, item.item_quantity]
 	else:
-		PlayerInventory.inventory[slot_index] = null
+		target_dict[slot_index] = null
 
-func pickFromSlot():
+func pickFromSlot() -> Node2D :
 	if item == null:
-		return
+		return null
 		
 	var picked_item = item
 	remove_child(item)
 	item = null
 	update_inventory_dict()
+	
 	return picked_item
 
-func putIntoSlot(new_item):
+func putIntoSlot(new_item: Node2D) -> bool:
 	if new_item == null:
 		return false
-		
-	# Remove from current parent if exits
+
+	# Remove from current parent
 	var old_parent = new_item.get_parent()
-	if old_parent and old_parent !=self:
+	if old_parent and old_parent != self:
 		old_parent.remove_child(new_item)
-		
-	# Clear current item if exits
+
+	# Remove old item (if any)
 	if item:
 		remove_child(item)
-		item.queue.free()
-		
-	#Set new item
+		item.queue_free()
+
+	# Set and add new item
 	item = new_item
 	add_child(item)
-	item.position = Vector2(0,0)
+	item.position = Vector2(0, 0)
+	item.name = "InventoryItem"
+	item.item_right_clicked.connect(_on_item_right_clicked)
+
 	update_inventory_dict()
 	return true
+
+	
+		
+	
+	
