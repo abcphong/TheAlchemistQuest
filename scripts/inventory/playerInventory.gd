@@ -66,12 +66,11 @@ func add_item_to_empty_slot(item: ItemClass, slot: SlotClass,is_hotbar: bool = f
 		hotbar[slot.slot_index] = [item.item_name, item.item_quantity]
 	else:
 		inventory[slot.slot_index] = [item.item_name, item.item_quantity]
+
 	
 func add_item_quantity(slot: SlotClass, quantity_to_add: int, is_hotbar: bool = false):
 	if is_hotbar:
 		hotbar[slot.slot_index][1] += quantity_to_add
 	else:
 		inventory[slot.slot_index][1] += quantity_to_add
-	
-
 	
