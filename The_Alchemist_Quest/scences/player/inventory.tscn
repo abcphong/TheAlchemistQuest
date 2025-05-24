@@ -1,0 +1,113 @@
+[gd_scene load_steps=9 format=3 uid="uid://4ups773dxql4"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/inventory/inventory.gd" id="1_r2kmd"]
+[ext_resource type="Texture2D" uid="uid://dqc5vpd81dei4" path="res://The_Alchemist_Quest/assets/button/Inventory.png" id="1_x1m6o"]
+[ext_resource type="Texture2D" uid="uid://bnircc0pmgkba" path="res://The_Alchemist_Quest/assets/button/Inventory_slot.png" id="2_nakxy"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/inventory/slot.gd" id="3_nakxy"]
+[ext_resource type="FontFile" uid="uid://ccdxh8aqwkjxn" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="5_gva05"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/inventory/panel_description.gd" id="5_x6wgm"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/inventory/popup_description.gd" id="6_fxrli"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r2kmd"]
+texture = ExtResource("2_nakxy")
+
+[node name="Inventory" type="Node2D"]
+position = Vector2(135, 48)
+script = ExtResource("1_r2kmd")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 114.0
+offset_top = -18.0
+offset_right = 364.0
+offset_bottom = 190.0
+texture = ExtResource("1_x1m6o")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = 125.0
+offset_top = -11.0
+offset_right = 355.0
+offset_bottom = 181.0
+columns = 3
+
+[node name="Slot" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 64)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="Slot2" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="Slot3" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="Slot4" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="Slot5" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="Slot6" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="Slot7" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="Slot8" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="Slot9" type="Panel" parent="GridContainer"]
+custom_minimum_size = Vector2(74, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_r2kmd")
+script = ExtResource("3_nakxy")
+
+[node name="PopupPanel" type="Panel" parent="."]
+z_index = 1
+offset_left = -214.0
+offset_top = -49.0
+offset_right = 114.0
+offset_bottom = 244.0
+script = ExtResource("5_x6wgm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
+layout_mode = 0
+offset_left = 23.8344
+offset_top = 13.5842
+offset_right = 284.834
+offset_bottom = 85.5842
+
+[node name="ItemNameLabel" type="Label" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_gva05")
+text = "ITEM NAME"
+
+[node name="ItemImageRect" type="TextureRect" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="PopupPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_gva05")
+text = "TESTING TEXT"
+script = ExtResource("6_fxrli")

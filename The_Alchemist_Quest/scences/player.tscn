@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://lelq75l35prl"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/player.gd" id="1_dirki"]
+[ext_resource type="Texture2D" uid="uid://bdi2ldqv1ie4n" path="res://The_Alchemist_Quest/assets/tiles/NEWS_upinipin2.png" id="2_dirki"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3evg"]
+atlas = ExtResource("2_dirki")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_556m3"]
+atlas = ExtResource("2_dirki")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oglbh"]
+atlas = ExtResource("2_dirki")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftpsh"]
+atlas = ExtResource("2_dirki")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_556m3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3evg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_556m3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oglbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftpsh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3evg"]
+size = Vector2(15, 18)
+
+[node name="Player" type="CharacterBody2D"]
+process_mode = 3
+position = Vector2(2, -2)
+script = ExtResource("1_dirki")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+process_mode = 3
+position = Vector2(-1, -16)
+sprite_frames = SubResource("SpriteFrames_556m3")
+animation = &"idle"
+frame_progress = 0.503469
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+process_mode = 3
+position = Vector2(-1.5, -8)
+shape = SubResource("RectangleShape2D_f3evg")

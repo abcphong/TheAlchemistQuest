@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqrj5nyjqpygn"]
+
+[ext_resource type="Texture2D" uid="uid://bqtmdrkc7e4sj" path="res://The_Alchemist_Quest/assets/gameDemo/Lab_workbench.png" id="1_nvf54"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/worklab2D.gd" id="1_tahpy"]
+[ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="3_fg4wq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5n4f"]
+size = Vector2(72, 52)
+
+[node name="worklab2D" type="Area2D"]
+position = Vector2(161, 27)
+script = ExtResource("1_tahpy")
+
+[node name="labWorkBench" type="Sprite2D" parent="."]
+position = Vector2(9.33333, -0.5)
+scale = Vector2(1.10417, 1.10417)
+texture = ExtResource("1_nvf54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9, 0)
+shape = SubResource("RectangleShape2D_r5n4f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-19, 22.5)
+scale = Vector2(0.833333, 0.916667)
+texture = ExtResource("3_fg4wq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

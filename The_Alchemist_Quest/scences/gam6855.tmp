@@ -1,0 +1,118 @@
+[gd_scene load_steps=19 format=3 uid="uid://hupnwn10ee05"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/game.gd" id="1_d4shp"]
+[ext_resource type="PackedScene" uid="uid://cxm3k6ck844do" path="res://The_Alchemist_Quest/scences/room 1.tscn" id="1_g8hxy"]
+[ext_resource type="PackedScene" uid="uid://lelq75l35prl" path="res://The_Alchemist_Quest/scences/player.tscn" id="2_bugtt"]
+[ext_resource type="PackedScene" uid="uid://df6aknphjx4ui" path="res://The_Alchemist_Quest/scences/mentor_npc.tscn" id="4_cbuwy"]
+[ext_resource type="FontFile" uid="uid://ccdxh8aqwkjxn" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="7_x7s60"]
+[ext_resource type="PackedScene" uid="uid://de4tjmmo3avyw" path="res://The_Alchemist_Quest/scences/dialog_area.tscn" id="8_h8yaq"]
+[ext_resource type="PackedScene" uid="uid://eae4bk6q5w0i" path="res://The_Alchemist_Quest/scences/dialog_player.tscn" id="9_5cjre"]
+[ext_resource type="PackedScene" uid="uid://wky3sup41c8s" path="res://The_Alchemist_Quest/scences/decor/alarm_bell_decor.tscn" id="11_6hkyf"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/demo_room/label_timer.gd" id="11_p3lsj"]
+[ext_resource type="PackedScene" uid="uid://bk3vj4l108qci" path="res://The_Alchemist_Quest/scences/player/inventoryUI.tscn" id="13_uubka"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="14_in84n"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="14_o5qgc"]
+[ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scences/player/hotbar.tscn" id="17_lfs5f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cjre"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bugtt"]
+normal = Vector2(-0.124133, -0.992266)
+distance = -43.0631
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i2ae1"]
+normal = Vector2(-0.0167434, 0.99986)
+distance = -142.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_22yb4"]
+distance = -141.977
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7gosb"]
+normal = Vector2(-0.99275, 0.120196)
+distance = 40.1772
+
+[node name="Game" type="Node2D"]
+position = Vector2(0, -1)
+script = ExtResource("1_d4shp")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("14_o5qgc")
+
+[node name="InventoryUI" parent="UI" instance=ExtResource("13_uubka")]
+position = Vector2(317.5, 109.5)
+scale = Vector2(0.71875, 0.65625)
+
+[node name="Inventory" parent="UI" instance=ExtResource("14_in84n")]
+visible = false
+position = Vector2(201, 133)
+
+[node name="Hotbar" parent="UI" instance=ExtResource("17_lfs5f")]
+
+[node name="Room1" parent="." instance=ExtResource("1_g8hxy")]
+position = Vector2(-1354, -639)
+
+[node name="mentorNPC" parent="." instance=ExtResource("4_cbuwy")]
+z_index = 7
+position = Vector2(194, 75)
+
+[node name="DialogAreaMentor" parent="mentorNPC" instance=ExtResource("8_h8yaq")]
+position = Vector2(2, 3)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="mentorNPC/DialogAreaMentor"]
+shape = SubResource("RectangleShape2D_5cjre")
+
+[node name="DialogPlayer" parent="mentorNPC" instance=ExtResource("9_5cjre")]
+scence_text_file = "res://The_Alchemist_Quest/assets/json/demo_dialog.json"
+
+[node name="Decor" type="Node" parent="."]
+
+[node name="alarmBell_decor" parent="Decor" instance=ExtResource("11_6hkyf")]
+position = Vector2(171, 24)
+
+[node name="Label" type="Label" parent="Decor"]
+offset_left = 77.0
+offset_top = 104.0
+offset_right = 372.0
+offset_bottom = 171.0
+theme_override_fonts/font = ExtResource("7_x7s60")
+theme_override_font_sizes/font_size = 20
+text = "Phòng chơi thử nghiệm"
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Timer" parent="Decor/Label"]
+wait_time = 3.0
+one_shot = true
+script = ExtResource("11_p3lsj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(176, 193)
+rotation = -0.0167443
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4.57596, 85.0885)
+rotation = 0.137231
+shape = SubResource("WorldBoundaryShape2D_bugtt")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_i2ae1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-3.96598, -2.0667)
+rotation = 1.59644
+shape = SubResource("WorldBoundaryShape2D_22yb4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(322.57, 28.4049)
+rotation = 0.137231
+shape = SubResource("WorldBoundaryShape2D_7gosb")
+
+[node name="Player" parent="." instance=ExtResource("2_bugtt")]
+z_index = 6
+position = Vector2(203, 189)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-2, -15)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+
+[connection signal="timeout" from="Decor/Label/Timer" to="Decor/Label/Timer" method="_on_timeout"]

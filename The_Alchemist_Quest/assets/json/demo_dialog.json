@@ -1,0 +1,19 @@
+{
+	"Mentor_1" : [
+		"Chào mừng đến với phòng thí nghiệm Swinburne! \nHãy đi khám phá xung quanh"],
+	"Mentor_2" :
+		["Hôm nay là ngày thực tập đầu tiên của bạn! \nTrước khi làm việc với các hợp chât nguy hiểm, hãy thực hiện một phản ứng đơn giản với các chất có trong túi đồ của bạn. Nhấn phím 'Tab' để xem túi đồ"],
+	"Mentor_3" :
+		["Hãy đến bàn thí nghiệm, nhấn'E' để bắt đầu."],
+	"Mentor_4" :
+		["Hãy dùng chuột kéo - thả H2 và O2 để bom chúng vào bong bóng. \n Đừng quên tỉ lệ giữa các chất nhé, chúng đã được ghi trong 'Giấy ghi chú phương trình.' "],
+	"Mentor_5" :
+		["Làm tốt lắm! Nhưng phản ứng này cần xúc tác - nhiệt độ. Hãy thêm một mồi lửa."],
+	"AI quản lý" : [
+		"Cảnh báo: Phát hiện khí rò rỉ không xác định. \n Hệ thống lọc khí quá tải. \n Chế độ khẩn cấp đã được kích hoạt.",
+		"Tất cả cửa ra vào sẽ đóng lại sau 5 phút nữa. \n Toàn bộ nhân viên vui lòng sơ tán đến cửa thoát hiểm gần nhất."
+	],
+	"Player" : [
+		"Chờ đã, chuyện gì đang xảy ra vậy? \n ..."
+	]
+}

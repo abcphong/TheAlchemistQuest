@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccq6a4w52omms"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/puzzle_slot.gd" id="1_6r8at"]
+[ext_resource type="Texture2D" uid="uid://bnc73ulh3mb1i" path="res://The_Alchemist_Quest/assets/puzzle/Puzzle_slot.png" id="1_c131a"]
+
+[node name="PuzzleSlot" type="Panel"]
+offset_right = 46.0
+offset_bottom = 46.0
+script = ExtResource("1_6r8at")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 46.0
+offset_bottom = 46.0
+texture = ExtResource("1_c131a")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.134
+anchor_top = 0.142
+anchor_right = 0.858
+anchor_bottom = 0.862
+offset_left = -3.082
+offset_top = -3.266
+offset_right = 3.266
+offset_bottom = 3.174
