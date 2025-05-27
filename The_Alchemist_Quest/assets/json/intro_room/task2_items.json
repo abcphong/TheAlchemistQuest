@@ -1,0 +1,13 @@
+{
+	"item":{
+		"FeSO4" : {
+			"StackSize" : 1,
+			"Description" : "Một bình chứa khí sắt (II) sunfat. Cần thiết để nhận diện khí độc"
+		},
+		
+		"Filter_paper" : {
+			"StackSize" : 1,
+			"Description": "Một tờ giấy lọc. Cần thiết để lọc khí độc"
+		}
+	}
+}

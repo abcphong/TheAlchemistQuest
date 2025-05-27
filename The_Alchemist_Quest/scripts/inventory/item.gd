@@ -6,9 +6,9 @@ var item_quantity : int = 0
 func _ready():
 	var rand_val = randi() % 4
 	if rand_val == 0:
-		item_name = "Copper wire"
+		item_name = "FeSO4"
 	elif rand_val == 1:
-		item_name = "CuSO4"
+		item_name = "Filter_paper"
 	elif rand_val == 2:
 		item_name = "Electric wire"
 	elif rand_val == 3:

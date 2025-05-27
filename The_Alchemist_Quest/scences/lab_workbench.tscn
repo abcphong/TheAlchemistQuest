@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/lab_workbench.gd" id="1_1phwm"]
 [ext_resource type="Texture2D" uid="uid://c2qrew0sidieb" path="res://The_Alchemist_Quest/assets/decor/Lab_workbench.png" id="2_awdvr"]
-[ext_resource type="PackedScene" uid="uid://d2kgk3f4vg6vs" path="res://The_Alchemist_Quest/scences/puzzle/intro_room/puzzle_ui_task1.tscn" id="2_g24yl"]
+[ext_resource type="PackedScene" uid="uid://dojhqsoosy8kw" path="res://The_Alchemist_Quest/scences/puzzle/task_2/puzzle_ui_task2.tscn" id="2_xqrp7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukwlm"]
 size = Vector2(74, 47)
 
 [node name="LabWorkbench" type="Node2D"]
 script = ExtResource("1_1phwm")
-puzzle_ui_scene = ExtResource("2_g24yl")
+puzzle_ui_scene = ExtResource("2_xqrp7")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 

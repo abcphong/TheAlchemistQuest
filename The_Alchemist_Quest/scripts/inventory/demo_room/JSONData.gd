@@ -3,7 +3,7 @@ extends Node
 var item_data: Dictionary
 
 func _ready():
-	item_data = load_data("res://The_Alchemist_Quest/assets/json/intro_room/task1_items.json")
+	item_data = load_data("res://The_Alchemist_Quest/assets/json/intro_room/task2_items.json")
 	print("Loaded items: ", item_data.keys())
 	
 
