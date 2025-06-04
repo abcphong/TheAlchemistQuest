@@ -38,12 +38,25 @@ func is_mouse_over_slot() -> bool:
 			return true
 	return false
 
+func is_mouse_over_puzzle_slot() -> bool:
+	var mouse_pos = get_viewport().get_mouse_position()
+	for slot in get_tree().get_nodes_in_group("PuzzleSlot"):
+		if slot.get_global_rect().has_point(mouse_pos):
+			return true
+	return false
+
 func drop_item_to_world(item):
 	print("💥 Vứt item ra ngoài: ", item.item_name)
 	item.queue_free()
 
 func get_slot_under_mouse() -> InventorySlot:
 	for slot in get_tree().get_nodes_in_group("InventorySlot"):
+		if slot.is_mouse_over():
+			return slot
+	return null
+
+func get_puzzle_slot_under_mouse() -> PuzzleSlot:
+	for slot in get_tree().get_nodes_in_group("PuzzleSlot"):
 		if slot.is_mouse_over():
 			return slot
 	return null

@@ -39,12 +39,12 @@ script = ExtResource("1_d4shp")
 script = ExtResource("14_o5qgc")
 
 [node name="InventoryUI" parent="UI" instance=ExtResource("13_uubka")]
-position = Vector2(317.5, 109.5)
-scale = Vector2(0.71875, 0.65625)
+position = Vector2(1061.75, 55.0543)
+scale = Vector2(2.29688, 2.09715)
 
 [node name="Inventory" parent="UI" instance=ExtResource("14_in84n")]
 visible = false
-position = Vector2(201, 133)
+position = Vector2(358, 210)
 
 [node name="Hotbar" parent="UI" instance=ExtResource("17_lfs5f")]
 

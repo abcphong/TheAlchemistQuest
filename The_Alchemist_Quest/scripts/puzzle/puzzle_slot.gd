@@ -1,24 +1,19 @@
 extends Panel
 class_name PuzzleSlot
 @export var expected_item: String = ""  # Tên item đúng để kiểm tra
+var item: Control = null
+var item_data = {}
+var slot_index = -1 
+var is_hotbar_slot := false
 var is_filled := false
+
+@onready var popup_panel = get_node("../../PopupPanel")
+@onready var popup_label = get_node("../../PopupPanel/VBoxContainer/DescriptionLabel")
 
 func _ready():
 	add_to_group("PuzzleSlot")
 
-func _gui_input(event: InputEvent):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		var held_item = UserInterface.holding_item
-		if held_item and not is_filled:
-			if held_item.item_name == expected_item:
-				print("✅ Đặt đúng item:", held_item.item_name)
-				$ItemIcon.texture = held_item.get_node("TextureRect").texture
-				is_filled = true
-				held_item.queue_free()
-				UserInterface.holding_item = null
-				get_parent().check_all_slots_filled()
-			else:
-				print("❌ Sai item:", held_item.item_name, " | Cần:", expected_item)
+
 
 func receive_item(item):
 	if is_filled:

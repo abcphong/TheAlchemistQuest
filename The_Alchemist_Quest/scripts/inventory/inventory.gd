@@ -2,18 +2,23 @@
 extends Node2D
 
 const SlotClass = preload("res://The_Alchemist_Quest/scripts/inventory/slot.gd")
+const SlotsClass = preload("res://The_Alchemist_Quest/scripts/puzzle/puzzle_slot.gd")
 @onready var inventory_slots = $GridContainer
+@onready var puzzle_slots = $"../../Container"
 @onready var popup_panel = $PopupPanel
 @onready var popup_label = $PopupPanel/VBoxContainer/DescriptionLabel
 
+var popup_enabled := true
 var is_dragging := false
 
 func _ready():
 	for inv_slot in inventory_slots.get_children():
 		inv_slot.gui_input.connect(slot_gui_input.bind(inv_slot))
 		inv_slot.add_to_group("InventorySlot")
+
 	initialize_inventory()
 	popup_panel.hide()
+
 
 func initialize_inventory():
 	print("PlayerInventory content: ", PlayerInventory.inventory)
@@ -27,6 +32,18 @@ func initialize_inventory():
 			slots[i].initialize_item("", 0)
 
 func slot_gui_input(event: InputEvent, slot: SlotClass):
+	# Block right-click popup if any parent is PuzzleUI
+	var parent = get_parent()
+	while parent:
+		if parent.name == "PuzzleUI":
+			return
+		parent = parent.get_parent()
+
+	# Only show popup if right-clicked
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		popup_panel.global_position = get_viewport().get_mouse_position()
+		popup_panel.visible = true
+		popup_label.text = slot.get_item_description()
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			if UserInterface.holding_item == null and slot.item:
@@ -59,17 +76,26 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 			if UserInterface.holding_item:
 				UserInterface.is_dragging = false
 				var hovered_slot = get_slot_under_mouse()
+
 				try_drop_item(hovered_slot, event.global_position)
+
 	elif event is InputEventMouseMotion and is_dragging:
 		if UserInterface.holding_item:
 			UserInterface.holding_item.global_position = event.global_position
+
 
 func get_slot_under_mouse() -> SlotClass:
 	for slot in get_tree().get_nodes_in_group("InventorySlot"):
 		if slot.is_mouse_over():
 			return slot
 	return null
-	
+
+func get_puzzle_slot_under_mouse() -> SlotsClass:
+	for slot in get_tree().get_nodes_in_group("PuzzleSlot"):
+		if slot.is_mouse_over():
+			return slot
+	return null
+
 func try_drop_item(slot: Node, mouse_pos: Vector2):
 	if slot == null:
 		print("⚠ Không tìm thấy slot dưới chuột, kiểm tra PuzzleSlot...")
@@ -104,12 +130,19 @@ func try_drop_item(slot: Node, mouse_pos: Vector2):
 		drop_item_to_world(UserInterface.holding_item)
 		UserInterface.holding_item = null
 
+
 func drop_item_to_world(item):
 	print("💥 Vứt item ra ngoài: ", item.item_name)
 	item.queue_free() # Hoặc spawn item thật trên map sau
 
 func handle_right_click(event: InputEvent, slot: SlotClass):
+	var inventory = get_node("InventoryContainer/Inventory")
+
+
 	if slot.item:
+		if inventory:
+			popup_label.hide()
+		return
 		popup_label.text = JsonData.get_item_description(slot.item.item_name)
 		popup_panel.global_position = get_global_mouse_position() + Vector2(20, 20)
 		popup_panel.show()
