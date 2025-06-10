@@ -1,17 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvn2ijvv1708u"]
+[gd_scene load_steps=4 format=3 uid="uid://bvn2ijvv1708u"]
 
-[ext_resource type="Texture2D" uid="uid://h0oc7c5jlbmj" path="res://The_Alchemist_Quest/assets/decor/Computer_desk.png" id="1_d0xx6"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/decor/computer.gd" id="1_ixnqm"]
+[ext_resource type="Texture2D" uid="uid://h0oc7c5jlbmj" path="res://The_Alchemist_Quest/assets/decor/Computer_desk.png" id="2_yvnqm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vathp"]
-size = Vector2(63, 24.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixnqm"]
+size = Vector2(100, 100)
 
-[node name="lab_tabel_decor" type="AnimatableBody2D"]
-position = Vector2(173, 17)
+[node name="Computer" type="Area2D" groups=["computer"]]
+collision_layer = 2
+script = ExtResource("1_ixnqm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(6, 8)
-texture = ExtResource("1_d0xx6")
+texture = ExtResource("2_yvnqm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5, 3)
-shape = SubResource("RectangleShape2D_vathp")
+shape = SubResource("RectangleShape2D_ixnqm")

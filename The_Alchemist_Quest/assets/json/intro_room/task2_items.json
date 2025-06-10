@@ -8,6 +8,15 @@
 		"Filter_paper" : {
 			"StackSize" : 1,
 			"Description": "Một tờ giấy lọc. Cần thiết để lọc khí độc"
-		}
+		},
+		
+		"Copper wire" : {
+			"StackSize" : 1,
+			"Description" : "Một đoạn dây đồng có thể dùng để kết nối điện"
+		},
+		"Zinc bar" : {
+		"StackSize" : 1,
+		"Description" :"Giấy ghi chú phương trình tạo ra H₂O"
+		}		
 	}
 }

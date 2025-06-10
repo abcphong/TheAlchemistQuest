@@ -15,6 +15,32 @@ func update_held_item_visibility():
 func toggle_inventory():
 	if inventory_node:
 		inventory_node.visible = not inventory_node.visible
+
+func close_all_inventories():
+	print("🔵 Closing all inventories")
+	# Close regular inventory
+	if inventory_node:
+		print("🔵 Closing regular inventory")
+		inventory_node.visible = false
+	
+	# Close any open puzzle UI (which contains workbench inventory)
+	# But only if it's not the one we just created
+	var puzzle_ui = get_tree().get_current_scene().find_child("PuzzleUI", true, false)
+	if puzzle_ui and not puzzle_ui.is_queued_for_deletion():
+		print("🔵 Closing existing puzzle UI")
+		puzzle_ui.queue_free()
+
+func is_any_inventory_open() -> bool:
+	# Check if regular inventory is open
+	if inventory_node and inventory_node.visible:
+		return true
+		
+	# Check if puzzle UI (workbench inventory) is open
+	var puzzle_ui = get_tree().get_current_scene().find_child("PuzzleUI", true, false)
+	if puzzle_ui and not puzzle_ui.is_queued_for_deletion():
+		return true
+		
+	return false
 		
 func _process(_delta):
 	if is_dragging and holding_item:

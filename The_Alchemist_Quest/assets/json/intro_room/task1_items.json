@@ -1,10 +1,5 @@
 {
 	"item":{
-		"Copper wire" : {
-			"StackSize" : 1,
-			"Description" : "Một bình chứa khí hydro (H₂). Dễ cháy, cần xử lý cẩn thận!"
-		},
-		
 		"CuSO4" : {
 			"StackSize" : 1,
 			"Description": "Một bình chứa khí oxy (O₂). Cần thiết cho phản ứng đốt cháy"
@@ -15,9 +10,9 @@
 			"Description" : "Một chiếc bật lửa nhỏ. Có thể dùng để kích hoạt phản ứng cháy"
 		},
 		   
-		"Electric wire" : {
+		"Copper wire" : {
 			"StackSize" : 1,
-			"Description" :"Giấy ghi chú phương trình tạo ra H₂O"
+			"Description" :"Dây đồng, dùng để kết nối mạch điện."
 		},
 		
 		"ZnSO4" : {

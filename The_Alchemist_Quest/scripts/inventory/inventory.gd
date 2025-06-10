@@ -1,30 +1,57 @@
 # 📄 inventory.gd
 extends Node2D
 
+# signal inventory_updated  # Removed unused signal
+
 const SlotClass = preload("res://The_Alchemist_Quest/scripts/inventory/slot.gd")
 @onready var inventory_slots = $GridContainer
 @onready var popup_panel = $PopupPanel
 @onready var popup_label = $PopupPanel/VBoxContainer/DescriptionLabel
 
 var is_dragging := false
+var is_initialized := false
+var is_updating := false  # Prevent recursive updates
+var is_puzzle_interaction := false  # Flag for puzzle slot interactions
 
 func _ready():
-	for inv_slot in inventory_slots.get_children():
-		inv_slot.gui_input.connect(slot_gui_input.bind(inv_slot))
-		inv_slot.add_to_group("InventorySlot")
+	if not is_initialized:
+		for i in range(inventory_slots.get_child_count()):
+			var inv_slot = inventory_slots.get_child(i)
+			inv_slot.slot_index = i
+			inv_slot.gui_input.connect(slot_gui_input.bind(inv_slot))
+			inv_slot.add_to_group("InventorySlot")
+		is_initialized = true
 	initialize_inventory()
 	popup_panel.hide()
+	# Connect to PlayerInventory's inventory_updated signal
+	if PlayerInventory.has_signal("inventory_updated"):
+		PlayerInventory.connect("inventory_updated", Callable(self, "_on_inventory_updated"))
+
+func _on_inventory_updated():
+	if not is_updating:
+		initialize_inventory()
 
 func initialize_inventory():
+	if is_updating:
+		return
+		
+	is_updating = true
+	print("🔵 Initializing inventory")
 	print("PlayerInventory content: ", PlayerInventory.inventory)
 	var slots = $GridContainer.get_children()
 	for i in range(slots.size()):
-		if PlayerInventory.inventory.has(i) and PlayerInventory.inventory[i] != null:
-			var item_name = str(PlayerInventory.inventory[i][0])
-			var item_quantity = int(PlayerInventory.inventory[i][1])
-			slots[i].initialize_item(item_name, item_quantity)
+		if PlayerInventory.inventory.has(i):
+			var slot_data = PlayerInventory.inventory[i]
+			if slot_data != null and slot_data[0] != null:
+				var item_name = str(slot_data[0])
+				var item_quantity = int(slot_data[1])
+				slots[i].initialize_item(item_name, item_quantity)
+			else:
+				slots[i].initialize_item("", 0)
 		else:
 			slots[i].initialize_item("", 0)
+	is_updating = false
+	emit_signal("inventory_updated")
 
 func slot_gui_input(event: InputEvent, slot: SlotClass):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -82,13 +109,19 @@ func try_drop_item(slot: Node, mouse_pos: Vector2):
 			var rect := Rect2(puzzle_slot.global_position, puzzle_slot.size)
 			if rect.has_point(mouse_pos):
 				print("✅ Thả vào PuzzleSlot:", puzzle_slot.name)
+				is_puzzle_interaction = true
 				puzzle_slot.receive_item(UserInterface.holding_item)
 				UserInterface.holding_item = null
+				is_puzzle_interaction = false
+				if not is_updating:
+					initialize_inventory()
 				return
 
 		# Nếu không phải PuzzleSlot thì vứt ra ngoài
 		drop_item_to_world(UserInterface.holding_item)
 		UserInterface.holding_item = null
+		if not is_updating:
+			initialize_inventory()
 		return
 
 	# Nếu là InventorySlot thì xử lý như cũ
@@ -103,12 +136,41 @@ func try_drop_item(slot: Node, mouse_pos: Vector2):
 	else:
 		drop_item_to_world(UserInterface.holding_item)
 		UserInterface.holding_item = null
+	if not is_updating:
+		initialize_inventory()
 
 func drop_item_to_world(item):
-	print("💥 Vứt item ra ngoài: ", item.item_name)
-	item.queue_free() # Hoặc spawn item thật trên map sau
+	print("💥 Dropping item into world: ", item.item_name)
+	
+	# Get the current scene
+	var current_scene = get_tree().get_current_scene()
+	print("Current scene: ", current_scene.name)
+	
+	# Create dropped item instance
+	var dropped_item_scene = load("res://The_Alchemist_Quest/scences/player/dropped_item.tscn")
+	var dropped_item = dropped_item_scene.instantiate()
+	print("Created dropped item instance")
+	
+	# Get player position for drop location
+	var player = get_tree().get_first_node_in_group("player")
+	print("Found player: ", player != null)
+	if player:
+		print("Player position: ", player.global_position)
+		print("Player collision layer: ", player.collision_layer, " Player collision mask: ", player.collision_mask)
+		dropped_item.global_position = player.global_position
+		current_scene.add_child(dropped_item)
+		dropped_item.initialize(item.item_name, item.item_quantity)
+		print("Added dropped item to scene")
+		print("Dropped item collision layer: ", dropped_item.get_node("Area2D").collision_layer, " Dropped item collision mask: ", dropped_item.get_node("Area2D").collision_mask)
+	else:
+		print("❌ Player not found in 'player' group!")
+	
+	# Remove item from inventory
+	item.queue_free()
+	if not is_updating:
+		initialize_inventory()
 
-func handle_right_click(event: InputEvent, slot: SlotClass):
+func handle_right_click(_event: InputEvent, slot: SlotClass):
 	if slot.item:
 		popup_label.text = JsonData.get_item_description(slot.item.item_name)
 		popup_panel.global_position = get_global_mouse_position() + Vector2(20, 20)
@@ -117,9 +179,9 @@ func handle_right_click(event: InputEvent, slot: SlotClass):
 		await get_tree().create_timer(0.1).timeout
 		slot.modulate = Color(1, 1, 1)
 
-func show_description_popup(description: String, position: Vector2):
+func show_description_popup(description: String, popup_position: Vector2):
 	popup_label.text = description
-	popup_panel.global_position = position + Vector2(20, 20)
+	popup_panel.global_position = popup_position + Vector2(20, 20)
 	popup_panel.show()
 
 func _input(event):
@@ -134,6 +196,8 @@ func left_click_empty_slot(slot: SlotClass):
 	slot.putIntoSlot(UserInterface.holding_item)
 	PlayerInventory.add_item_to_empty_slot(UserInterface.holding_item, slot)
 	UserInterface.holding_item = null
+	if not is_updating:
+		initialize_inventory()
 
 func left_click_different_item(event: InputEvent, slot: SlotClass):
 	PlayerInventory.remove_item(slot)
@@ -147,6 +211,8 @@ func left_click_different_item(event: InputEvent, slot: SlotClass):
 		UserInterface.add_child(UserInterface.holding_item)
 		UserInterface.holding_item.global_position = get_global_mouse_position()
 		UserInterface.update_held_item_visibility()
+	if not is_updating:
+		initialize_inventory()
 
 func left_click_same_item(slot: SlotClass):
 	var stack_size = int(JsonData.item_data[slot.item.item_name]["StackSize"])
@@ -156,8 +222,11 @@ func left_click_same_item(slot: SlotClass):
 		slot.item.add_item_quantity(UserInterface.holding_item.item_quantity)
 		UserInterface.holding_item.queue_free()
 		UserInterface.holding_item = null
-		initialize_inventory()
+		if not is_updating:
+			initialize_inventory()
 	else:
 		PlayerInventory.add_item_quantity(slot, able_to_add)
 		slot.item.add_item_quantity(able_to_add)
 		UserInterface.holding_item.decrease_item_quantity(able_to_add)
+	if not is_updating:
+		initialize_inventory()

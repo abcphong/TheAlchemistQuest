@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=4 uid="uid://cxm3k6ck844do"]
+[gd_scene load_steps=67 format=4 uid="uid://cxm3k6ck844do"]
 
 [ext_resource type="Texture2D" uid="uid://h0oc7c5jlbmj" path="res://The_Alchemist_Quest/assets/decor/Computer_desk.png" id="1_a27w2"]
 [ext_resource type="Texture2D" uid="uid://hvv4apnspd3u" path="res://The_Alchemist_Quest/assets/decor/Ventilation_fan.png" id="1_nqg0i"]
@@ -7,15 +7,12 @@
 [ext_resource type="Texture2D" uid="uid://b2v2tbqsm1n1d" path="res://The_Alchemist_Quest/Tiles/96x96newwall.png" id="4_fs24v"]
 [ext_resource type="Texture2D" uid="uid://dgu8xaktcljf5" path="res://The_Alchemist_Quest/assets/decor/cctv.png" id="5_o25qc"]
 [ext_resource type="Texture2D" uid="uid://dpb2v0oifk7s" path="res://The_Alchemist_Quest/Tiles/Floor_32X32_darker.png" id="5_r0xhk"]
-[ext_resource type="Texture2D" uid="uid://bbefedjrur1em" path="res://The_Alchemist_Quest/assets/decor/Electrical_cabinet.png" id="5_rr3vm"]
 [ext_resource type="Texture2D" uid="uid://d3k4vdqqjykr5" path="res://The_Alchemist_Quest/Tiles/16x16walldiagnal.png" id="6_5e6cq"]
 [ext_resource type="Texture2D" uid="uid://57jqqpk2oerl" path="res://The_Alchemist_Quest/assets/decor/Rotating_red_beacon.png" id="7_yxkk6"]
 [ext_resource type="PackedScene" uid="uid://d2n7rba2ejvu1" path="res://The_Alchemist_Quest/scences/lab_workbench.tscn" id="8_i4wre"]
-[ext_resource type="Texture2D" uid="uid://bhecjash0dhmb" path="res://The_Alchemist_Quest/Tiles/Floor_16X32_darker_light.png" id="9_7ha77"]
 [ext_resource type="Texture2D" uid="uid://dt2s3u4tlel4o" path="res://The_Alchemist_Quest/assets/decor/Intro_room_shelf.png" id="9_ehwwq"]
 [ext_resource type="Texture2D" uid="uid://bhecjash0dhmb" path="res://The_Alchemist_Quest/Tiles/Floor_16X32_darker_light.png" id="10_okgwj"]
 [ext_resource type="Texture2D" uid="uid://bb0v2pw5p3fkh" path="res://The_Alchemist_Quest/assets/decor/Door-StorageRoom.png" id="11_e04tq"]
-
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r38i8"]
 texture_region_size = Vector2i(8, 8)
@@ -1333,7 +1330,6 @@ texture_region_size = Vector2i(8, 8)
 234:13/0 = 0
 235:13/0 = 0
 236:13/0 = 0
-237:13/0 = 0
 256:13/0 = 0
 257:13/0 = 0
 258:13/0 = 0
@@ -2625,10 +2621,6 @@ region = Rect2(16, 0, 16, 0)
 atlas = ExtResource("5_o25qc")
 region = Rect2(-0.03, 0, 16, 0)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_eomoo"]
-atlas = ExtResource("5_rr3vm")
-region = Rect2(0, 0, 36, 40)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_0lbxs"]
 atlas = ExtResource("7_yxkk6")
 region = Rect2(0, 0, 200, 200)
@@ -3217,7 +3209,7 @@ texture_region_size = Vector2i(15, 15)
 36:0/0/z_index = 5
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wy00y"]
-texture = ExtResource("9_7ha77")
+texture = ExtResource("10_okgwj")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
@@ -3273,12 +3265,6 @@ texture = SubResource("AtlasTexture_m7ty4")
 position = Vector2(1421, 692)
 scale = Vector2(0.999996, 0.999996)
 texture = SubResource("AtlasTexture_qgk7g")
-
-[node name="ElectricalCabinet" type="Sprite2D" parent="item"]
-z_index = 5
-position = Vector2(1363.5, 728)
-scale = Vector2(0.75, 0.75)
-texture = SubResource("AtlasTexture_eomoo")
 
 [node name="RedLight" type="AnimatedSprite2D" parent="item"]
 position = Vector2(1742, 662)

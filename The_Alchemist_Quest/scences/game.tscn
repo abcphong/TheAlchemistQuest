@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://hupnwn10ee05"]
+[gd_scene load_steps=22 format=3 uid="uid://hupnwn10ee05"]
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/game.gd" id="1_d4shp"]
 [ext_resource type="PackedScene" uid="uid://cxm3k6ck844do" path="res://The_Alchemist_Quest/scences/room 1.tscn" id="1_g8hxy"]
@@ -10,9 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://wky3sup41c8s" path="res://The_Alchemist_Quest/scences/decor/alarm_bell_decor.tscn" id="11_6hkyf"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/demo_room/label_timer.gd" id="11_p3lsj"]
 [ext_resource type="PackedScene" uid="uid://bk3vj4l108qci" path="res://The_Alchemist_Quest/scences/player/inventoryUI.tscn" id="13_uubka"]
+[ext_resource type="PackedScene" uid="uid://bvn2ijvv1708u" path="res://The_Alchemist_Quest/scences/decor/computer.tscn" id="14_2t3qg"]
 [ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="14_in84n"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="14_o5qgc"]
+[ext_resource type="PackedScene" uid="uid://buat83l2xi2kj" path="res://The_Alchemist_Quest/scences/decor/electrical_cabinet.tscn" id="15_upco7"]
 [ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scences/player/hotbar.tscn" id="17_lfs5f"]
+[ext_resource type="PackedScene" uid="uid://bqnvj8y6g5s3x" path="res://The_Alchemist_Quest/scences/lighting/dynamic_lighting.tscn" id="18_xxxxx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cjre"]
 
@@ -44,7 +47,6 @@ scale = Vector2(0.71875, 0.65625)
 
 [node name="Inventory" parent="UI" instance=ExtResource("14_in84n")]
 visible = false
-position = Vector2(201, 133)
 
 [node name="Hotbar" parent="UI" instance=ExtResource("17_lfs5f")]
 
@@ -116,5 +118,15 @@ zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
 [node name="DraggingLayer" type="CanvasLayer" parent="."]
+
+[node name="DynamicLighting" parent="." instance=ExtResource("18_xxxxx")]
+z_index = 1000
+
+[node name="Computer" parent="." instance=ExtResource("14_2t3qg")]
+visible = false
+position = Vector2(125, 36)
+
+[node name="ElectricalCabinet" parent="." instance=ExtResource("15_upco7")]
+position = Vector2(9, 85)
 
 [connection signal="timeout" from="Decor/Label/Timer" to="Decor/Label/Timer" method="_on_timeout"]

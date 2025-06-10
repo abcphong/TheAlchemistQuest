@@ -25,7 +25,7 @@ func initialize_item(item_name: String, item_quantity: int):
 		item = null
 	
 	#Create item if valid
-	if item_name != "" and item_name != null  and item_quantity > 0:
+	if item_name != "" and item_name != null and item_quantity > 0:
 		item = ItemClass.instantiate()
 		add_child(item)
 		item.set_item(item_name, item_quantity)

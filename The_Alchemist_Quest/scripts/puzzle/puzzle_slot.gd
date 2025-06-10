@@ -25,10 +25,18 @@ func receive_item(item):
 		return
 
 	if item.item_name == expected_item:
+		print("✅ Receiving correct item:", item.item_name)
 		$ItemIcon.texture = item.get_node("TextureRect").texture
 		is_filled = true
+		
+		# Add item to player's inventory without triggering recursive updates
+		if PlayerInventory.add_item(item.item_name, item.item_quantity):
+			print("✅ Added item to player inventory:", item.item_name)
+		else:
+			print("❌ Failed to add item to player inventory:", item.item_name)
+		
 		item.queue_free()
 		UserInterface.holding_item = null
 		get_parent().check_all_slots_filled()
 	else:
-		print("❌ Sai item:", item.item_name)
+		print("❌ Wrong item:", item.item_name, " | Expected:", expected_item)
