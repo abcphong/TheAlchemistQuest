@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://eae4bk6q5w0i"]
 
-[ext_resource type="Script" uid="uid://cictnv24kisnx" path="res://The_Alchemist_Quest/scripts/player/dialog_player.gd" id="1_221jv"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/dialog_player.gd" id="1_221jv"]
 [ext_resource type="Texture2D" uid="uid://d2h1d7lrqmw5p" path="res://The_Alchemist_Quest/assets/tiles/Dialog_box.png" id="2_rwubx"]
 [ext_resource type="FontFile" uid="uid://ccdxh8aqwkjxn" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="3_jmcjk"]
 

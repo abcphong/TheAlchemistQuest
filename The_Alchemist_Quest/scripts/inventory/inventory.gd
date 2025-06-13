@@ -1,7 +1,7 @@
 # 📄 inventory.gd
 extends Node2D
 
-const SlotClass = preload("res://The_Alchemist_Quest/scripts/inventory/slot.gd")
+const SlotClass = preload("res://The_Alchemist_Quest/scripts/inventory/inventory_slot.gd")
 @onready var inventory_slots = $GridContainer
 @onready var popup_panel = $PopupPanel
 @onready var popup_label = $PopupPanel/VBoxContainer/DescriptionLabel
@@ -19,12 +19,20 @@ func initialize_inventory():
 	print("PlayerInventory content: ", PlayerInventory.inventory)
 	var slots = $GridContainer.get_children()
 	for i in range(slots.size()):
-		if PlayerInventory.inventory.has(i) and PlayerInventory.inventory[i] != null:
+		slots[i].slot_index = i  # ✅ Gán index cho mỗi slot
+		slots[i].is_hotbar_slot = false
+		slots[i].add_to_group("InventorySlot")  # ✅ Thêm dòng này
+		slots[i].gui_input.connect(slot_gui_input.bind(slots[i]))  # ✅ Và dòng này
+
+		print("Inventory slot", i, "-> slot_index:", slots[i].slot_index, " | is_hotbar_slot:", slots[i].is_hotbar_slot)
+		
+		if PlayerInventory.inventory.has(i) and PlayerInventory.inventory[i] != null and PlayerInventory.inventory[i][0] != null:
 			var item_name = str(PlayerInventory.inventory[i][0])
 			var item_quantity = int(PlayerInventory.inventory[i][1])
 			slots[i].initialize_item(item_name, item_quantity)
 		else:
 			slots[i].initialize_item("", 0)
+
 
 func slot_gui_input(event: InputEvent, slot: SlotClass):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -126,9 +134,10 @@ func _input(event):
 	if UserInterface.holding_item:
 		UserInterface.holding_item.global_position = get_global_mouse_position()
 
-	if event is InputEventMouseButton and event.pressed and popup_panel.visible:
-		if not popup_panel.get_global_rect().has_point(event.global_position):
-			popup_panel.hide()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		if UserInterface.holding_item:
+			var hovered_slot = get_slot_under_mouse()
+			try_drop_item(hovered_slot, event.global_position)
 
 func left_click_empty_slot(slot: SlotClass):
 	slot.putIntoSlot(UserInterface.holding_item)

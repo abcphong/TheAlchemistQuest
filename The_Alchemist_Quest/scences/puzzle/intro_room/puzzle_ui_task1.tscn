@@ -19,7 +19,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4kepx")
 }],
-"loop": true,
+"loop": false,
 "name": &"complete",
 "speed": 5.0
 }]

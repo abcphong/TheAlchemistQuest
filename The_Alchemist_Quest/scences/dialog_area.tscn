@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://de4tjmmo3avyw"]
 
-[ext_resource type="Script" uid="uid://c8tep7q8h04f0" path="res://The_Alchemist_Quest/scripts/player/dialog_area.gd" id="1_suvax"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/dialog_area.gd" id="1_suvax"]
 
 [node name="DialogAreaMentor" type="Area2D"]
 process_mode = 3

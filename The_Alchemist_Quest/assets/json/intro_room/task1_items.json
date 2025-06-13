@@ -33,6 +33,11 @@
 		"Salt bridge" : {
 		"StackSize" : 1,
 		"Description" :"Giấy ghi chú phương trình tạo ra H₂O"
+		},
+		
+		"FeSO4": {
+		"StackSize": 1,
+		"Description": "Dung dịch muối sắt(II) sunfat, thường dùng trong phản ứng điện hóa."
 		}
 	}
 }

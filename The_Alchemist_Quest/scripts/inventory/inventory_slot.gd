@@ -18,6 +18,7 @@ func _ready():
 	add_to_group("InventorySlot")
 
 func initialize_item(item_name: String, item_quantity: int):
+	print("⏳ Init Slot:", slot_index, "| Hotbar:", is_hotbar_slot, "| Name:", item_name, "| Qty:", item_quantity)
 	#Clear existing item
 	if item:
 		remove_child(item)
@@ -68,8 +69,10 @@ func update_inventory_dict():
 	var target_dict = PlayerInventory.hotbar if is_hotbar_slot else PlayerInventory.inventory
 	if item:
 		target_dict[slot_index] = [item.item_name, item.item_quantity]
+		print("📥 Ghi vào dict:", slot_index, "->", item.item_name, " | target_dict:", target_dict)
 	else:
 		target_dict[slot_index] = null
+		print("📥 Xóa slot:", slot_index, " -> null")
 
 func pickFromSlot() -> Control :
 	if item == null:
@@ -100,11 +103,19 @@ func putIntoSlot(new_item: Control) -> bool:
 	item = new_item
 	add_child(item)
 	item.position = Vector2(0, 0)
+	item.visible = true                     # ✅ Bảo đảm nó hiện
+	item.set_z_as_relative(false)
+	item.z_index = 10                        # ✅ Đảm bảo nó render trên UI
 	item.name = "InventoryItem"
 	item.item_right_clicked.connect(_on_item_right_clicked)
-
+	print("🧪 putIntoSlot:", slot_index, "->", item.item_name, "| parent:", item.get_parent().name)
 	update_inventory_dict()
+	if is_hotbar_slot:
+		var hotbar_ui = get_tree().root.find_child("Hotbar", true, false)
+		if hotbar_ui:
+			hotbar_ui.initialize_hotbar()
 	return true
+
 
 func is_mouse_over() -> bool:
 	return get_slot_rect().has_point(get_viewport().get_mouse_position())

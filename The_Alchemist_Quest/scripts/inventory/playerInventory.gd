@@ -1,7 +1,7 @@
 extends Node
 
 const NUM_INVENTORY_SLOTS = 9
-const SlotClass = preload("res://The_Alchemist_Quest/scripts/inventory/slot.gd")
+const SlotClass = preload("res://The_Alchemist_Quest/scripts/inventory/inventory_slot.gd")
 const ItemClass = preload("res://The_Alchemist_Quest/scripts/inventory/item.gd")
 const NUM_HOTBARS_SLOTS = 2
 

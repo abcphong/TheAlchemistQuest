@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://wky3sup41c8s"]
 
-[ext_resource type="Texture2D" uid="uid://82epmopuhrsm" path="res://The_Alchemist_Quest/assets/decor/16x16alramBell.png" id="1_8rpno"]
+[ext_resource type="Texture2D" uid="uid://bjovjqgmjuxvq" path="res://The_Alchemist_Quest/assets/decor/16x16alramBell.png" id="1_8rpno"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_funtf"]
 
