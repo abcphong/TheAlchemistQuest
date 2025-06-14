@@ -67,7 +67,7 @@ region = Rect2(260, 0, 52, 16)
 [sub_resource type="SpriteFrames" id="SpriteFrames_5fjsw"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 30.0,
 "texture": SubResource("AtlasTexture_ogwtf")
 }],
 "loop": false,
@@ -90,7 +90,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4mc52")
 }, {
-"duration": 10.0,
+"duration": 30.0,
 "texture": SubResource("AtlasTexture_nxet6")
 }],
 "loop": false,
@@ -113,7 +113,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l4flo")
 }, {
-"duration": 10.0,
+"duration": 30.0,
 "texture": SubResource("AtlasTexture_gdsvl")
 }],
 "loop": false,
@@ -186,7 +186,7 @@ HealthTimer = NodePath("AnimatedSprite2D/Health_timer")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI/HealthBar"]
 position = Vector2(92, 105)
 sprite_frames = SubResource("SpriteFrames_5fjsw")
-animation = &"Red_blink"
+animation = &"Green"
 
 [node name="Health_timer" type="Timer" parent="UI/HealthBar/AnimatedSprite2D"]
 
