@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=3 uid="uid://djubwjlrl4fu4"]
+
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="1_5thc5"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/storage_room/puzzle_ui_task_1_2.gd" id="1_r2c62"]
+[ext_resource type="Texture2D" uid="uid://drs8s7ag3mfww" path="res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/Task1_storage_room.png" id="2_mxons"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scences/puzzle/puzzle_slot.tscn" id="3_perv0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5edi"]
+atlas = ExtResource("2_mxons")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2uap"]
+atlas = ExtResource("2_mxons")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hj6al"]
+atlas = ExtResource("2_mxons")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7rte"]
+atlas = ExtResource("2_mxons")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6sgox"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_d2uap")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_hj6al")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_x7rte")
+}],
+"loop": false,
+"name": &"melted lock",
+"speed": 5.0
+}]
+
+[node name="PuzzleUI" type="CanvasLayer"]
+script = ExtResource("1_r2c62")
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("1_5thc5")]
+position = Vector2(593, 180)
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.458
+anchor_top = 0.295
+anchor_right = 0.486
+anchor_bottom = 0.345
+offset_left = -134.616
+offset_top = -65.16
+offset_right = -16.872
+offset_bottom = 52.44
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_o5edi")
+
+[node name="PuzzleSlot" parent="." instance=ExtResource("3_perv0")]
+offset_left = 521.0
+offset_top = 184.0
+offset_right = 567.0
+offset_bottom = 230.0
+expected_item = Array[String](["H2O2+HCl"])
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(543, 276)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_6sgox")
+animation = &"melted lock"

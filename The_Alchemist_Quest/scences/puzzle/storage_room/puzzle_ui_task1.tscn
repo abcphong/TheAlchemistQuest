@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=3 uid="uid://f6dbg7mqmc3q"]
+
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="1_fyrc0"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/storage_room/puzzle_ui_task_1.gd" id="1_wkt1s"]
+[ext_resource type="Texture2D" uid="uid://drs8s7ag3mfww" path="res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/Task1_storage_room.png" id="2_et2o8"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scences/puzzle/puzzle_slot.tscn" id="4_dua61"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxq4e"]
+atlas = ExtResource("2_et2o8")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_557il"]
+atlas = ExtResource("2_et2o8")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ohvuq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_557il")
+}],
+"loop": false,
+"name": &"finished compound",
+"speed": 5.0
+}]
+
+[node name="PuzzleUI" type="CanvasLayer"]
+script = ExtResource("1_wkt1s")
+reward_items = Array[String](["H2O2+HCl"])
+reward_amounts = Array[int]([1])
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("1_fyrc0")]
+position = Vector2(593, 180)
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = 393.0
+offset_top = 126.0
+offset_right = 543.0
+offset_bottom = 276.0
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_vxq4e")
+metadata/_edit_use_anchors_ = true
+
+[node name="PuzzleSlot" parent="." instance=ExtResource("4_dua61")]
+offset_left = 501.0
+offset_top = 240.0
+offset_right = 547.0
+offset_bottom = 286.0
+expected_item = Array[String](["H2O2", "HCl"])
+metadata/_edit_use_anchors_ = true
+
+[node name="PuzzleSlot2" parent="." instance=ExtResource("4_dua61")]
+offset_left = 561.0
+offset_top = 300.0
+offset_right = 607.0
+offset_bottom = 346.0
+expected_item = Array[String](["H2O2", "HCl"])
+metadata/_edit_use_anchors_ = true
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(543, 276)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ohvuq")
+animation = &"finished compound"

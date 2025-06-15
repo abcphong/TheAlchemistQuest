@@ -1,7 +1,7 @@
 extends Panel
 class_name PuzzleSlot
 
-@export var expected_item: String = ""  # Tên item đúng để kiểm tra
+@export var expected_item: Array[String] = []
 var is_filled := false
 var current_item: Control = null  # Item hiện đang nằm trong slot
 
@@ -48,7 +48,7 @@ func receive_item(item: Control):
 	# Đặt item mới vào slot
 	current_item = item
 
-	if item.item_name == expected_item:
+	if expected_item.has(item.item_name):
 		print("✅ Đặt đúng item:", item.item_name)
 	else:
 		print("❌ Đặt SAI item:", item.item_name, " | Cần:", expected_item)

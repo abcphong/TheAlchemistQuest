@@ -51,7 +51,7 @@ func check_all_slots_filled():
 	# ✅ Tất cả hợp lệ
 	print("➡️ Puzzle complete! Playing success animation.")
 	success_anim.visible = true
-	success_anim.play("complete")
+	success_anim.play("finished compound")
 
 # 🔚 Khi animation thành công kết thúc
 func _on_success_anim_done():

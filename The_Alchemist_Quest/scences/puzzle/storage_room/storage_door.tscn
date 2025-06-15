@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c64et3qhtvjwv"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/storage_door.gd" id="1_lg08s"]
+[ext_resource type="Texture2D" uid="uid://bb0v2pw5p3fkh" path="res://The_Alchemist_Quest/assets/decor/Door-StorageRoom.png" id="2_ei2ft"]
+[ext_resource type="PackedScene" uid="uid://djubwjlrl4fu4" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/puzzle_ui_task1-2.tscn" id="2_krgoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mvrlc"]
+size = Vector2(28, 45.5)
+
+[node name="StorageDoor" type="Node2D"]
+script = ExtResource("1_lg08s")
+puzzle_scenes = Array[PackedScene]([ExtResource("2_krgoa")])
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(0, 0.25)
+shape = SubResource("RectangleShape2D_mvrlc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.688, 0.688)
+texture = ExtResource("2_ei2ft")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

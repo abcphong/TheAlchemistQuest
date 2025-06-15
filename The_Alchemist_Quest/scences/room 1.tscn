@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dt2s3u4tlel4o" path="res://The_Alchemist_Quest/assets/decor/Intro_room_shelf.png" id="9_ehwwq"]
 [ext_resource type="Texture2D" uid="uid://dw5l5cucp3dte" path="res://The_Alchemist_Quest/assets/decor/Ventilation_control_system.png" id="10_e2lgb"]
 [ext_resource type="Texture2D" uid="uid://bhecjash0dhmb" path="res://The_Alchemist_Quest/Tiles/Floor_16X32_darker_light.png" id="10_okgwj"]
-[ext_resource type="Texture2D" uid="uid://bb0v2pw5p3fkh" path="res://The_Alchemist_Quest/assets/decor/Door-StorageRoom.png" id="11_e04tq"]
+[ext_resource type="PackedScene" uid="uid://c64et3qhtvjwv" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/storage_door.tscn" id="16_33wcl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r38i8"]
 texture_region_size = Vector2i(8, 8)
@@ -3317,8 +3317,5 @@ tile_set = SubResource("TileSet_c3ht2")
 z_index = 6
 position = Vector2(1655, 782)
 
-[node name="Door-storageRoom" type="Sprite2D" parent="."]
-z_index = 6
-position = Vector2(1870, 746.75)
-scale = Vector2(0.6875, 0.6875)
-texture = ExtResource("11_e04tq")
+[node name="StorageDoor" parent="." instance=ExtResource("16_33wcl")]
+position = Vector2(1870, 746)
