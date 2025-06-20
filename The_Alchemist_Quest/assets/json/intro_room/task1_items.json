@@ -1,0 +1,43 @@
+{
+	"item":{
+		"Copper wire" : {
+			"StackSize" : 1,
+			"Description" : "Dây đồng dẫn điện, kết nối các cực trong các phản ứng điện hóa, giúp truyền tải dòng điện giữa các thành phần."
+		},
+		
+		"CuSO4" : {
+			"StackSize" : 1,
+			"Description": "Dung dịch đồng sunfat chứa ion Cu²⁺, giúp hoàn thành các phản ứng khử oxi hóa trong các thí nghiệm điện hóa."
+		},
+		
+		"Electric wire" : {
+			"StackSize" : 1,
+			"Description" : "Dây điện dùng để kết nối các cực của tế bào điện hóa, giúp dòng điện chạy qua các phản ứng cần thiết."
+		},
+		   
+		"Electric wire" : {
+			"StackSize" : 1,
+			"Description" :"Dây điện dùng để kết nối các cực của tế bào điện hóa, giúp dòng điện chạy qua các phản ứng cần thiết."
+		},
+		
+		"ZnSO4" : {
+		"StackSize" : 1,
+		"Description" :"Dung dịch kẽm sunfat chứa ion Zn²⁺, cần thiết cho các phản ứng điện hóa trong tế bào."
+		},
+		
+		"Zinc bar" : {
+		"StackSize" : 1,
+		"Description" :"Thanh kẽm, cực âm trong phản ứng điện hóa, tham gia vào quá trình khử oxi hóa và tạo dòng điện."
+		},
+	
+		"Salt bridge" : {
+		"StackSize" : 1,
+		"Description" :"Cầu muối kết nối các dung dịch trong tế bào điện hóa, duy trì dòng điện bằng cách giúp ion di chuyển giữa các cực."
+		},
+		
+		"FeSO4": {
+		"StackSize": 1,
+		"Description": "Một bình chứa khí sắt (II) sunfat. Cần thiết để nhận diện khí độc."
+		}
+	}
+}

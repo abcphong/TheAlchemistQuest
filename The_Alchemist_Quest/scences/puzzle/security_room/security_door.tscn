@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://cn64yxuryqo28"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/security_room/security_door.gd" id="1_ygqc2"]
+[ext_resource type="Texture2D" uid="uid://r3131pdbw10l" path="res://The_Alchemist_Quest/assets/decor/Door-SecurityRoom.png" id="2_nh8yx"]
+[ext_resource type="PackedScene" uid="uid://c0biq4w8sw2nx" path="res://The_Alchemist_Quest/scences/puzzle/security_room/locking_system_ui.tscn" id="3_68e8t"]
+[ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="4_85gi8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgm2k"]
+size = Vector2(44, 44)
+
+[node name="SecurityDoor" type="Node2D"]
+script = ExtResource("1_ygqc2")
+puzzle_scenes = Array[PackedScene]([ExtResource("3_68e8t")])
+door_id = "main_security_door"
+
+[node name="DoorSprite" type="Sprite2D" parent="."]
+position = Vector2(21, 2.125)
+scale = Vector2(0.15748, 0.176535)
+texture = ExtResource("2_nh8yx")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(21, 1)
+shape = SubResource("RectangleShape2D_qgm2k")
+
+[node name="InteractionText" type="Label" parent="."]
+visible = false
+offset_left = -64.0
+offset_top = -48.0
+offset_right = 64.0
+offset_bottom = -22.0
+text = "Nhấn E để mở khóa"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(38, 8)
+scale = Vector2(0.458333, 0.416666)
+texture = ExtResource("4_85gi8")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

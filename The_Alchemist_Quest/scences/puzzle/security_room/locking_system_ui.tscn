@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0biq4w8sw2nx"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/security_room/locking_system_ui.gd" id="1_v21k7"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="2_2i7ba"]
+[ext_resource type="Texture2D" uid="uid://p0kd5cmbcpc7" path="res://The_Alchemist_Quest/assets/puzzle/security_room/task1/locking-system-before.png" id="2_8njrb"]
+[ext_resource type="Texture2D" uid="uid://dcl1mtyui8jwx" path="res://The_Alchemist_Quest/assets/puzzle/security_room/task1/locking-system-after.png" id="3_4cgoi"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scences/puzzle/puzzle_slot.tscn" id="5_kaio2"]
+
+[node name="LockingSystemUI" type="CanvasLayer"]
+script = ExtResource("1_v21k7")
+before_texture = ExtResource("2_8njrb")
+after_texture = ExtResource("3_4cgoi")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -191.0
+offset_right = 141.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8njrb")
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("2_2i7ba")]
+position = Vector2(622, 187)
+
+[node name="CardSlot" parent="." instance=ExtResource("5_kaio2")]
+offset_left = 553.0
+offset_top = 399.0
+offset_right = 599.0
+offset_bottom = 445.0
+scale = Vector2(0.6, 0.6)
+expected_item = Array[String](["CH3COOH+CH3COONa"])

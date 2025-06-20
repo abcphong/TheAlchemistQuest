@@ -1,0 +1,33 @@
+{
+	"item":{
+		"CH3COOH" : {
+			"StackSize" : 1,
+			"Description" : "Axit axetic (CH₃COOH), một axit yếu thường được sử dụng trong thí nghiệm đệm pH."
+		},
+		
+		"CH3COONa" : {
+			"StackSize" : 1,
+			"Description": "Natri axetat (CH₃COONa), muối của axit axetic, thường được sử dụng cùng với axit axetic để tạo dung dịch đệm."
+		},
+		
+		"ph-paper-before" : {
+			"StackSize" : 1,
+			"Description" : "Giấy đo pH chưa sử dụng, dùng để kiểm tra độ axit hoặc bazơ của dung dịch."
+		},
+		   
+		"pH-scale73x32" : {
+			"StackSize" : 1,
+			"Description" :"Thang đo pH từ 0-14, giúp xác định độ axit-bazơ dựa trên màu sắc của giấy đo pH."
+		},
+
+		"ph-paper-after" : {
+			"StackSize" : 1,
+			"Description" :"Giấy đo pH đã sử dụng, đã thay đổi màu sau khi tiếp xúc với dung dịch."
+		},
+		
+		"CH3COOH+CH3COONa" : {
+			"StackSize" : 1,
+			"Description" :"Dung dịch đệm axit axetic/natri axetat, được tạo thành từ việc kết hợp CH₃COOH và CH₃COONa."
+		}
+	}
+} 
