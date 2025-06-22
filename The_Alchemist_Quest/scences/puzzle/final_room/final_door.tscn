@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfck8gqhmcpox"]
+
+[ext_resource type="Texture2D" uid="uid://cfl8dknmbk2c8" path="res://The_Alchemist_Quest/assets/decor/Door-FinalRoom.png" id="1_wvemv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77pko"]
+size = Vector2(57, 53)
+
+[node name="FinalDoor" type="Node2D"]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(4.5, -4.5)
+shape = SubResource("RectangleShape2D_77pko")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, -4)
+scale = Vector2(0.735294, 0.735294)
+texture = ExtResource("1_wvemv")
