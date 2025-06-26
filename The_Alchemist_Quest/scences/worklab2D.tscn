@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cqrj5nyjqpygn"]
+[gd_scene load_steps=5 format=3 uid="uid://ucp423elgb8x"]
 
 [ext_resource type="Texture2D" uid="uid://bqtmdrkc7e4sj" path="res://The_Alchemist_Quest/assets/gameDemo/Lab_workbench.png" id="1_nvf54"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/worklab2D.gd" id="1_tahpy"]

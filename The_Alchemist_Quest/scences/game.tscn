@@ -169,8 +169,8 @@ script = SubResource("GDScript_o0i1a")
 script = ExtResource("14_o5qgc")
 
 [node name="InventoryUI" parent="UI" instance=ExtResource("13_uubka")]
-position = Vector2(317.5, 109.5)
-scale = Vector2(0.71875, 0.65625)
+position = Vector2(1065, 90)
+scale = Vector2(2.10937, 1.92595)
 
 [node name="Inventory" parent="UI" instance=ExtResource("14_in84n")]
 visible = false
@@ -184,14 +184,15 @@ healthbar = NodePath("AnimatedSprite2D")
 HealthTimer = NodePath("AnimatedSprite2D/Health_timer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI/HealthBar"]
-position = Vector2(92, 105)
+position = Vector2(81.5, 36)
+scale = Vector2(2.25, 2.25)
 sprite_frames = SubResource("SpriteFrames_5fjsw")
 animation = &"Green"
 
 [node name="Health_timer" type="Timer" parent="UI/HealthBar/AnimatedSprite2D"]
 
 [node name="Room1" parent="." instance=ExtResource("1_g8hxy")]
-position = Vector2(-1354, -639)
+position = Vector2(-300, -191)
 
 [node name="mentorNPC" parent="." instance=ExtResource("4_cbuwy")]
 z_index = 7
@@ -212,10 +213,10 @@ scence_text_file = "res://The_Alchemist_Quest/assets/json/demo_dialog.json"
 position = Vector2(171, 24)
 
 [node name="Label" type="Label" parent="Decor"]
-offset_left = 77.0
-offset_top = 104.0
-offset_right = 372.0
-offset_bottom = 171.0
+offset_left = 84.0
+offset_top = 131.0
+offset_right = 379.0
+offset_bottom = 198.0
 theme_override_fonts/font = ExtResource("7_x7s60")
 theme_override_font_sizes/font_size = 20
 text = "Phòng chơi thử nghiệm"
@@ -231,7 +232,7 @@ position = Vector2(176, 193)
 rotation = -0.0167443
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(4.57596, 85.0885)
+position = Vector2(84.7417, -43.5872)
 rotation = 0.137231
 shape = SubResource("WorldBoundaryShape2D_bugtt")
 
@@ -240,12 +241,17 @@ position = Vector2(0.0167389, -0.999863)
 shape = SubResource("WorldBoundaryShape2D_i2ae1")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-3.96598, -2.0667)
+position = Vector2(-10.8143, -11.1826)
 rotation = 1.59644
 shape = SubResource("WorldBoundaryShape2D_22yb4")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(478.084, -0.995329)
+position = Vector2(799.44, -19.6173)
+rotation = 0.137231
+shape = SubResource("WorldBoundaryShape2D_7gosb")
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(799.44, -19.6173)
 rotation = 0.137231
 shape = SubResource("WorldBoundaryShape2D_7gosb")
 
