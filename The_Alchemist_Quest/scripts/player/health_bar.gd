@@ -9,9 +9,9 @@ signal health_critical
 var current_animation: String = "Green"
 
 var animation_durations = {
-	"Green": 10.0,
-	"Orange": 10.0,
-	"Red": 10.0
+	"Green": 100.0,
+	"Orange": 100.0,
+	"Red": 100.0
 }
 
 func _ready():

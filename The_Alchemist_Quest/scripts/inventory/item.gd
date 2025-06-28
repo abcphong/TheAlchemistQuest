@@ -30,15 +30,52 @@ func _ready():
 		$Label.text = str(item_quantity)
 		
 func set_item(nm: String, qt: int) -> void:
+	print("[DEBUG-ITEM] Bắt đầu set_item: ", nm, " x ", qt)
 	item_name = nm
 	item_quantity = qt
 	
-	# Cập nhật ảnh item
-	var texture_path = "res://The_Alchemist_Quest/assets/puzzle/intro_room/" + item_name + ".png"
-	$TextureRect.texture = load(texture_path)
+	# Cập nhật ảnh item - kiểm tra nhiều thư mục
+	var texture_paths = [
+		"res://The_Alchemist_Quest/assets/puzzle/intro_room/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/puzzle/security_room/task1/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/puzzle/storage_room/task2/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/item/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/gameDemo/" + item_name + ".png"
+	]
+	
+	print("[DEBUG-ITEM] Đang tìm texture cho: ", item_name)
+	
+	# Kiểm tra chi tiết về file tồn tại
+	for path in texture_paths:
+		var exists = ResourceLoader.exists(path)
+		print("[DEBUG-ITEM] Đường dẫn ", path, " tồn tại: ", exists)
+	
+	# Thử tải từng đường dẫn cho đến khi tìm thấy texture
+	var texture = null
+	for path in texture_paths:
+		print("[DEBUG-ITEM] Thử đường dẫn: ", path)
+		if ResourceLoader.exists(path):
+			print("[DEBUG-ITEM] Tìm thấy texture tại: ", path)
+			texture = load(path)
+			break
+	
+	if texture:
+		print("[DEBUG-ITEM] Áp dụng texture cho item: ", item_name)
+		$TextureRect.texture = texture
+	else:
+		print("[DEBUG-ITEM] Không tìm thấy texture cho item: ", item_name, " - sử dụng texture mặc định")
+		# Tải texture mặc định nếu không tìm thấy
+		$TextureRect.texture = load("res://The_Alchemist_Quest/assets/item/unknow_item.png")
 
 	# Cập nhật stack và hiển thị số lượng
-	var stack_size = int(JsonData.item_data.get(item_name, {}).get("StackSize", 1))
+	var stack_size = 1
+	if JsonData.item_data.has(item_name):
+		stack_size = int(JsonData.item_data[item_name].get("StackSize", 1))
+	elif JsonData.item_data.has("item") and JsonData.item_data["item"].has(item_name):
+		stack_size = int(JsonData.item_data["item"][item_name].get("StackSize", 1))
+		
+	print("[DEBUG-ITEM] Stack size cho ", item_name, ": ", stack_size)
 	$Label.visible = stack_size > 1
 	$Label.text = str(item_quantity)
 	

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bd05ytpspm21r"
-path="res://.godot/imported/H2O2+HCl.png-9a2d4fb3baa3dfa97b0d189519460e4d.ctex"
+uid="uid://c28qfggyqfyml"
+path="res://.godot/imported/Na2S2O3.png-162d0bc7f77bc1932bafb549f67e70fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://The_Alchemist_Quest/assets/puzzle/intro_room/H2O2+HCl.png"
-dest_files=["res://.godot/imported/H2O2+HCl.png-9a2d4fb3baa3dfa97b0d189519460e4d.ctex"]
+source_file="res://The_Alchemist_Quest/assets/puzzle/storage_room/task2/Na2S2O3.png"
+dest_files=["res://.godot/imported/Na2S2O3.png-162d0bc7f77bc1932bafb549f67e70fb.ctex"]
 
 [params]
 

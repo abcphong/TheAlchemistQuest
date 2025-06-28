@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cl1qfh7ddoj3c"
-path="res://.godot/imported/HCl.png-344776a54d416ad09b9d42702cab70a4.ctex"
+uid="uid://dlgu3h0tgixxw"
+path="res://.godot/imported/Task2_storage_room.png-6c0fee3ec58b0e4a6c7ac4eb1be98951.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://The_Alchemist_Quest/assets/puzzle/intro_room/HCl.png"
-dest_files=["res://.godot/imported/HCl.png-344776a54d416ad09b9d42702cab70a4.ctex"]
+source_file="res://The_Alchemist_Quest/assets/puzzle/storage_room/task2/Task2_storage_room.png"
+dest_files=["res://.godot/imported/Task2_storage_room.png-6c0fee3ec58b0e4a6c7ac4eb1be98951.ctex"]
 
 [params]
 
