@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cs55qmx8nakq0" path="res://The_Alchemist_Quest/scripts/player/hotbar.gd" id="1_3yelt"]
 [ext_resource type="Texture2D" uid="uid://bl0l3obnqj3x2" path="res://The_Alchemist_Quest/assets/button/Hot_bar.png" id="1_uw63n"]
 [ext_resource type="Texture2D" uid="uid://bnircc0pmgkba" path="res://The_Alchemist_Quest/assets/button/Inventory_slot.png" id="2_60th3"]
-[ext_resource type="Script" uid="uid://bep0ddwfkc6nt" path="res://The_Alchemist_Quest/scripts/inventory/slot.gd" id="2_085en"]
+[ext_resource type="Script" uid="uid://c5dkud11ue6tv" path="res://The_Alchemist_Quest/scripts/inventory/inventory_slot.gd" id="2_085en"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3yelt"]
 texture = ExtResource("2_60th3")

@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0y8d4i3fujv8"]
+
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="1_nyxk5"]
+[ext_resource type="Script" uid="uid://2g3fi0r4cnav" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/task_3/puzzle_ui_task3.gd" id="1_oqssm"]
+[ext_resource type="Texture2D" uid="uid://7oxv8sh75ls" path="res://The_Alchemist_Quest/assets/puzzle/storage_room/task3/cyan_background.png" id="2_a23x0"]
+[ext_resource type="Texture2D" uid="uid://dw5l5cucp3dte" path="res://The_Alchemist_Quest/assets/decor/Ventilation_control_system.png" id="3_d0ea2"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scences/puzzle/puzzle_slot.tscn" id="3_oqssm"]
+
+[node name="puzzle_ui_task3" type="CanvasLayer"]
+script = ExtResource("1_oqssm")
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("1_nyxk5")]
+position = Vector2(593, 180)
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = 393.0
+offset_top = 126.0
+offset_right = 543.0
+offset_bottom = 276.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_a23x0")
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 436.0
+offset_top = 190.0
+offset_right = 668.0
+offset_bottom = 375.0
+texture = ExtResource("3_d0ea2")
+
+[node name="PuzzleSlot" parent="." instance=ExtResource("3_oqssm")]
+offset_left = 485.0
+offset_top = 216.0
+offset_right = 531.0
+offset_bottom = 262.0
+expected_item = Array[String](["Na2S2O3+H2O"])
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="."]
+offset_left = 523.0
+offset_top = 287.0
+offset_right = 555.0
+offset_bottom = 319.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

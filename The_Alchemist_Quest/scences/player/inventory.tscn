@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bdlqdurne8ggu" path="res://The_Alchemist_Quest/scripts/inventory/inventory.gd" id="1_r2kmd"]
 [ext_resource type="Texture2D" uid="uid://dqc5vpd81dei4" path="res://The_Alchemist_Quest/assets/button/Inventory.png" id="1_x1m6o"]
 [ext_resource type="Texture2D" uid="uid://bnircc0pmgkba" path="res://The_Alchemist_Quest/assets/button/Inventory_slot.png" id="2_nakxy"]
-[ext_resource type="Script" uid="uid://bep0ddwfkc6nt" path="res://The_Alchemist_Quest/scripts/inventory/slot.gd" id="3_nakxy"]
+[ext_resource type="Script" uid="uid://c5dkud11ue6tv" path="res://The_Alchemist_Quest/scripts/inventory/inventory_slot.gd" id="3_nakxy"]
 [ext_resource type="FontFile" uid="uid://ccdxh8aqwkjxn" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="5_gva05"]
 [ext_resource type="Script" uid="uid://d371elfmusf57" path="res://The_Alchemist_Quest/scripts/inventory/panel_description.gd" id="5_x6wgm"]
 [ext_resource type="Script" uid="uid://d12oopvvye2ty" path="res://The_Alchemist_Quest/scripts/inventory/popup_description.gd" id="6_fxrli"]
@@ -23,10 +23,10 @@ offset_bottom = 190.0
 texture = ExtResource("1_x1m6o")
 
 [node name="GridContainer" type="GridContainer" parent="."]
-offset_left = 125.0
+offset_left = 123.0
 offset_top = -11.0
 offset_right = 355.0
-offset_bottom = 181.0
+offset_bottom = 182.0
 columns = 3
 
 [node name="Slot" type="Panel" parent="GridContainer"]
@@ -110,4 +110,5 @@ layout_mode = 2
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_gva05")
 text = "TESTING TEXT"
+autowrap_mode = 3
 script = ExtResource("6_fxrli")

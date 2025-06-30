@@ -1,21 +1,21 @@
 extends Node
 
 const NUM_INVENTORY_SLOTS = 9
-const SlotClass = preload("res://The_Alchemist_Quest/scripts/inventory/slot.gd")
+const SlotClass = preload("res://The_Alchemist_Quest/scripts/inventory/inventory_slot.gd")
 const ItemClass = preload("res://The_Alchemist_Quest/scripts/inventory/item.gd")
 const NUM_HOTBARS_SLOTS = 2
 
 signal active_item_updated
 
 var inventory = {
-	0: ["Activated_coal", 1],
-	1: ["Filter_cotton", 1],
-	2: ["Gas_mask" , 1],
-	3: ["Mini_oxygen", 1],
-	4: [null,0],
-	5: [null,0],
-	6: [null,0],
-	7: [null,0],
+	0: ["Copper wire", 2],
+	1: ["CuSO4", 1],
+	2: ["Electric wire" , 1],
+	3: ["Electric wire", 1],
+	4: ["ZnSO4",1],
+	5: ["Zinc bar",1],
+	6: ["Salt bridge",1],
+	7: ["Na2S2O3+H2O",1],
 	8: [null,0]
 }
 

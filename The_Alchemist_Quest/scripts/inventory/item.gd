@@ -4,18 +4,23 @@ var item_name: String = ""
 var item_quantity : int = 0
 
 func _ready():
-	var rand_val = randi() % 5
+	var rand_val = randi() % 4
 	if rand_val == 0:
-		item_name = "Activated_coal"
+		item_name = "Copper wire"
 	elif rand_val == 1:
-		item_name = "Filter_cotton"
+		item_name = "CuSO4"
 	elif rand_val == 2:
-		item_name = "Gas_mask"
+		item_name = "Electric wire"
 	elif rand_val == 3:
-		item_name = "Improved_mask"
+		item_name = "Electric wire"
+	elif rand_val == 4:
+		item_name = "ZnSO4"
+	elif rand_val == 5:
+		item_name = "Zinc bar"
+	elif rand_val == 6:
+		item_name = "Na2S2O3+H2O"
 	else:
-		item_name = "Mini_oxygen"
-
+		item_name = "Salt bridge"
 		
 	$TextureRect.texture = load("res://The_Alchemist_Quest/assets/puzzle/intro_room/" + item_name + ".png")
 	var stack_size = int(JsonData.item_data.get(item_name, {}).get("StackSize", 1))
