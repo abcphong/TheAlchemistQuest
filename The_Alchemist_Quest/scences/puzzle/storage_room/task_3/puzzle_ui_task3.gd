@@ -79,7 +79,10 @@ func _on_button_pressed() -> void:
 	print("🔘 Button pressed! Ready to free:", ready_to_free)
 
 	if ready_to_free:
-		print("📢 Emitting fan_activation_requested")
+		print("🛑 Fan activated — disabling health bar")
+		var health_bar = get_node("/root/Game/UI/HealthBar")
+		health_bar.HealthTimer.stop()
+		health_bar.healthbar.hide() # Optional: visually hide it too
 		emit_signal("fan_activation_requested")
 	else:
 		print("⛔ Not ready yet.")
