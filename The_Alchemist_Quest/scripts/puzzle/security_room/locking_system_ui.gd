@@ -42,7 +42,57 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		print("[DEBUG-SECURITY] Đóng UI: đã nhấn ESC")
+		_on_close_requested()
+
+func _on_close_requested():
+	var slots_with_items = []
+	for child in get_children():
+		if child is PuzzleSlot and child.is_filled and is_instance_valid(child.current_item):
+			slots_with_items.append(child)
+	
+	if slots_with_items.is_empty():
 		queue_free()
+		return
+
+	var inventory_copy = PlayerInventory.inventory.duplicate(true)
+	var can_fit_all = true
+	
+	for slot in slots_with_items:
+		var item_name = slot.current_item.item_name
+		var item_quantity = slot.current_item.item_quantity
+		
+		var success = _try_add_to_dict(inventory_copy, item_name, item_quantity)
+		if not success:
+			can_fit_all = false
+			break
+	
+	if can_fit_all:
+		for slot in slots_with_items:
+			slot.return_item_to_inventory(slot.current_item)
+		queue_free()
+	else:
+		show_warning("Không đủ chỗ trong túi đồ!")
+
+	var inventory_ui = get_tree().get_first_node_in_group("Inventory")
+	if is_instance_valid(inventory_ui):
+		inventory_ui.initialize_inventory()
+
+func _try_add_to_dict(dict: Dictionary, name: String, quantity: int) -> bool:
+	var stack_size = int(JsonData.item_data.get(name, {}).get("StackSize", 1))
+	for slot_idx in dict:
+		if dict[slot_idx] != null and dict[slot_idx][0] == name and dict[slot_idx][1] < stack_size:
+			var can_add = stack_size - dict[slot_idx][1]
+			var add_amount = min(quantity, can_add)
+			dict[slot_idx][1] += add_amount
+			quantity -= add_amount
+		if quantity == 0: return true
+	for slot_idx in dict:
+		if dict[slot_idx] == null or dict[slot_idx][0] == null:
+			var add_amount = min(quantity, stack_size)
+			dict[slot_idx] = [name, add_amount]
+			quantity -= add_amount
+		if quantity == 0: return true
+	return quantity == 0
 
 # Được gọi mỗi khung hình
 func _process(delta):
@@ -132,4 +182,27 @@ func _add_rewards_to_inventory():
 					get_tree().get_first_node_in_group("Inventory").initialize_inventory()
 			else:
 				print("[DEBUG-SECURITY] Không thể thêm ", item_name, " vào inventory")
+
+func show_warning(text: String):
+	var warning_label = get_node_or_null("WarningLabel")
+	if not is_instance_valid(warning_label):
+		warning_label = Label.new()
+		warning_label.name = "WarningLabel"
+		add_child(warning_label)
+		warning_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+		warning_label.global_position.y += 50
+		warning_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		warning_label.modulate = Color.RED
+		var font = preload("res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf")
+		warning_label.add_theme_font_override("font", font)
+		warning_label.add_theme_font_size_override("font_size", 24)
+
+	warning_label.text = text
+	warning_label.self_modulate.a = 1.0
+	
+	var tween = create_tween().set_parallel(true)
+	tween.tween_property(warning_label, "position:y", warning_label.position.y - 20, 1.5).from_current()
+	var fade_tween = create_tween()
+	fade_tween.tween_interval(1.0)
+	fade_tween.tween_property(warning_label, "self_modulate:a", 0, 0.5)
  

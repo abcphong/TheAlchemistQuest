@@ -15,6 +15,8 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
+		# Trả tất cả item về inventory trước khi đóng
+		PuzzleSlot.return_all_items_to_inventory(get_tree())
 		queue_free()
 
 # ✅ Kiểm tra tất cả slot đã được lắp đúng chưa
@@ -23,7 +25,6 @@ func check_all_slots_filled():
 	for child in get_children():
 		if child is PuzzleSlot:
 			slots.append(child)
-			print("📌 DEBUG - PUZZLE UI - Slot chứa item:", child.is_filled, "- Item:", child.current_item.item_name if child.is_filled and child.current_item else "None")
 
 	if allow_flexible_matching:
 		# 🎯 Puzzle không yêu cầu đúng vị trí, chỉ cần đúng đủ item
@@ -46,27 +47,22 @@ func check_all_slots_filled():
 			if not slot.is_filled or slot.current_item == null:
 				return
 			if not slot.expected_item.has(slot.current_item.item_name):
-				print("❌ Slot sai:", slot.name, "| Có:", slot.current_item.item_name, "| Cần:", slot.expected_item)
 				return
 
 	# ✅ Tất cả hợp lệ
-	print("➡️ Puzzle complete! Playing success animation.")
 	success_anim.visible = true
 	success_anim.play("complete")
 
 # 🔚 Khi animation thành công kết thúc
 func _on_success_anim_done():
-	print("✅ SuccessAnim đã kết thúc")
-	
 	var ui = get_tree().get_first_node_in_group("UserInterface")
 	if ui:
 		for i in range(min(reward_items.size(), reward_amounts.size())):
 			var item_name = reward_items[i]
 			var qty = reward_amounts[i]
-			print("🎁 Thêm vào túi:", item_name, "x", qty)
 			ui.add_new_item_to_inventory(item_name, qty)
 	else:
-		print("❌ Không tìm thấy UserInterface để nhận item")
+		pass
 
 	# 🔔 Gửi tín hiệu cho lab_workbench
 	emit_signal("puzzle_solved")

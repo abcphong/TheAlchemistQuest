@@ -1,0 +1,20 @@
+﻿{
+    "item": {
+        "Na2S2O3": {
+            "Description": "Natri Thiosulfat, có thể trung hòa hợp chất cyanide.",
+            "StackSize": 1
+        },
+        "H2O": {
+            "Description": "Nước tinh khiết, dùng để pha loãng hóa chất.",
+            "StackSize": 1
+        },
+        "Note_Na2S2O3+H2O": {
+            "Description": "Ghi chú về cách pha loãng Natri Thiosulfat với nước để tạo dung dịch phun sương.",
+            "StackSize": 1
+        },
+        "Na2S2O3+H2O": {
+            "Description": "Dung dịch Natri Thiosulfat pha loãng, dùng để phun sương trung hòa khí độc.",
+            "StackSize": 1
+        }
+    }
+} 

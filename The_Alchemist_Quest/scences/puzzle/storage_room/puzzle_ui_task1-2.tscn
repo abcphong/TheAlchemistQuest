@@ -24,13 +24,13 @@ region = Rect2(750, 0, 150, 150)
 [sub_resource type="SpriteFrames" id="SpriteFrames_6sgox"]
 animations = [{
 "frames": [{
-"duration": 5.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_d2uap")
 }, {
-"duration": 5.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_hj6al")
 }, {
-"duration": 5.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_x7rte")
 }],
 "loop": false,
@@ -40,12 +40,15 @@ animations = [{
 
 [node name="PuzzleUI" type="CanvasLayer"]
 script = ExtResource("1_r2c62")
+reward_items = Array[String](["Na2S2O3", "H2O", "Note_Na2S2O3+H2O"])
+reward_amounts = Array[int]([1, 1, 1])
 
 [node name="InventoryContainer" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchor_right = 0.035
+anchor_bottom = 0.062
+offset_right = -0.32
+offset_bottom = -0.176003
 
 [node name="Inventory" parent="InventoryContainer" instance=ExtResource("1_5thc5")]
 position = Vector2(593, 180)

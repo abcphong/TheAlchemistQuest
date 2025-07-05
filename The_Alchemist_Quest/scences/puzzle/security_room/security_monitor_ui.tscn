@@ -1,0 +1,363 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7qg5uv3yp3lk"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/security_room/security_monitor_ui.gd" id="1_6n1qw"]
+[ext_resource type="Texture2D" uid="uid://bt1i606qfgvlf" path="res://The_Alchemist_Quest/assets/tiles/Dialog_box.png" id="2_abcde"]
+[ext_resource type="FontFile" uid="uid://bshnma5vprq4v" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="3_q7y2w"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m4k1w"]
+texture = ExtResource("2_abcde")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+modulate_color = Color(0.6, 0.6, 0.6, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3n5uv"]
+texture = ExtResource("2_abcde")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4m4f8"]
+texture = ExtResource("2_abcde")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+modulate_color = Color(0.4, 0.4, 0.4, 1)
+
+[node name="SecurityMonitorUI" type="CanvasLayer"]
+script = ExtResource("1_6n1qw")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.1, 0.8)
+
+[node name="MonitorPanel" type="NinePatchRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -250.0
+offset_right = 350.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_abcde")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MainVBox" type="VBoxContainer" parent="MonitorPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="Header" type="VBoxContainer" parent="MonitorPanel/MainVBox"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MonitorPanel/MainVBox/Header"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 16
+text = "HỆ THỐNG GIÁM SÁT AN NINH"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MonitorPanel/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 14
+text = "PHÒNG THÍ NGHIỆM ALCHEMY"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MonitorPanel/MainVBox"]
+layout_mode = 2
+
+[node name="Cameras" type="HBoxContainer" parent="MonitorPanel/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="CameraThumbnails" type="VBoxContainer" parent="MonitorPanel/MainVBox/Cameras"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+theme_override_constants/separation = 10
+
+[node name="Camera1" type="NinePatchRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_abcde")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="SceneView" type="TextureRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera1"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 14
+text = "Intro Room"
+horizontal_alignment = 1
+
+[node name="Static" type="ColorRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera1/SceneView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.0392157)
+
+[node name="Camera2" type="NinePatchRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_abcde")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="SceneView" type="TextureRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 14
+text = "Storage Room"
+horizontal_alignment = 1
+
+[node name="Static" type="ColorRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera2/SceneView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.0392157)
+
+[node name="Camera3" type="NinePatchRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_abcde")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="SceneView" type="TextureRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera3"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -20.0
+offset_right = 60.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 14
+text = "Phòng Bí Mật"
+horizontal_alignment = 1
+
+[node name="Static" type="ColorRect" parent="MonitorPanel/MainVBox/Cameras/CameraThumbnails/Camera3/SceneView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.2)
+
+[node name="VSeparator" type="VSeparator" parent="MonitorPanel/MainVBox/Cameras"]
+layout_mode = 2
+
+[node name="MainScreen" type="NinePatchRect" parent="MonitorPanel/MainVBox/Cameras"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_abcde")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="SceneView" type="TextureRect" parent="MonitorPanel/MainVBox/Cameras/MainScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MonitorPanel/MainVBox/Cameras/MainScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -20.0
+offset_right = 70.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 14
+text = "Màn hình chính"
+horizontal_alignment = 1
+
+[node name="Static" type="ColorRect" parent="MonitorPanel/MainVBox/Cameras/MainScreen/SceneView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.0392157)
+
+[node name="StatusPanel" type="NinePatchRect" parent="MonitorPanel/MainVBox"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture = ExtResource("2_abcde")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="HBox" type="HBoxContainer" parent="MonitorPanel/MainVBox/StatusPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 5.0
+offset_right = -10.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatusLabel" type="Label" parent="MonitorPanel/MainVBox/StatusPanel/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 14
+text = "Trạng thái: Hoạt động bình thường"
+vertical_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="MonitorPanel/MainVBox/StatusPanel/HBox"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 14
+text = "Thời gian: 08:45:32"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Controls" type="HBoxContainer" parent="MonitorPanel/MainVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="CloseButton" type="Button" parent="MonitorPanel/MainVBox/Controls"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_q7y2w")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_m4k1w")
+theme_override_styles/hover = SubResource("StyleBoxTexture_3n5uv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4m4f8")
+text = "Đóng"
+
+[connection signal="pressed" from="MonitorPanel/MainVBox/Controls/CloseButton" to="." method="_on_close_button_pressed"] 

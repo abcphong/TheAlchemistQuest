@@ -4,14 +4,27 @@ var holding_item: Node = null
 var inventory_node: Node2D
 var save_load_ui: Control = null
 var is_dragging := false
+var original_slot_index := -1
+var original_is_hotbar := false
+var original_puzzle_slot = null
 @onready var dragging_layer = get_tree().get_current_scene().get_node("DraggingLayer")
 
 func _ready():
 	layer = 10  # Đặt cao hơn các UI khác
 	add_to_group("UserInterface")
 	# Tìm SaveLoadUI khi game khởi động
-	save_load_ui = get_tree().get_current_scene().find_child("SaveLoadUI", true, false)
+	find_save_load_ui()
 	print("[DEBUG-UI] UserInterface khởi tạo thành công")
+
+# Hàm mới để tìm và cập nhật tham chiếu đến SaveLoadUI
+func find_save_load_ui() -> bool:
+	save_load_ui = get_tree().get_current_scene().find_child("SaveLoadUI", true, false)
+	if save_load_ui:
+		print("[DEBUG-UI] Đã tìm thấy SaveLoadUI")
+		return true
+	else:
+		print("[DEBUG-UI] Không tìm thấy SaveLoadUI")
+		return false
 
 func update_held_item_visibility():
 	if holding_item:
@@ -35,10 +48,18 @@ func toggle_inventory():
 			inventory_node.initialize_inventory()  # Cập nhật UI mỗi khi mở inventory
 
 func toggle_save_load_menu():
-	if save_load_ui:
+	# Kiểm tra và tìm lại SaveLoadUI nếu cần
+	if not is_instance_valid(save_load_ui):
+		print("[DEBUG-UI] SaveLoadUI không còn hợp lệ, đang tìm lại...")
+		if not find_save_load_ui():
+			print("[DEBUG-UI] Không thể tìm thấy SaveLoadUI!")
+			return
+	
+	# Kiểm tra thêm một lần nữa để đảm bảo an toàn
+	if is_instance_valid(save_load_ui) and save_load_ui.has_method("toggle_visibility"):
 		save_load_ui.toggle_visibility()
 	else:
-		print("[DEBUG-UI] Không tìm thấy SaveLoadUI!")
+		print("[DEBUG-UI] SaveLoadUI không hợp lệ hoặc không có phương thức toggle_visibility!")
 
 func _process(_delta):
 	if is_dragging and holding_item:
@@ -70,45 +91,28 @@ func return_item_to_inventory(item: Control) -> bool:
 	if not is_instance_valid(item):
 		return false
 	
-	# Backup item info trước khi xử lý
+	# Lấy thông tin item
 	var item_name = item.item_name
 	var item_quantity = item.item_quantity
 	
-	# Thay đổi thứ tự ưu tiên:
-	# 1. Tìm slot trống trong Inventory TRƯỚC (không phải hotbar)
-	var inventory_slots := get_tree().get_nodes_in_group("InventorySlot")
-	inventory_slots.sort_custom(func(a, b): return a.slot_index < b.slot_index)
+	print("[DEBUG-UI] Trả item về inventory: ", item_name, " x ", item_quantity)
 	
-	for slot in inventory_slots:  
-		if not slot.is_hotbar_slot and slot.item == null:
-			# Clone item trước khi xóa reference
-			if item.get_parent():
-				item.get_parent().remove_child(item)
-			
-			slot.initialize_item(item_name, item_quantity)
-			
-			# Queue free item cũ sau khi đã xử lý xong
-			item.queue_free()
-			return true
-			
-	# 2. Nếu inventory đầy, mới tìm slot trống trong Hotbar (ưu tiên sau)
-	for slot in inventory_slots:
-		if slot.is_hotbar_slot and slot.item == null:
-			# Clone item trước khi xóa reference
-			if item.get_parent():
-				item.get_parent().remove_child(item)
-				
-			slot.initialize_item(item_name, item_quantity)
-			
-			# Queue free item cũ sau khi đã xử lý xong
-			item.queue_free()
-			return true
-
-	# 3. Cảnh báo nếu không còn chỗ - lúc này giữ item lại cho người chơi
+	# Gọi hàm add_item của PlayerInventory làm nguồn chân lý
+	var success = PlayerInventory.add_item(item_name, item_quantity)
 	
-	# Nếu item còn valid, đảm bảo nó vẫn hiển thị để người chơi có thể thả vào chỗ khác
-	if is_instance_valid(item):
-		# Nếu parent không phải là scene root, thử chuyển nó ra để hiển thị
+	if success:
+		print("[DEBUG-UI] Đã trả ", item_name, " về PlayerInventory thành công")
+		
+		# Xóa item cũ
+		item.queue_free()
+		
+		# Cập nhật lại UI
+		update_all_ui()
+		return true
+	else:
+		print("[DEBUG-UI] Không thể trả ", item_name, " về PlayerInventory, giữ lại trên chuột")
+		
+		# Nếu không thể thêm vào inventory, giữ item trên chuột
 		if item.get_parent() != get_tree().get_root():
 			if item.get_parent():
 				item.get_parent().remove_child(item)
@@ -116,8 +120,6 @@ func return_item_to_inventory(item: Control) -> bool:
 			
 		item.visible = true
 		item.global_position = get_viewport().get_mouse_position()
-		
-		# Đặt item làm holding_item để người chơi có thể kéo nó
 		holding_item = item
 		is_dragging = true
 	
@@ -126,50 +128,43 @@ func return_item_to_inventory(item: Control) -> bool:
 func add_new_item_to_inventory(item_name: String, quantity: int) -> bool:
 	print("[DEBUG-UI] Bắt đầu thêm item mới: ", item_name, " x ", quantity)
 	
-	var item_scene = load("res://The_Alchemist_Quest/scences/player/item.tscn")
-	if item_scene == null:
-		print("[DEBUG-UI] Không thể tải item scene!")
-		return false
-
-	var item_instance = item_scene.instantiate()
-	item_instance.set_item(item_name, quantity)
-	print("[DEBUG-UI] Đã tạo instance mới cho item: ", item_name)
-
-	var inventory_slots := get_tree().get_nodes_in_group("InventorySlot")
-	print("[DEBUG-UI] Số lượng inventory slots: ", inventory_slots.size())
-	inventory_slots.sort_custom(func(a, b): return a.slot_index < b.slot_index)
-
-	# Kiểm tra xem JsonData có item này không
-	var has_item_data = false
-	if JsonData.item_data.has("item") and JsonData.item_data["item"].has(item_name):
-		has_item_data = true
-		print("[DEBUG-UI] Tìm thấy dữ liệu item trong JsonData['item'][", item_name, "]")
-	elif JsonData.item_data.has(item_name):
-		has_item_data = true
-		print("[DEBUG-UI] Tìm thấy dữ liệu item trong JsonData[", item_name, "]")
-	else:
-		print("[DEBUG-UI] Không tìm thấy dữ liệu cho item: ", item_name, " trong JsonData!")
-
-	# Ưu tiên thêm vào hotbar trước
-	for slot in inventory_slots:
-		if slot.is_hotbar_slot and slot.item == null:
-			print("[DEBUG-UI] Thêm ", item_name, " vào hotbar slot ", slot.slot_index)
-			slot.initialize_item(item_name, quantity)
-			return true
-
-	# Sau đó thêm vào inventory thường
-	for slot in inventory_slots:
-		if not slot.is_hotbar_slot and slot.item == null:
-			print("[DEBUG-UI] Thêm ", item_name, " vào inventory slot ", slot.slot_index)
-			slot.initialize_item(item_name, quantity)
-			return true
+	# Gọi hàm add_item của PlayerInventory làm nguồn chân lý
+	var success = PlayerInventory.add_item(item_name, quantity)
 	
-	# Nếu inventory đầy, tạo item cho người chơi cầm tạm thời
-	print("[DEBUG-UI] Không có slot trống, thêm ", item_name, " làm holding_item")
-	item_instance.visible = true
-	get_tree().get_root().add_child(item_instance)
-	item_instance.global_position = get_viewport().get_mouse_position()
-	holding_item = item_instance
-	is_dragging = true
+	if success:
+		print("[DEBUG-UI] Đã thêm ", item_name, " vào PlayerInventory thành công")
+		
+		# Cập nhật lại UI
+		update_all_ui()
+		return true
+	else:
+		print("[DEBUG-UI] Không thể thêm ", item_name, " vào PlayerInventory, tạo holding_item")
+		
+		# Nếu không thể thêm vào inventory, tạo item cho người chơi cầm tạm thời
+		var item_scene = load("res://The_Alchemist_Quest/scences/player/item.tscn")
+		if item_scene == null:
+			print("[DEBUG-UI] Không thể tải item scene!")
+			return false
+			
+		var item_instance = item_scene.instantiate()
+		item_instance.set_item(item_name, quantity)
+		
+		item_instance.visible = true
+		get_tree().get_root().add_child(item_instance)
+		item_instance.global_position = get_viewport().get_mouse_position()
+		holding_item = item_instance
+		is_dragging = true
 	
 	return false
+
+# Hàm tiện ích để cập nhật tất cả các UI liên quan đến inventory
+func update_all_ui():
+	# Cập nhật inventory UI nếu có
+	var inventory_ui = get_tree().get_first_node_in_group("Inventory")
+	if inventory_ui:
+		inventory_ui.initialize_inventory()
+	
+	# Cập nhật hotbar UI nếu có
+	var hotbar_ui = get_tree().get_first_node_in_group("Hotbar")
+	if hotbar_ui:
+		hotbar_ui.initialize_hotbar()

@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://c500fti06uxfk"]
+[gd_scene load_steps=18 format=3 uid="uid://c500fti06uxfk"]
 
 [ext_resource type="Texture2D" uid="uid://hvv4apnspd3u" path="res://The_Alchemist_Quest/assets/decor/Ventilation_fan.png" id="1_k8t2w"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/decor/ventilation_fan_decor.gd" id="1_qcf7r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bhojb"]
 radius = 22.6274
@@ -102,9 +103,54 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yavrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsuh6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vd7i5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8smp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyk8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y52nn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gpxje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6s1vw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oha00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdje7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svnd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3i6a4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f50y4")
+}],
+"loop": true,
+"name": &"activated",
+"speed": 12.0
 }]
 
 [node name="Ventilation_fan_decor" type="Area2D"]
+script = ExtResource("1_qcf7r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_bhojb")
@@ -113,5 +159,5 @@ shape = SubResource("CircleShape2D_bhojb")
 position = Vector2(1.5, -1.5)
 scale = Vector2(0.777778, 0.733333)
 sprite_frames = SubResource("SpriteFrames_1qsec")
-autoplay = "default"
+animation = &"default"
 frame_progress = 0.415127

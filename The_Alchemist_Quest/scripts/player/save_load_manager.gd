@@ -16,6 +16,12 @@ var current_slot = 0
 # Danh sách các đối tượng có thể lưu trạng thái
 var saveable_objects = {}
 
+# Bộ nhớ đệm để lưu trạng thái tạm thời giữa các lần chuyển cảnh
+var scene_transition_cache = {}
+
+# Bộ nhớ đệm để lưu trạng thái của các cửa
+var door_states = {}
+
 func _ready():
 	print("SaveLoadManager is ready")
 
@@ -25,6 +31,12 @@ func register_saveable_object(object: Node) -> void:
 		var object_id = object.get_saveable_id()
 		saveable_objects[object_id] = object
 		print("[SaveSystem] Đăng ký đối tượng: " + object_id)
+		
+		# Kiểm tra xem có trạng thái đã lưu trong cache không
+		if scene_transition_cache.has(object_id):
+			print("[SaveSystem] Phát hiện trạng thái trong cache cho: " + object_id)
+			object.load_state(scene_transition_cache[object_id])
+			print("[SaveSystem] Đã khôi phục trạng thái từ cache cho: " + object_id)
 	else:
 		print("[SaveSystem] Đối tượng không hỗ trợ giao diện lưu/tải.")
 
@@ -86,6 +98,27 @@ func save_game(slot: int, save_name: String = "") -> bool:
 			objects_state[object_id] = object.save_state()
 			print("[SaveSystem] Lưu trạng thái: " + object_id)
 	
+	# Lấy trạng thái thanh máu từ GameManager
+	var health_state = {}
+	var ventilation_system_state = {}
+	var game_manager = get_node_or_null("/root/GameManager")
+	if game_manager:
+		health_state = game_manager.health_state
+		ventilation_system_state = game_manager.ventilation_system_state
+	
+	# Cập nhật trạng thái cửa từ các cửa trong scene hiện tại
+	# Kiểm tra cả hai nhóm: StorageDoors và SecurityDoors
+	var all_doors = []
+	all_doors.append_array(get_tree().get_nodes_in_group("StorageDoors"))
+	all_doors.append_array(get_tree().get_nodes_in_group("SecurityDoors"))
+	
+	for door in all_doors:
+		if door.has_method("get_door_id") and door.has_method("save_state"):
+			var door_id = door.get_door_id()
+			var door_state = door.save_state()
+			door_states[door_id] = door_state
+			print("[SaveSystem] Lưu trạng thái cửa: " + door_id)
+	
 	# Tạo dictionary chứa tất cả dữ liệu cần lưu
 	var save_data = {
 		# Thông tin bản lưu
@@ -94,7 +127,7 @@ func save_game(slot: int, save_name: String = "") -> bool:
 		# Player data
 		"player_position_x": get_player_position().x,
 		"player_position_y": get_player_position().y,
-		"player_health": get_player_health(),
+		"player_health": health_state,
 		# Inventory data
 		"inventory": inventory_data,
 		"hotbar": hotbar_data,
@@ -103,6 +136,10 @@ func save_game(slot: int, save_name: String = "") -> bool:
 		"checkpoint_position_y": CheckpointManager.current_checkpoint_position.y,
 		# Trạng thái các đối tượng trong game
 		"objects_state": objects_state,
+		# Trạng thái hệ thống thông gió
+		"ventilation_system_state": ventilation_system_state,
+		# Trạng thái các cửa
+		"door_states": door_states,
 	}
 	
 	current_game_state = save_data
@@ -164,8 +201,20 @@ func apply_loaded_data(data):
 	# Áp dụng dữ liệu người chơi
 	var player_pos = Vector2(float(data["player_position_x"]), float(data["player_position_y"]))
 	set_player_position(player_pos)
-	set_player_health(data["player_health"])
+
+	# Áp dụng dữ liệu thanh máu vào GameManager
+	if data.has("player_health"):
+		var game_manager = get_node_or_null("/root/GameManager")
+		if game_manager:
+			game_manager.health_state = data["player_health"]
 	
+	# Áp dụng trạng thái hệ thống thông gió
+	if data.has("ventilation_system_state"):
+		var game_manager = get_node_or_null("/root/GameManager")
+		if game_manager:
+			game_manager.ventilation_system_state = data["ventilation_system_state"]
+			print("[SaveSystem] Đã tải trạng thái hệ thống thông gió: ", game_manager.ventilation_system_state)
+
 	# RESET HOÀN TOÀN INVENTORY VÀ HOTBAR
 	print("[SaveSystem] Khởi tạo lại inventory và hotbar...")
 	
@@ -221,6 +270,21 @@ func apply_loaded_data(data):
 			else:
 				print("[SaveSystem] Không tìm thấy đối tượng: " + object_id)
 	
+	# Khôi phục trạng thái cửa
+	if data.has("door_states"):
+		print("[SaveSystem] Đang khôi phục trạng thái cửa...")
+		door_states = data["door_states"].duplicate()
+		
+		# Cập nhật các cửa hiện có trong scene
+		var all_doors = []
+		all_doors.append_array(get_tree().get_nodes_in_group("StorageDoors"))
+		all_doors.append_array(get_tree().get_nodes_in_group("SecurityDoors"))
+		
+		for door in all_doors:
+			if door.has_method("get_door_id") and door_states.has(door.get_door_id()):
+				door.load_state(door_states[door.get_door_id()])
+				print("[SaveSystem] Đã khôi phục trạng thái cửa: " + door.get_door_id())
+	
 	# Reset các tham chiếu tạm thời
 	reset_temporary_references()
 
@@ -267,6 +331,18 @@ func get_all_save_info() -> Array:
 		result.append(get_save_info(i))
 	return result
 
+# Reset tất cả các biến về trạng thái ban đầu
+func reset_to_initial_state():
+	# Reset dữ liệu game hiện tại
+	current_game_state = {}
+	
+	# Giữ nguyên danh sách các đối tượng đã đăng ký
+	# nhưng xóa các dữ liệu cache
+	scene_transition_cache = {}
+	door_states = {}
+	
+	print("[SaveSystem] Đã reset tất cả các biến về trạng thái ban đầu")
+
 # Xóa file lưu game cho slot cụ thể
 func delete_save_game(slot: int) -> bool:
 	if slot < 0 or slot >= MAX_SAVE_SLOTS:
@@ -300,28 +376,64 @@ func set_player_position(position: Vector2):
 	if player:
 		player.global_position = position
 
-# Lấy sức khỏe người chơi
-func get_player_health() -> String:
-	var health_bar = get_tree().get_first_node_in_group("HealthBar")
-	if health_bar:
-		return health_bar.current_animation
-	return "Green"
-
-# Thiết lập sức khỏe người chơi
-func set_player_health(health_state: String):
-	var health_bar = get_tree().get_first_node_in_group("HealthBar")
-	if health_bar:
-		health_bar.current_animation = health_state
-		health_bar.play_animation_once(health_state)
-
 # Cập nhật UI inventory sau khi tải game
 func update_inventory_ui():
-	# Cập nhật inventory
-	var inventory_ui = get_tree().root.find_child("Inventory", true, false)
-	if inventory_ui and inventory_ui.has_method("initialize_inventory"):
-		inventory_ui.initialize_inventory()
+	var ui = get_tree().get_first_node_in_group("UserInterface")
+	if ui:
+		# Gọi hàm cập nhật tổng thể từ UserInterface
+		ui.update_all_ui()
+		print("[SaveSystem] Đã yêu cầu UserInterface cập nhật UI")
+
+# Lưu trạng thái tạm thời trước khi chuyển cảnh
+func persist_state_for_transition() -> void:
+	print("[SaveSystem] Lưu trạng thái tạm thời trước khi chuyển cảnh...")
 	
-	# Cập nhật hotbar
-	var hotbar_ui = get_tree().root.find_child("Hotbar", true, false)
-	if hotbar_ui and hotbar_ui.has_method("initialize_hotbar"):
-		hotbar_ui.initialize_hotbar()
+	# Lưu trạng thái của các đối tượng đã đăng ký vào cache
+	for object_id in saveable_objects:
+		var object = saveable_objects[object_id]
+		if is_instance_valid(object) and object.has_method("save_state"):
+			scene_transition_cache[object_id] = object.save_state()
+			print("[SaveSystem] Đã lưu trạng thái vào cache: " + object_id)
+	
+	print("[SaveSystem] Đã lưu " + str(scene_transition_cache.size()) + " đối tượng vào cache")
+
+# Xóa cache sau khi đã khôi phục tất cả trạng thái
+func clear_transition_cache() -> void:
+	scene_transition_cache.clear()
+	print("[SaveSystem] Đã xóa cache chuyển cảnh")
+
+# Lưu trạng thái của cửa
+func save_door_state(door_id: String, state: Dictionary) -> void:
+	door_states[door_id] = state
+	print("[SaveSystem] Đã lưu trạng thái cửa: " + door_id)
+	
+	# Lưu vào cache chuyển cảnh để duy trì qua các lần chuyển cảnh
+	scene_transition_cache[door_id] = state
+	
+	# Thêm vào current_game_state để lưu vào file save nếu người chơi lưu game
+	if not current_game_state.has("door_states"):
+		current_game_state["door_states"] = {}
+	current_game_state["door_states"][door_id] = state
+
+# Lấy trạng thái của cửa
+func get_door_state(door_id: String) -> Dictionary:
+	# Kiểm tra trong bộ nhớ đệm trước
+	if door_states.has(door_id):
+		print("[SaveSystem] Đã tìm thấy trạng thái cửa trong bộ nhớ đệm: " + door_id)
+		return door_states[door_id]
+	
+	# Kiểm tra trong cache chuyển cảnh
+	if scene_transition_cache.has(door_id):
+		print("[SaveSystem] Đã tìm thấy trạng thái cửa trong cache chuyển cảnh: " + door_id)
+		door_states[door_id] = scene_transition_cache[door_id]
+		return scene_transition_cache[door_id]
+	
+	# Kiểm tra trong current_game_state nếu có
+	if current_game_state.has("door_states") and current_game_state["door_states"].has(door_id):
+		print("[SaveSystem] Đã tìm thấy trạng thái cửa trong current_game_state: " + door_id)
+		var state = current_game_state["door_states"][door_id]
+		door_states[door_id] = state
+		return state
+	
+	print("[SaveSystem] Không tìm thấy trạng thái cửa: " + door_id)
+	return {}

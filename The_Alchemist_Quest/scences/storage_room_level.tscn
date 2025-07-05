@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2yjvgpj3qdpn"]
+
+[ext_resource type="PackedScene" uid="uid://bkuq3yvwq0xhm" path="res://The_Alchemist_Quest/scences/base_level.tscn" id="1_lnvgd"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/storage_room/storage_room_level.gd" id="2_kd1oi"]
+[ext_resource type="PackedScene" uid="uid://dmkfj00if0yfk" path="res://The_Alchemist_Quest/scences/storage_room_interior.tscn" id="3_nkfxr"]
+
+[node name="StorageRoomLevel" type="Node2D"]
+script = ExtResource("2_kd1oi")
+
+[node name="BaseLevel" parent="." instance=ExtResource("1_lnvgd")]
+
+[node name="StorageRoomInterior" parent="." instance=ExtResource("3_nkfxr")]
+
+[node name="BaseLevel_Player#Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2, -15)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true

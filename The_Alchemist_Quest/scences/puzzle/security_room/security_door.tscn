@@ -14,13 +14,14 @@ puzzle_scenes = Array[PackedScene]([ExtResource("3_68e8t")])
 door_id = "main_security_door"
 
 [node name="DoorSprite" type="Sprite2D" parent="."]
-position = Vector2(21, 2.125)
-scale = Vector2(0.15748, 0.176535)
+position = Vector2(18, 3)
+scale = Vector2(0.455224, 0.577083)
 texture = ExtResource("2_nh8yx")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+visible = false
 position = Vector2(21, 1)
 shape = SubResource("RectangleShape2D_qgm2k")
 
@@ -35,7 +36,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(38, 8)
+position = Vector2(35, 10)
 scale = Vector2(0.458333, 0.416666)
 texture = ExtResource("4_85gi8")
 

@@ -202,16 +202,17 @@ animation = &"Green"
 [node name="Health_timer" type="Timer" parent="UI/HealthBar/AnimatedSprite2D"]
 
 [node name="Room1" parent="." instance=ExtResource("1_g8hxy")]
-position = Vector2(-1354, -639)
+position = Vector2(-1704, -608)
 
 [node name="mentorNPC" parent="." instance=ExtResource("4_cbuwy")]
 z_index = 7
-position = Vector2(194, 75)
+position = Vector2(-88, 118)
 
 [node name="DialogAreaMentor" parent="mentorNPC" instance=ExtResource("8_h8yaq")]
-position = Vector2(2, 3)
+position = Vector2(-296, 87)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="mentorNPC/DialogAreaMentor"]
+position = Vector2(298, -84)
 shape = SubResource("RectangleShape2D_5cjre")
 
 [node name="DialogPlayer" parent="mentorNPC" instance=ExtResource("9_5cjre")]
@@ -251,18 +252,18 @@ position = Vector2(0.0167389, -0.999863)
 shape = SubResource("WorldBoundaryShape2D_i2ae1")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-3.96598, -2.0667)
+position = Vector2(-347.069, 1.18901)
 rotation = 1.59644
 shape = SubResource("WorldBoundaryShape2D_22yb4")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(624.996, 5.4654)
+position = Vector2(280.961, 4.70493)
 rotation = 0.137231
 shape = SubResource("WorldBoundaryShape2D_7gosb")
 
 [node name="Player" parent="." instance=ExtResource("2_bugtt")]
 z_index = 6
-position = Vector2(203, 189)
+position = Vector2(-68, 193)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(-2, -15)

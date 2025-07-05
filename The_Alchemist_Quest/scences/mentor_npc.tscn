@@ -15,7 +15,7 @@ size = Vector2(14, 21)
 size = Vector2(7, 20)
 
 [node name="mentorNPC" type="Area2D"]
-position = Vector2(127, 2)
+position = Vector2(154, 23)
 script = ExtResource("1_mmuwl")
 
 [node name="mentor" type="Sprite2D" parent="."]

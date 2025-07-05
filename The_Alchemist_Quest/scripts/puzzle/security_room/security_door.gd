@@ -1,6 +1,6 @@
 extends "res://The_Alchemist_Quest/scripts/puzzle/storage_door.gd"
 
-@export var security_room_scene: String = "res://The_Alchemist_Quest/scences/security_room_interior.tscn"
+@export var security_room_scene: String = "res://The_Alchemist_Quest/scences/security_room_level.tscn"
 @export var unlocked_door_texture: Texture2D
 
 # Biến player và is_puzzle_completed được khai báo trong lớp cha
@@ -18,7 +18,7 @@ func _ready():
 	
 	# Đảm bảo security_room_scene đã được thiết lập
 	if security_room_scene.is_empty():
-		security_room_scene = "res://The_Alchemist_Quest/scences/security_room_interior.tscn"
+		security_room_scene = "res://The_Alchemist_Quest/scences/security_room_level.tscn"
 		print("[Security Door] Đã thiết lập lại đường dẫn scene mặc định")
 	
 # Đã được xử lý bởi lớp cha
@@ -41,6 +41,12 @@ func _on_puzzle_completed():
 		$DoorSprite.texture = unlocked_door_texture
 	
 	print("[Security Door] Puzzle completed: " + str(puzzle_completed_flags))
+	
+	# Lưu trạng thái cửa sau khi hoàn thành puzzle
+	var save_load_manager = get_node_or_null("/root/SaveLoadManager")
+	if save_load_manager:
+		save_load_manager.save_door_state(door_id, save_state())
+		print("[Security Door] Đã lưu trạng thái cửa sau khi hoàn thành puzzle")
 
 # Ghi đè phương thức save_state của lớp cha
 func save_state() -> Dictionary:
@@ -76,7 +82,20 @@ func open_puzzle_ui():
 		if player and get_node_or_null("/root/GameManager"):
 			var player_position = player.global_position
 			print("[Security Door] Lưu vị trí người chơi trước khi vào phòng:", player_position)
-			get_node("/root/GameManager").security_door_entry_position = player_position
+			# Lưu vị trí vào cả hai biến để đảm bảo tương thích với cả hai cách
+			var game_manager = get_node("/root/GameManager")
+			game_manager.security_door_entry_position = player_position
+			# Thêm dòng này để sử dụng hàm save_player_position
+			game_manager.save_player_position(player_position, "security_door_entry")
+		
+		# Lưu trạng thái tạm thời trước khi chuyển cảnh
+		var save_load_manager = get_node_or_null("/root/SaveLoadManager")
+		if save_load_manager:
+			# Lưu trạng thái cửa trước
+			save_load_manager.save_door_state(door_id, save_state())
+			# Sau đó lưu trạng thái tạm thời
+			save_load_manager.persist_state_for_transition()
+			print("[Security Door] Đã lưu trạng thái tạm thời trước khi chuyển cảnh")
 			
 		get_tree().change_scene_to_file(security_room_scene)
 	else:

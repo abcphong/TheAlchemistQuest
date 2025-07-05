@@ -16,12 +16,14 @@ var nearby_workbench: Node = null
 var can_interact: bool = false
 
 func _ready():
-	var hb = get_node_or_null("/root/Game/UI/HealthBar")
-	if hb != null:
-		hb.connect("health_critical", Callable(self, "call_die_animation"))
-		print("[Player] Đã kết nối với signal từ Health bar")
+	var health_bars = get_tree().get_nodes_in_group("HealthBar")
+	if not health_bars.is_empty():
+		var hb = health_bars[0]
+		if not hb.is_connected("health_critical", Callable(self, "call_die_animation")):
+			hb.connect("health_critical", Callable(self, "call_die_animation"))
+			print("[Player] Đã kết nối với signal từ Health bar")
 	else:
-		print("[Player] Không tìm thấy Health bar trong đường dẫn /root/Game/UI/HealthBar")
+		print("[Player] Không tìm thấy HealthBar trong group 'HealthBar'")
 	
 	add_to_group("Player")
 	
@@ -135,22 +137,9 @@ func play_anim(moving: bool):
 
 # ==== TƯƠNG TÁC WORKBENCH ====
 func _process(delta):
-	# Kiểm tra xem người chơi có đang ở trong phòng security hay không
-	var in_security_room = false
+	# Loại bỏ kiểm tra phòng security
 	
-	# Kiểm tra tên của scene hiện tại
-	if get_tree().current_scene.name == "SecurityRoomInterior":
-		in_security_room = true
-		
-	# Kiểm tra theo script nếu tên scene không khớp
-	if get_tree().current_scene.get_script() and get_tree().current_scene.get_script().resource_path.ends_with("security_room_manager.gd"):
-		in_security_room = true
-		
-	if in_security_room:
-		print("[DEBUG-PLAYER] Người chơi đang ở trong phòng security, bỏ qua xử lý tương tác workbench")
-	
-	if Input.is_action_just_pressed("interact") and not in_security_room:
-		# Chỉ xử lý tương tác workbench nếu KHÔNG ở trong phòng security
+	if Input.is_action_just_pressed("interact"):
 		print("[DEBUG-PLAYER] Nút tương tác được nhấn")
 		# Thêm điều kiện can_interact để đảm bảo người chơi vẫn đang trong vùng tương tác
 		if nearby_workbench != null and is_instance_valid(nearby_workbench) and can_interact:

@@ -17,7 +17,7 @@ func _ready():
 	print("[DEBUG-WORKBENCH] Kiểm tra mảng puzzle_scenes ban đầu:", puzzle_scenes)
 	
 	# Nếu mảng trống hoặc kích thước không đúng, thử tải lại từ scene
-	if puzzle_scenes.size() < 3:
+	if puzzle_scenes.size() < 4:
 		print("[DEBUG-WORKBENCH] Tải lại mảng puzzle_scenes từ scene...")
 		
 		# Tải các scene theo đường dẫn cố định nếu cần
@@ -28,21 +28,30 @@ func _ready():
 				print("[DEBUG-WORKBENCH] Đã thêm intro_scene")
 				
 		if puzzle_scenes.size() < 2 or puzzle_scenes[1] == null:
-			var storage_scene = load("res://The_Alchemist_Quest/scences/puzzle/storage_room/puzzle_ui_task1.tscn")
-			if storage_scene:
+			var storage_scene_1 = load("res://The_Alchemist_Quest/scences/puzzle/storage_room/puzzle_ui_task1.tscn")
+			if storage_scene_1:
 				if puzzle_scenes.size() < 2:
-					puzzle_scenes.append(storage_scene)
+					puzzle_scenes.append(storage_scene_1)
 				else:
-					puzzle_scenes[1] = storage_scene
-				print("[DEBUG-WORKBENCH] Đã thêm storage_scene")
-				
+					puzzle_scenes[1] = storage_scene_1
+				print("[DEBUG-WORKBENCH] Đã thêm storage_scene_1")
+
 		if puzzle_scenes.size() < 3 or puzzle_scenes[2] == null:
+			var storage_scene_2 = load("res://The_Alchemist_Quest/scences/puzzle/storage_room/puzzle_ui_task2.tscn")
+			if storage_scene_2:
+				if puzzle_scenes.size() < 3:
+					puzzle_scenes.append(storage_scene_2)
+				else:
+					puzzle_scenes[2] = storage_scene_2
+				print("[DEBUG-WORKBENCH] Đã thêm storage_scene_2 (Task 2.3)")
+				
+		if puzzle_scenes.size() < 4 or puzzle_scenes[3] == null:
 			var security_scene = load("res://The_Alchemist_Quest/scences/puzzle/security_room/puzzle_ui_task1.tscn")
 			if security_scene:
-				if puzzle_scenes.size() < 3:
+				if puzzle_scenes.size() < 4:
 					puzzle_scenes.append(security_scene)
 				else:
-					puzzle_scenes[2] = security_scene
+					puzzle_scenes[3] = security_scene
 				print("[DEBUG-WORKBENCH] Đã thêm security_scene")
 
 	# Đảm bảo mảng puzzle_scenes được khởi tạo đúng
@@ -135,8 +144,8 @@ func open_puzzle_ui():
 	if current_puzzle_index >= puzzle_scenes.size():
 		print("[DEBUG-WORKBENCH] Đã hoàn thành tất cả puzzle, không thể mở tiếp")
 		# Reset lại current_puzzle_index để có thể chơi lại từ đầu nếu muốn
-		current_puzzle_index = 0
-		print("[DEBUG-WORKBENCH] Đã reset current_puzzle_index về 0")
+		# current_puzzle_index = 0
+		# print("[DEBUG-WORKBENCH] Đã reset current_puzzle_index về 0")
 		return
 
 	print("[DEBUG-WORKBENCH] Chuẩn bị mở puzzle tại index:", current_puzzle_index)

@@ -12,6 +12,14 @@ func _ready():
 	# Tải dữ liệu từ security_room nếu tồn tại
 	var security_data = load_data("res://The_Alchemist_Quest/assets/json/security_room/task1_items.json")
 	print("[DEBUG-ITEMS] Đã tải security items: ", security_data.keys())
+
+	# Tải dữ liệu từ storage_room task1 nếu tồn tại
+	var storage_data = load_data("res://The_Alchemist_Quest/assets/json/storage_room/task1_items.json")
+	print("[DEBUG-ITEMS] Đã tải storage task1 items: ", storage_data.keys())
+	
+	# Tải dữ liệu từ storage_room task2 nếu tồn tại
+	var storage_task2_data = load_data("res://The_Alchemist_Quest/assets/json/storage_room/task2_items.json")
+	print("[DEBUG-ITEMS] Đã tải storage task2 items: ", storage_task2_data.keys())
 	
 	# Hợp nhất dữ liệu từ các nguồn khác nhau
 	if "item" in intro_data:
@@ -27,6 +35,24 @@ func _ready():
 		else:
 			for key in security_data:
 				item_data["item"][key] = security_data[key]
+
+	# Merge storage task1 data vào item_data
+	if storage_data:
+		if "item" in storage_data:
+			for key in storage_data["item"]:
+				item_data["item"][key] = storage_data["item"][key]
+		else:
+			for key in storage_data:
+				item_data["item"][key] = storage_data[key]
+				
+	# Merge storage task2 data vào item_data
+	if storage_task2_data:
+		if "item" in storage_task2_data:
+			for key in storage_task2_data["item"]:
+				item_data["item"][key] = storage_task2_data["item"][key]
+		else:
+			for key in storage_task2_data:
+				item_data["item"][key] = storage_task2_data[key]
 	
 	print("[DEBUG-ITEMS] Cấu trúc cuối cùng của item_data:", item_data.keys())
 	if "item" in item_data:

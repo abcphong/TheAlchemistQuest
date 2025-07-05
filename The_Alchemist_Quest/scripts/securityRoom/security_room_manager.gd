@@ -12,12 +12,16 @@ extends Node2D
 @onready var door_sprite = $Door/DoorSprite
 @onready var health_bar = get_node_or_null("UI/HealthBar") # Tham chiếu đến HealthBar
 
+# Đường dẫn đến scene giao diện màn hình giám sát
+const SECURITY_MONITOR_UI_PATH = "res://The_Alchemist_Quest/scences/puzzle/security_room/security_monitor_ui.tscn"
+
 # Biến theo dõi trạng thái
 var player_in_monitor_area = false
 var player_in_cabinet_area = false
 var player_in_exit_area = false
 var room_entry_cooldown = false  # Cờ để tránh thoát phòng ngay lập tức khi mới vào - đã tắt để cho phép thoát ngay lập tức
 var exit_door_active = false    # Cờ để theo dõi trạng thái cửa thoát
+var monitor_ui_active = false   # Cờ để theo dõi trạng thái giao diện màn hình giám sát
 
 # Vị trí cửa trong scene gốc
 const SECURITY_DOOR_POSITION = Vector2(2043, 744)  # Vị trí của SecurityDoor trong room 1.tscn
@@ -123,8 +127,30 @@ func _process(delta):
 # Xử lý tương tác với màn hình giám sát
 func _handle_monitor_interaction():
 	print("[SecurityRoom] Tương tác với màn hình giám sát")
-	# Hiển thị hình ảnh từ camera giám sát hoặc mở giao diện điều khiển
-	# TODO: Thêm code hiển thị giao diện camera
+	
+	# Kiểm tra xem giao diện màn hình giám sát đã được hiển thị chưa
+	if monitor_ui_active:
+		print("[SecurityRoom] Giao diện màn hình giám sát đã được hiển thị")
+		return
+	
+	# Hiển thị giao diện màn hình giám sát
+	var monitor_ui_scene = load(SECURITY_MONITOR_UI_PATH)
+	if monitor_ui_scene:
+		var monitor_ui = monitor_ui_scene.instantiate()
+		add_child(monitor_ui)
+		monitor_ui_active = true
+		
+		# Kết nối tín hiệu để biết khi nào giao diện bị đóng
+		monitor_ui.tree_exited.connect(_on_monitor_ui_closed)
+		
+		print("[SecurityRoom] Đã hiển thị giao diện màn hình giám sát")
+	else:
+		print("[SecurityRoom] Lỗi: Không thể tải scene giao diện màn hình giám sát")
+
+# Xử lý khi giao diện màn hình giám sát bị đóng
+func _on_monitor_ui_closed():
+	monitor_ui_active = false
+	print("[SecurityRoom] Giao diện màn hình giám sát đã bị đóng")
 
 # Xử lý tương tác với tủ hóa chất
 func _handle_cabinet_interaction():
@@ -139,11 +165,6 @@ func _handle_cabinet_interaction():
 func _exit_room():
 	print("[SecurityRoom] Thoát khỏi phòng bảo mật")
 	
-	# Lưu trạng thái thanh máu trước khi thoát
-	if health_bar:
-		health_bar.save_health_state()
-		print("[SecurityRoom] Đã lưu trạng thái thanh máu trước khi thoát")
-	
 	# Lấy vị trí entry từ GameManager nếu có, nếu không thì dùng vị trí mặc định
 	var return_position = SECURITY_DOOR_POSITION
 	var game_manager = get_node_or_null("/root/GameManager")
@@ -154,18 +175,17 @@ func _exit_room():
 	else:
 		print("[SecurityRoom] Không tìm thấy vị trí vào, sử dụng vị trí mặc định:", return_position)
 	
-	# Lưu vị trí người chơi để đặt ở cửa bảo mật trong scene gốc
-	var player_data = {
-		"position": return_position,
-		"from_security_room": true
-	}
-	
-	# Lưu thông tin vào GameManager
+	# Sử dụng hàm save_player_position thay vì gán trực tiếp vào player_spawn_data
 	if game_manager:
-		game_manager.player_spawn_data = player_data
-	else:
-		# Nếu không có GameManager, sử dụng biến toàn cục
-		Engine.get_singleton("GlobalScope").player_spawn_data = player_data
+		game_manager.save_player_position(return_position, "security_room")
+		game_manager.player_spawn_data["from_security_room"] = true
+		print("[SecurityRoom] Đã lưu vị trí người chơi để quay về:", return_position)
+	
+	# Lưu trạng thái tạm thời trước khi chuyển cảnh
+	var save_load_manager = get_node_or_null("/root/SaveLoadManager")
+	if save_load_manager:
+		save_load_manager.persist_state_for_transition()
+		print("[SecurityRoom] Đã lưu trạng thái tạm thời trước khi chuyển cảnh")
 	
 	# Chuyển về scene chính
 	get_tree().change_scene_to_file(GAME_SCENE_PATH)

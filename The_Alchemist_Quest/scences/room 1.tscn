@@ -14,9 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://d2kgk3f4vg6vs" path="res://The_Alchemist_Quest/scences/puzzle/intro_room/puzzle_ui_task1.tscn" id="9_0xgrd"]
 [ext_resource type="Texture2D" uid="uid://cxxbj1j0oeqik" path="res://The_Alchemist_Quest/Tiles/Floor_16X32_darker.png" id="9_7ha77"]
 [ext_resource type="Texture2D" uid="uid://dt2s3u4tlel4o" path="res://The_Alchemist_Quest/assets/decor/Intro_room_shelf.png" id="9_ehwwq"]
-[ext_resource type="Texture2D" uid="uid://dw5l5cucp3dte" path="res://The_Alchemist_Quest/assets/decor/Ventilation_control_system.png" id="10_e2lgb"]
 [ext_resource type="PackedScene" uid="uid://f6dbg7mqmc3q" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/puzzle_ui_task1.tscn" id="10_ifkq1"]
 [ext_resource type="Texture2D" uid="uid://bhecjash0dhmb" path="res://The_Alchemist_Quest/Tiles/Floor_16X32_darker_light.png" id="10_okgwj"]
+[ext_resource type="PackedScene" uid="uid://be5cqrphxpy70" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/task_3/ventilation_control_system.tscn" id="11_gkxi7"]
 [ext_resource type="PackedScene" uid="uid://c64et3qhtvjwv" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/storage_door.tscn" id="16_33wcl"]
 [ext_resource type="PackedScene" uid="uid://cn64yxuryqo28" path="res://The_Alchemist_Quest/scences/puzzle/security_room/security_door.tscn" id="17_5h8bn"]
 
@@ -251,7 +251,6 @@ texture_region_size = Vector2i(8, 8)
 266:3/0 = 0
 267:3/0 = 0
 268:3/0 = 0
-269:3/0 = 0
 287:3/0 = 0
 288:3/0 = 0
 289:3/0 = 0
@@ -1336,7 +1335,6 @@ texture_region_size = Vector2i(8, 8)
 234:13/0 = 0
 235:13/0 = 0
 236:13/0 = 0
-237:13/0 = 0
 256:13/0 = 0
 257:13/0 = 0
 258:13/0 = 0
@@ -3303,9 +3301,8 @@ position = Vector2(1599.25, 689.951)
 scale = Vector2(1.06098, 1.06098)
 texture = ExtResource("9_ehwwq")
 
-[node name="Sprite2D" type="Sprite2D" parent="item"]
+[node name="Ventilation_control_system" parent="item" instance=ExtResource("11_gkxi7")]
 position = Vector2(1339, 747)
-texture = ExtResource("10_e2lgb")
 
 [node name="Wall" type="TileMapLayer" parent="."]
 z_index = -6
@@ -3324,22 +3321,6 @@ position = Vector2(1655, 782)
 
 [node name="RoomLabels" type="Node2D" parent="."]
 editor_description = "These labels are only for editor reference and don't appear in game"
-
-[node name="StorageRoomLabel" type="Label" parent="RoomLabels"]
-offset_left = 1780.0
-offset_top = 680.0
-offset_right = 1940.0
-offset_bottom = 706.0
-text = "Storage room"
-metadata/_edit_use_anchors_ = true
-
-[node name="SecurityRoomLabel" type="Label" parent="RoomLabels"]
-offset_left = 2020.0
-offset_top = 680.0
-offset_right = 2180.0
-offset_bottom = 706.0
-text = "Security room"
-metadata/_edit_use_anchors_ = true
 
 [node name="StorageDoor" parent="." instance=ExtResource("16_33wcl")]
 position = Vector2(1870, 746)

@@ -1,7 +1,7 @@
 extends "res://The_Alchemist_Quest/scripts/puzzle/storage_door.gd"
 
 # Đường dẫn đến scene phòng bảo mật
-@export var security_room_scene: String = "res://The_Alchemist_Quest/scences/security_room_interior.tscn"
+@export var security_room_scene: String = "res://The_Alchemist_Quest/scences/security_room_level.tscn"
 
 # Ghi đè hàm open_puzzle_ui để xử lý trường hợp đặc biệt khi tất cả puzzle đã hoàn thành
 func open_puzzle_ui():

@@ -44,7 +44,8 @@ func load_state(state: Dictionary) -> void:
 		# Khôi phục puzzle_completed_flags
 		if state.has("puzzle_completed_flags") and state["puzzle_completed_flags"].size() == puzzle_completed_flags.size():
 			for i in range(puzzle_completed_flags.size()):
-				puzzle_completed_flags[i] = state["puzzle_completed_flags"][i]
+				puzzle_completed_flags[i] = bool(state["puzzle_completed_flags"][i])
+			print("[SaveSystem] Door '" + door_id + "' đã tải trạng thái puzzle_completed_flags")
 		
 		print("[SaveSystem] Door '" + door_id + "' tải trạng thái: index=" + str(current_puzzle_index) + ", completed=" + str(puzzle_completed_flags) + ", open=" + str(is_door_open))
 		

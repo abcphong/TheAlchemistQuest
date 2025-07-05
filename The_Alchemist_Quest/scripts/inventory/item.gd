@@ -1,36 +1,12 @@
 extends Control
 
+class_name Item
+
 var item_name: String = ""
 var item_quantity : int = 0
+var max_quantity: int = 1
 
-func _ready():
-	var rand_val = randi() % 4
-	if rand_val == 0:
-		item_name = "Copper wire"
-	elif rand_val == 1:
-		item_name = "CuSO4"
-	elif rand_val == 2:
-		item_name = "Electric wire"
-	elif rand_val == 3:
-		item_name = "Electric wire"
-	elif rand_val == 4:
-		item_name = "ZnSO4"
-	elif rand_val == 5:
-		item_name = "Zinc bar"
-	else:
-		item_name = "Salt bridge"
-		
-	$TextureRect.texture = load("res://The_Alchemist_Quest/assets/puzzle/intro_room/" + item_name + ".png")
-	var stack_size = int(JsonData.item_data.get(item_name, {}).get("StackSize", 1))
-	item_quantity = randi() % stack_size + 1
-	
-	if stack_size == 1:
-		$Label.visible = false
-	else: 
-		$Label.text = str(item_quantity)
-		
 func set_item(nm: String, qt: int) -> void:
-	print("[DEBUG-ITEM] Bắt đầu set_item: ", nm, " x ", qt)
 	item_name = nm
 	item_quantity = qt
 	
@@ -39,65 +15,78 @@ func set_item(nm: String, qt: int) -> void:
 		"res://The_Alchemist_Quest/assets/puzzle/intro_room/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/puzzle/security_room/task1/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/puzzle/storage_room/task2/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/item/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/gameDemo/" + item_name + ".png"
 	]
 	
-	print("[DEBUG-ITEM] Đang tìm texture cho: ", item_name)
 	
 	# Kiểm tra chi tiết về file tồn tại
 	for path in texture_paths:
 		var exists = ResourceLoader.exists(path)
-		print("[DEBUG-ITEM] Đường dẫn ", path, " tồn tại: ", exists)
 	
 	# Thử tải từng đường dẫn cho đến khi tìm thấy texture
 	var texture = null
 	for path in texture_paths:
-		print("[DEBUG-ITEM] Thử đường dẫn: ", path)
 		if ResourceLoader.exists(path):
-			print("[DEBUG-ITEM] Tìm thấy texture tại: ", path)
 			texture = load(path)
 			break
 	
 	if texture:
-		print("[DEBUG-ITEM] Áp dụng texture cho item: ", item_name)
 		$TextureRect.texture = texture
 	else:
-		print("[DEBUG-ITEM] Không tìm thấy texture cho item: ", item_name, " - sử dụng texture mặc định")
 		# Tải texture mặc định nếu không tìm thấy
 		$TextureRect.texture = load("res://The_Alchemist_Quest/assets/item/unknow_item.png")
 
 	# Cập nhật stack và hiển thị số lượng
-	var stack_size = 1
 	if JsonData.item_data.has(item_name):
-		stack_size = int(JsonData.item_data[item_name].get("StackSize", 1))
+		max_quantity = int(JsonData.item_data[item_name].get("StackSize", 1))
 	elif JsonData.item_data.has("item") and JsonData.item_data["item"].has(item_name):
-		stack_size = int(JsonData.item_data["item"][item_name].get("StackSize", 1))
+		max_quantity = int(JsonData.item_data["item"][item_name].get("StackSize", 1))
+	else:
+		max_quantity = 1
 		
-	print("[DEBUG-ITEM] Stack size cho ", item_name, ": ", stack_size)
-	$Label.visible = stack_size > 1
+	# Chỉ hiển thị số lượng khi item_quantity > 1
+	$Label.visible = item_quantity > 1
 	$Label.text = str(item_quantity)
 	
-func add_item_quantity(amount_to_add):
-	item_quantity += amount_to_add
+func set_item_quantity(new_quantity: int):
+	item_quantity = new_quantity
+	# Cập nhật hiển thị số lượng
+	$Label.visible = item_quantity > 1
 	$Label.text = str(item_quantity)
+	if item_quantity <= 0:
+		queue_free()
+
+func add_item_quantity(amount_to_add: int) -> int:
+	var new_quantity = item_quantity + amount_to_add
+	var remainder = 0
+	if new_quantity > max_quantity:
+		item_quantity = max_quantity
+		remainder = new_quantity - max_quantity
+	else:
+		item_quantity = new_quantity
+	
+	# Cập nhật hiển thị số lượng
+	$Label.visible = item_quantity > 1
+	$Label.text = str(item_quantity)
+	return remainder
 	
 func decrease_item_quantity(amount_to_remove):
 	item_quantity -= amount_to_remove
+	# Cập nhật hiển thị số lượng
+	$Label.visible = item_quantity > 1
 	$Label.text = str(item_quantity)
 	
-func try_add_quantity(amount):
-	var stack_size = int(JsonData.item_data[item_name].get("StackSize",1))
-	if item_quantity + amount <= stack_size:
-		item_quantity += amount
-		$Label.text = str(item_quantity)
-		return true
-	return false
+# This function is not used anymore, replaced by add_item_quantity
+#func try_add_quantity(amount):
+#	var stack_size = int(JsonData.item_data[item_name].get("StackSize",1))
+#	if item_quantity + amount <= stack_size:
+#		item_quantity += amount
+#		$Label.text = str(item_quantity)
+#		return true
+#	return false
 	
-signal item_right_clicked(item_name: String, item_description: String)
+# Đã loại bỏ tín hiệu item_right_clicked
 
-func _on_gui_input(event: InputEvent):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
-		emit_signal("item_right_clicked", item_name, JsonData.item_data[item_name]["Description"])
-	
-	
+# Đã loại bỏ hàm _on_gui_input vì không còn cần xử lý chuột phải

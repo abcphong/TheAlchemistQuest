@@ -1,7 +1,7 @@
 {
 	"item":{
 		"Copper wire" : {
-			"StackSize" : 1,
+			"StackSize" : 10,
 			"Description" : "Dây đồng dẫn điện, kết nối các cực trong các phản ứng điện hóa, giúp truyền tải dòng điện giữa các thành phần."
 		},
 		
@@ -11,13 +11,8 @@
 		},
 		
 		"Electric wire" : {
-			"StackSize" : 1,
+			"StackSize" : 10,
 			"Description" : "Dây điện dùng để kết nối các cực của tế bào điện hóa, giúp dòng điện chạy qua các phản ứng cần thiết."
-		},
-		   
-		"Electric wire" : {
-			"StackSize" : 1,
-			"Description" :"Dây điện dùng để kết nối các cực của tế bào điện hóa, giúp dòng điện chạy qua các phản ứng cần thiết."
 		},
 		
 		"ZnSO4" : {
@@ -26,7 +21,7 @@
 		},
 		
 		"Zinc bar" : {
-		"StackSize" : 1,
+		"StackSize" : 5,
 		"Description" :"Thanh kẽm, cực âm trong phản ứng điện hóa, tham gia vào quá trình khử oxi hóa và tạo dòng điện."
 		},
 	
