@@ -246,7 +246,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3evg"]
-size = Vector2(15, 18)
+size = Vector2(15, 25)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("player_sprite")]
 process_mode = 3
@@ -262,5 +262,5 @@ animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 process_mode = 3
-position = Vector2(-1.5, -8)
+position = Vector2(-1, -12.5)
 shape = SubResource("RectangleShape2D_f3evg")

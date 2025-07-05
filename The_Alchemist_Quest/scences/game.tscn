@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://hupnwn10ee05"]
+[gd_scene load_steps=32 format=3 uid="uid://hupnwn10ee05"]
 
 [ext_resource type="PackedScene" uid="uid://cxm3k6ck844do" path="res://The_Alchemist_Quest/scences/room 1.tscn" id="1_g8hxy"]
 [ext_resource type="PackedScene" uid="uid://lelq75l35prl" path="res://The_Alchemist_Quest/scences/player.tscn" id="2_bugtt"]
@@ -152,14 +152,17 @@ distance = -43.0631
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i2ae1"]
 normal = Vector2(-0.0167434, 0.99986)
-distance = -142.0
+distance = -149.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_22yb4"]
-distance = -211.992
+distance = -220.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7gosb"]
 normal = Vector2(-0.99275, 0.120196)
 distance = 40.1772
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l2sop"]
+size = Vector2(686.018, 107.923)
 
 [node name="Game" type="Node2D"]
 position = Vector2(0, -1)
@@ -227,33 +230,36 @@ wait_time = 3.0
 one_shot = true
 script = ExtResource("11_p3lsj")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Collision" type="StaticBody2D" parent="."]
 position = Vector2(176, 193)
 rotation = -0.0167443
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
 position = Vector2(84.7417, -43.5872)
 rotation = 0.137231
 shape = SubResource("WorldBoundaryShape2D_bugtt")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Collision"]
 position = Vector2(0.0167389, -0.999863)
 shape = SubResource("WorldBoundaryShape2D_i2ae1")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Collision"]
 position = Vector2(-10.8143, -11.1826)
 rotation = 1.59644
 shape = SubResource("WorldBoundaryShape2D_22yb4")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(799.44, -19.6173)
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="Collision"]
+position = Vector2(990.531, -23.4183)
 rotation = 0.137231
 shape = SubResource("WorldBoundaryShape2D_7gosb")
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(799.44, -19.6173)
-rotation = 0.137231
-shape = SubResource("WorldBoundaryShape2D_7gosb")
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Collision"]
+position = Vector2(616.306, -131.657)
+rotation = 0.0174533
+shape = SubResource("RectangleShape2D_l2sop")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Collision"]
+polygon = PackedVector2Array(-93.2909, -162.585, -144.255, -105.43, -226.26, -105.803, -225.54, -148.797, -144.518, -149.441, -93.7382, -195.597)
 
 [node name="Player" parent="." instance=ExtResource("2_bugtt")]
 z_index = 6

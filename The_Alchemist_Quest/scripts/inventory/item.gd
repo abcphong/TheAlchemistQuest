@@ -40,6 +40,7 @@ func set_item(nm: String, qt: int) -> void:
 		"res://The_Alchemist_Quest/assets/puzzle/security_room/task1/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/puzzle/storage_room/task2/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/puzzle/final_room/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/item/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/gameDemo/" + item_name + ".png"
 	]

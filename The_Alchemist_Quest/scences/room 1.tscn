@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dkauxyxhfjw0" path="res://The_Alchemist_Quest/Tiles/Suspect_wall_tile.png" id="14_60w77"]
 [ext_resource type="PackedScene" uid="uid://c64et3qhtvjwv" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/storage_door.tscn" id="16_33wcl"]
 [ext_resource type="PackedScene" uid="uid://t7q2p6hb4uc1" path="res://The_Alchemist_Quest/scences/puzzle/security_room/security_door.tscn" id="17_juy6h"]
-[ext_resource type="PackedScene" uid="uid://bfck8gqhmcpox" path="res://The_Alchemist_Quest/scences/puzzle/final_room/final_door.tscn" id="18_icftw"]
+[ext_resource type="PackedScene" uid="uid://bt3vd2j4ijmsf" path="res://The_Alchemist_Quest/scences/puzzle/final_room/final_door.tscn" id="19_wrhx7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r38i8"]
 texture_region_size = Vector2i(8, 8)
@@ -3335,5 +3335,5 @@ position = Vector2(815, 297)
 [node name="SecurityDoor" parent="." instance=ExtResource("17_juy6h")]
 position = Vector2(1130, 291)
 
-[node name="FinalDoor" parent="." instance=ExtResource("18_icftw")]
-position = Vector2(1374, 297)
+[node name="FinalDoor" parent="." instance=ExtResource("19_wrhx7")]
+position = Vector2(1364, 302)

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://djubwjlrl4fu4" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/puzzle_ui_task1-2.tscn" id="2_krgoa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvrlc"]
-size = Vector2(28, 45.5)
+size = Vector2(28, 47)
 
 [node name="StorageDoor" type="Node2D"]
 script = ExtResource("1_lg08s")

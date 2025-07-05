@@ -40,8 +40,8 @@ animations = [{
 
 [node name="PuzzleUiTask2" type="CanvasLayer"]
 script = ExtResource("1_r4m2c")
-reward_items = Array[String](["Na2S2O3+H2O"])
-reward_amounts = Array[int]([0])
+reward_items = Array[String](["Na2S2O3+H2O", "HCl", "H2O2"])
+reward_amounts = Array[int]([1, 1, 1])
 
 [node name="InventoryContainer" type="Control" parent="."]
 layout_mode = 3
@@ -73,6 +73,7 @@ offset_top = 257.622
 offset_right = 567.0
 offset_bottom = 303.622
 expected_item = Array[String](["Na2S2O3"])
+metadata/_edit_use_anchors_ = true
 
 [node name="PuzzleSlot2" parent="." instance=ExtResource("4_cjdli")]
 offset_left = 521.0
@@ -80,6 +81,7 @@ offset_top = 314.324
 offset_right = 567.0
 offset_bottom = 360.324
 expected_item = Array[String](["H2O"])
+metadata/_edit_use_anchors_ = true
 
 [node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
 visible = false
