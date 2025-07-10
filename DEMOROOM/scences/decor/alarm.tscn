@@ -1,0 +1,123 @@
+[gd_scene load_steps=17 format=3 uid="uid://ctqv6qacavsux"]
+
+[ext_resource type="Texture2D" uid="uid://dy6pmh84q7knd" path="res://TheAlchemistQuest/assets/gameDemo/Rotating_red_beacon.png" id="1_7hjlf"]
+[ext_resource type="Script" uid="uid://vakkwa1nqcne" path="res://TheAlchemistQuest/scripts/demo_room/beacon.gd" id="2_myc2y"]
+[ext_resource type="AudioStream" uid="uid://5bjjjbeg47tg" path="res://TheAlchemistQuest/assets/audio/Danger Alarm Meme Sound Effect.mp3" id="3_myc2y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwcsx"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oghrf"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8b5cv"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf2rf"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yynms"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(1000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x8cg4"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(1200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps14v"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(1400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ug1n3"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(1600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3g3o"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(1800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqh5n"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(2000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0iwk"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(2200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sy7cc"]
+atlas = ExtResource("1_7hjlf")
+region = Rect2(2400, 0, 200, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_15c4h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwcsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oghrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8b5cv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xf2rf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yynms")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x8cg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps14v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ug1n3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3g3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqh5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0iwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sy7cc")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 10.0
+}]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -101.0
+offset_top = -106.0
+offset_right = 1191.0
+offset_bottom = 696.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0.407843)
+
+[node name="beacon" type="AnimatedSprite2D" parent="."]
+position = Vector2(357, 8)
+sprite_frames = SubResource("SpriteFrames_15c4h")
+animation = &"new_animation"
+script = ExtResource("2_myc2y")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Danger_Alarm" type="AudioStreamPlayer2D" parent="Node2D"]
+stream = ExtResource("3_myc2y")
+volume_db = -4.953
