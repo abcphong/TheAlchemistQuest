@@ -1,0 +1,86 @@
+{
+	"room": "Phòng Thoát Hiểm",
+	"scene": {
+		"Background": "Phòng kín, cửa thoát hiểm khóa bằng hệ thống sinh trắc học và khóa điện tử.",
+		"Objective": "Phá hủy ổ cứng cuối cùng để mở khóa thoát hiểm.",
+		"Timer": {
+			"SelfDestruct": 180,
+			"DestroyHDD": 60
+		}
+	},
+	"items": {
+		"NaOH Solution": {
+			"StackSize": 1,
+			"Description": "Dung dịch natri hydroxit (NaOH) cần pha đúng tỷ lệ với nước."
+		},
+		"Water": {
+			"StackSize": 1,
+			"Description": "Nước tinh khiết dùng để pha loãng NaOH."
+		},
+		"Mixing Beaker": {
+			"StackSize": 1,
+			"Description": "Cốc thủy tinh để pha dung dịch NaOH."
+		},
+		"HDD/SSD": {
+			"StackSize": 1,
+			"Description": "Ổ cứng lưu trữ dữ liệu X-92, bảo vệ bởi lớp nhôm."
+		}
+	},
+	"actions": {
+		"CheckLock": {
+			"Description": "Kiểm tra hệ thống khóa điện tử và xác định không thể mở bằng phương pháp thông thường."
+		},
+		"AnalyzeCircuit": {
+			"Description": "Phân tích cấu trúc bảng mạch, phát hiện lớp nhôm bảo vệ."
+		},
+		"MixNaOH": {
+			"Description": "Pha NaOH với nước đúng tỷ lệ để tạo dung dịch ăn mòn an toàn."
+		},
+		"PourNaOH": {
+			"Description": "Đổ dung dịch NaOH lên ổ cứng để phá hủy lớp nhôm và chip nhớ."
+		},
+		"WaitDestroy": {
+			"Description": "Chờ phản ứng ăn mòn hoàn tất (60 giây)."
+		},
+		"ActivatePanel": {
+			"Description": "Kích hoạt bảng điều khiển để vô hiệu hóa khóa điện tử sau khi ổ cứng bị phá hủy."
+		},
+		"Escape": {
+			"Description": "Chạy đến lối thoát trong 180 giây trước khi hệ thống tự hủy."
+		}
+	},
+	"effects": {
+		"NaOHReaction": {
+			"Visual": [
+				"Bọt khí H₂ nhỏ xuất hiện trên bề mặt nhôm và chip nhớ.",
+				"Lớp nhôm bị hòa tan dần, lộ ra bảng mạch.",
+				"Chip nhớ NAND bị mủn ra.",
+				"Dung dịch chuyển từ trong suốt sang màu trắng đục."
+			]
+		},
+		"UnlockDoor": {
+			"Visual": "Khóa điện tử vô hiệu hóa, cửa thoát hiểm mở ra."
+		},
+		"Alarm": {
+			"Sound": "Tiếng còi báo động vang lên, hệ thống thông báo tự hủy."
+		}
+	},
+	"dialogues": {
+		"Alex": [
+			"Không có mã cấp S, mình cũng chẳng đi đâu được… Nhưng nếu mình có thể gây đoản mạch, mình có thể vô hiệu hóa nó.",
+			"Nhôm có thể bị ăn mòn bởi NaOH… Nếu mình sử dụng đủ mạnh, nó có thể phá hủy mạch.",
+			"Mình cần đúng tỷ lệ… Nếu pha quá ít nước, phản ứng sẽ quá mạnh và có thể gây nguy hiểm.",
+			"Ổ cứng đang bị ăn mòn… Chỉ cần đợi thêm một chút nữa…",
+			"Không ai có thể khôi phục dữ liệu này nữa… Giờ thì mở cửa nào.",
+			"Mình không thể lãng phí thời gian nữa… Phải thoát ngay!"
+		],
+		"System": [
+			"Lỗi hệ thống… Vô hiệu hóa khóa điện tử… Mở cửa thoát hiểm.",
+			"Cảnh báo! Hệ thống tự hủy sẽ kích hoạt trong 180 giây. Tất cả nhân viên phải sơ tán ngay lập tức."
+		]
+	},
+	"result": {
+		"Success": "Alex kịp thời chạy thoát và tiến đến nhiệm vụ cuối cùng.",
+		"Fail": "Nếu không thoát kịp 3 phút, phòng thí nghiệm phát nổ và nhiệm vụ thất bại."
+	}
+}
