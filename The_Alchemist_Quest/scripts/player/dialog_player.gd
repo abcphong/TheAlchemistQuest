@@ -1,8 +1,8 @@
 extends CanvasLayer
 
-@export_file("*.json") var scence_text_file: String
+@export_file("*.json") var scene_text_file: String
 
-var scence_text = {}
+var scene_text = {}
 var selected_text = []
 var in_progress = false
 var mentor_npc
@@ -13,19 +13,19 @@ var mentor_npc
 
 func _ready():
 	background.visible = false
-	scence_text = load_scence_text()
+	scene_text = load_scene_text()
 	if not SignalBus.is_connected("display_dialog", on_display_dialog):
 		SignalBus.connect("display_dialog", on_display_dialog)
 
-func load_scence_text():
-	var file = FileAccess.open(scence_text_file, FileAccess.READ)
+func load_scene_text():
+	var file = FileAccess.open(scene_text_file, FileAccess.READ)
 	if file:
 		var content =file.get_as_text()
 		var parsed_data = JSON.parse_string(content)
 		if parsed_data:
 			return parsed_data
 		else:
-			print("⚠️ Failed to parse JSON from", scence_text_file)
+			print("⚠️ Failed to parse JSON from", scene_text_file)
 	return {}
 
 func show_text():
@@ -81,13 +81,13 @@ func on_display_dialog(text_key,npc):
 
 	#Find the correct dialog key
 	var matched_key = null
-	for key in scence_text.keys():
+	for key in scene_text.keys():
 		if key.begins_with(text_key):
 			matched_key =key
 			break
 			
 	if matched_key:
-		selected_text = scence_text[matched_key].duplicate()
+		selected_text = scene_text[matched_key].duplicate()
 		print("Found dialog:", matched_key)
 	else:
 		print("No dialog found for key: ", text_key)

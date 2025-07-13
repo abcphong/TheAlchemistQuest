@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TheAlchemistQuest"
-run/main_scene="res://The_Alchemist_Quest/scences/game.tscn"
+run/main_scene="res://The_Alchemist_Quest/scenes/homepage/homepage.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 

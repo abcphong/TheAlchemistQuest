@@ -1,6 +1,6 @@
 extends Panel
 
-var ItemClass = preload("res://The_Alchemist_Quest/scences/player/item.tscn")
+var ItemClass = preload("res://The_Alchemist_Quest/scenes/player/item.tscn")
 var item = null
 var item_name = ""
 var item_data = {}

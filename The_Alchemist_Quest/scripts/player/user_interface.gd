@@ -68,7 +68,7 @@ func return_item_to_inventory(item: Control) -> bool:
 func add_new_item_to_inventory(item_name: String, quantity: int) -> bool:
 	print("🧪 add_new_item_to_inventory được gọi với:", item_name, "x", quantity)
 
-	var item_scene = load("res://The_Alchemist_Quest/scences/player/item.tscn")
+	var item_scene = load("res://The_Alchemist_Quest/scenes/player/item.tscn")
 	if item_scene == null:
 		print("❌ Không thể load scene item.tscn")
 		return false
