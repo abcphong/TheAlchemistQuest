@@ -1,0 +1,87 @@
+[gd_scene load_steps=9 format=3 uid="uid://cug0ue5sswp7e"]
+
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="1_34oef"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/security_room/puzzle_ui_task_1.gd" id="1_kpxxt"]
+[ext_resource type="Texture2D" uid="uid://cv6fkc4t4rb5g" path="res://The_Alchemist_Quest/assets/puzzle/security_room/task1/Task1_security_room.png" id="2_6n8jw"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scences/puzzle/puzzle_slot.tscn" id="3_lek6p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fk2v1"]
+atlas = ExtResource("2_6n8jw")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3sn7"]
+atlas = ExtResource("2_6n8jw")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4bvi"]
+atlas = ExtResource("2_6n8jw")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iog2p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fk2v1")
+}],
+"loop": false,
+"name": &"phase2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3sn7")
+}],
+"loop": false,
+"name": &"phase3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4bvi")
+}],
+"loop": false,
+"name": &"success",
+"speed": 5.0
+}]
+
+[node name="PuzzleUI" type="CanvasLayer"]
+script = ExtResource("1_kpxxt")
+reward_items = Array[String](["ph-paper-after", "CH3COOH+CH3COONa"])
+reward_amounts = Array[int]([1, 1])
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("1_34oef")]
+position = Vector2(593, 180)
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+position = Vector2(493, 226)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_iog2p")
+animation = &"phase2"
+
+[node name="ChemicalSlot1" parent="." instance=ExtResource("3_lek6p")]
+offset_left = 471.0
+offset_top = 186.0
+offset_right = 517.0
+offset_bottom = 232.0
+expected_item = Array[String](["CH3COOH"])
+
+[node name="ChemicalSlot2" parent="." instance=ExtResource("3_lek6p")]
+offset_left = 471.0
+offset_top = 250.0
+offset_right = 517.0
+offset_bottom = 296.0
+expected_item = Array[String](["CH3COONa"])
+
+[node name="PaperSlot" parent="." instance=ExtResource("3_lek6p")]
+visible = false
+offset_left = 471.0
+offset_top = 218.0
+offset_right = 517.0
+offset_bottom = 264.0
+expected_item = Array[String](["ph-paper-before"])

@@ -1,0 +1,38 @@
+{
+  "NPC_quản_lý_Storage": [
+	"Cảnh báo: Mọi lối thoát đã bị phong tỏa. Chỉ nhân viên cấp cao mới được phép truy cập kho vật tư."
+  ],
+  "Player_storage_intro": [
+	"Thật tuyệt... Hệ thống khóa điện tử. Mình không có thời gian để mò mật mã đâu.",
+	"Có lẽ mình có thể hòa tan ổ khóa bằng hóa chất..."
+  ],
+  "Player_pickup_HCl": [
+	"Axit Hydrochloric… nó có thể hòa tan nhiều kim loại, nhưng với ổ khóa này, nó có thể mất quá nhiều thời gian."
+  ],
+  "Player_pickup_H2O2": [
+	"H₂O₂ là một chất oxy hóa mạnh. Nếu mình kết hợp nó với HCl, nó sẽ tạo ra FeCl₃, một dung dịch có thể phá hủy lớp kim loại nhanh hơn."
+  ],
+  "Puzzle_Guide_Storage_Task1": [
+	"Hãy kết hợp HCl và H₂O₂ theo đúng tỷ lệ trong bình chứa, sau đó đổ dung dịch lên ổ khóa."
+  ],
+  "Player_finished_storage_task1": [
+	"Ổ khóa đã tan rã! Đúng như dự đoán.",
+	"Hoạt động hoàn hảo! Giờ thì xem trong này có gì nào."
+  ],
+  "Player_pickup_Na2S2O3": [
+	"Natri Thiosulfat… mình nhớ rằng nó có thể trung hòa cyanide. Nếu X-92 cũng có gốc cyanide, thì đây chính là giải pháp!"
+  ],
+  "Player_prepare_spray_solution": [
+	"Cần pha loãng để tạo dung dịch phun sương… Nếu quá đặc, nó sẽ không khuếch tán đều."
+  ],
+  "Puzzle_Guide_Storage_Task2": [
+	"Hãy kết hợp Na₂S₂O₃ với nước để tạo dung dịch phun sương và đổ vào hệ thống phun sương."
+  ],
+  "Player_finished_storage_task2": [
+	"Không khí… mình có thể thở lại bình thường! Điều này có nghĩa là X-92 đã bị trung hòa.",
+	"Mình có thể tiếp tục mà không cần lo về khí độc nữa."
+  ],
+  "AI_quản_lý_Storage": [
+	"Hãy tìm hóa chất thích hợp để mở khóa kho và trung hòa khí X-92."
+  ]
+}

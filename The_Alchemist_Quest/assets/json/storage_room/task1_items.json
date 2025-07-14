@@ -1,0 +1,16 @@
+﻿{
+    "item": {
+        "HCl": {
+            "Description": "Dung dịch Axit Clohydric.",
+            "StackSize": 1
+        },
+        "H2O2": {
+            "Description": "Dung dịch Hydro Peroxide.",
+            "StackSize": 1
+        },
+        "Corrosion_reaction_note": {
+            "Description": "Ghi chú về phản ứng ăn mòn.",
+            "StackSize": 1
+        }
+    }
+} 

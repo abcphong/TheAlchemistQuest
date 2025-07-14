@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpskhr3vj2f3d"]
+
+[ext_resource type="PackedScene" uid="uid://bkuq3yvwq0xhm" path="res://The_Alchemist_Quest/scences/base_level.tscn" id="1_abcde"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/securityRoom/security_room_level.gd" id="2_fghij"]
+[ext_resource type="PackedScene" uid="uid://gxabeaihwjjh" path="res://The_Alchemist_Quest/scences/security_room_interior.tscn" id="3_klmno"]
+
+[node name="SecurityRoomLevel" type="Node2D"]
+script = ExtResource("2_fghij")
+
+[node name="BaseLevel" parent="." instance=ExtResource("1_abcde")]
+
+[node name="SecurityRoomInterior" parent="." instance=ExtResource("3_klmno")]
