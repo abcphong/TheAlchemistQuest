@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2n7rba2ejvu1"]
+[gd_scene load_steps=9 format=3 uid="uid://d2n7rba2ejvu1"]
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/lab_workbench.gd" id="1_1phwm"]
 [ext_resource type="Texture2D" uid="uid://c2qrew0sidieb" path="res://The_Alchemist_Quest/assets/decor/Lab_workbench.png" id="2_awdvr"]
 [ext_resource type="PackedScene" uid="uid://d2kgk3f4vg6vs" path="res://The_Alchemist_Quest/scenes/puzzle/intro_room/puzzle_ui_task1.tscn" id="2_g24yl"]
 [ext_resource type="PackedScene" uid="uid://f6dbg7mqmc3q" path="res://The_Alchemist_Quest/scenes/puzzle/storage_room/puzzle_ui_task1.tscn" id="3_dh6mh"]
+[ext_resource type="PackedScene" uid="uid://b6tyhu4nkxru1" path="res://The_Alchemist_Quest/scenes/puzzle/intro_room/puzzle_ui_task3.tscn" id="3_ef70f"]
 [ext_resource type="PackedScene" uid="uid://dxfddnhqh6mww" path="res://The_Alchemist_Quest/scenes/puzzle/storage_room/puzzle_ui_task2.tscn" id="4_l3abc"]
 [ext_resource type="PackedScene" uid="uid://orwl62uixeyv" path="res://The_Alchemist_Quest/scenes/puzzle/final_room/puzzle_ui_task1-1.tscn" id="5_sf856"]
 
@@ -12,7 +13,7 @@ size = Vector2(74, 47)
 
 [node name="LabWorkbench" type="Node2D"]
 script = ExtResource("1_1phwm")
-puzzle_scenes = Array[PackedScene]([ExtResource("2_g24yl"), ExtResource("3_dh6mh"), ExtResource("4_l3abc"), ExtResource("5_sf856")])
+puzzle_scenes = Array[PackedScene]([ExtResource("2_g24yl"), ExtResource("3_ef70f"), ExtResource("3_dh6mh"), ExtResource("4_l3abc"), ExtResource("5_sf856")])
 
 [node name="DetectionArea" type="Area2D" parent="."]
 

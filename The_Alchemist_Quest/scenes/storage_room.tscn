@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=4 uid="uid://bw274khv84jae"]
+[gd_scene load_steps=55 format=4 uid="uid://bw274khv84jae"]
 
 [ext_resource type="Texture2D" uid="uid://d3k4vdqqjykr5" path="res://The_Alchemist_Quest/Tiles/16x16walldiagnal.png" id="1_8n7uo"]
 [ext_resource type="Texture2D" uid="uid://b2v2tbqsm1n1d" path="res://The_Alchemist_Quest/Tiles/96x96newwall.png" id="2_fyrye"]
@@ -13,8 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://hvv4apnspd3u" path="res://The_Alchemist_Quest/assets/decor/Ventilation_fan.png" id="11_shemi"]
 [ext_resource type="Texture2D" uid="uid://bsm1ibrytg2jw" path="res://The_Alchemist_Quest/assets/decor/bulletin_board.png" id="12_vvx3u"]
 [ext_resource type="Texture2D" uid="uid://57jqqpk2oerl" path="res://The_Alchemist_Quest/assets/decor/Rotating_red_beacon.png" id="13_1kr5t"]
+[ext_resource type="Texture2D" uid="uid://42w8bwtohhrc" path="res://The_Alchemist_Quest/assets/decor/Automatic_trash_can.png" id="14_i5bvs"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lneas"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gojrh"]
 texture = ExtResource("1_8n7uo")
 2:24/0 = 0
 2:24/0/texture_origin = Vector2i(8, 8)
@@ -100,7 +101,7 @@ texture = ExtResource("1_8n7uo")
 8:27/0/texture_origin = Vector2i(8, 8)
 8:27/0/z_index = 4
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w4bpa"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rwkam"]
 texture = ExtResource("2_fyrye")
 0:1/0 = 0
 0:1/0/z_index = 4
@@ -434,7 +435,7 @@ texture = ExtResource("2_fyrye")
 24:5/size_in_atlas = Vector2i(2, 7)
 24:5/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tmbxk"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ggk7s"]
 texture = ExtResource("3_00g1s")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -448,11 +449,11 @@ texture_region_size = Vector2i(32, 32)
 2:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_bg4sn"]
-sources/1 = SubResource("TileSetAtlasSource_w4bpa")
-sources/2 = SubResource("TileSetAtlasSource_tmbxk")
-sources/0 = SubResource("TileSetAtlasSource_lneas")
+sources/1 = SubResource("TileSetAtlasSource_rwkam")
+sources/2 = SubResource("TileSetAtlasSource_ggk7s")
+sources/0 = SubResource("TileSetAtlasSource_gojrh")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xmr7f"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qk0ab"]
 texture = ExtResource("3_00g1s")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -465,7 +466,7 @@ texture_region_size = Vector2i(32, 32)
 1:2/0 = 0
 2:2/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5t1wf"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1pacf"]
 texture_region_size = Vector2i(15, 15)
 0:0/0 = 0
 0:0/0/z_index = 5
@@ -494,22 +495,22 @@ texture_region_size = Vector2i(15, 15)
 36:0/0 = 0
 36:0/0/z_index = 5
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_35qof"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qob2g"]
 texture = ExtResource("4_ivhrq")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p7ik4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0cns"]
 texture = ExtResource("5_cjw72")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_txmge"]
 tile_size = Vector2i(32, 32)
-sources/0 = SubResource("TileSetAtlasSource_xmr7f")
-sources/1 = SubResource("TileSetAtlasSource_5t1wf")
-sources/5 = SubResource("TileSetAtlasSource_35qof")
-sources/6 = SubResource("TileSetAtlasSource_p7ik4")
+sources/0 = SubResource("TileSetAtlasSource_qk0ab")
+sources/1 = SubResource("TileSetAtlasSource_1pacf")
+sources/5 = SubResource("TileSetAtlasSource_qob2g")
+sources/6 = SubResource("TileSetAtlasSource_j0cns")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tjowd"]
 atlas = ExtResource("10_cj4n7")
@@ -807,3 +808,8 @@ texture = ExtResource("12_vvx3u")
 position = Vector2(154.437, 22.1581)
 sprite_frames = SubResource("SpriteFrames_52pu2")
 animation = &"activated"
+
+[node name="Trashcan" type="Sprite2D" parent="."]
+position = Vector2(36.7083, 62.3224)
+scale = Vector2(0.772727, 0.772727)
+texture = ExtResource("14_i5bvs")

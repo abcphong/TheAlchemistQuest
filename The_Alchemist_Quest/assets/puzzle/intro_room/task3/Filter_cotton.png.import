@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw5n3hxxb3e3a"
-path="res://.godot/imported/H2O2+HCl.png-c8dd162fb567900ed0ce7185f769a3e6.ctex"
+uid="uid://fm33o011y0uo"
+path="res://.godot/imported/Filter_cotton.png-69928035154a2b68f19f03790c29e250.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://The_Alchemist_Quest/assets/puzzle/final_door/H2O2+HCl.png"
-dest_files=["res://.godot/imported/H2O2+HCl.png-c8dd162fb567900ed0ce7185f769a3e6.ctex"]
+source_file="res://The_Alchemist_Quest/assets/puzzle/intro_room/task3/Filter_cotton.png"
+dest_files=["res://.godot/imported/Filter_cotton.png-69928035154a2b68f19f03790c29e250.ctex"]
 
 [params]
 

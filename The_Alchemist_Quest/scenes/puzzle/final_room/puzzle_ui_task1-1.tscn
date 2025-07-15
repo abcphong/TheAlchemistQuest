@@ -26,7 +26,7 @@ animations = [{
 
 [node name="PuzzleUi" type="CanvasLayer"]
 script = ExtResource("1_rr13k")
-reward_items = Array[String](["H2O2+HCl"])
+reward_items = Array[String](["H2O2+HCl_finaldoor"])
 reward_amounts = Array[int]([1])
 
 [node name="InventoryContainer" type="Control" parent="."]

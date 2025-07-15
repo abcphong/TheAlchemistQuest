@@ -37,10 +37,11 @@ func set_item(nm: String, qt: int) -> void:
 	# Cập nhật ảnh item - kiểm tra nhiều thư mục
 	var texture_paths = [
 		"res://The_Alchemist_Quest/assets/puzzle/intro_room/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/puzzle/intro_room/task3/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/puzzle/security_room/task1/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/puzzle/storage_room/task2/" + item_name + ".png",
-		"res://The_Alchemist_Quest/assets/puzzle/final_room/" + item_name + ".png",
+		"res://The_Alchemist_Quest/assets/puzzle/final_door/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/item/" + item_name + ".png",
 		"res://The_Alchemist_Quest/assets/gameDemo/" + item_name + ".png"
 	]

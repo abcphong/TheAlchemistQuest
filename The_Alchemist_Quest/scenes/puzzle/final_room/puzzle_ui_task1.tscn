@@ -100,9 +100,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(543, 276)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_sln24")
-animation = &"success"
-frame = 3
-frame_progress = 1.0
+animation = &"peeled"
 
 [node name="PuzzleSlot" parent="." instance=ExtResource("4_tn8bx")]
 visible = false
@@ -110,5 +108,5 @@ offset_left = 513.0
 offset_top = 264.0
 offset_right = 559.0
 offset_bottom = 310.0
-expected_item = Array[String](["H2O2+HCl"])
+expected_item = Array[String](["H2O2+HCl_finaldoor"])
 metadata/_edit_use_anchors_ = true
