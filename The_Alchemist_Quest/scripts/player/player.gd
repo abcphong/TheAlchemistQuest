@@ -88,15 +88,16 @@ func _process(delta):
 			print("    Monitorable:", body.monitorable if body is Area2D else "N/A")
 			print("    Monitoring:", body.monitoring if body is Area2D else "N/A")
 		
+		# Handle UI opening separately from item pickup
 		if nearby_workbench:
-			print("🔵 Gọi open_puzzle_ui")
+			print("🔵 Opening workbench UI")
 			nearby_workbench.open_puzzle_ui()
 		elif nearby_computer:
-			print("🔵 Interacting with computer")
-			nearby_computer.open_puzzle_ui()
+			print("🔵 Opening computer UI")
+			nearby_computer.open_ui_only()
 		elif nearby_cabinet:
-			print("🔵 Interacting with cabinet")
-			nearby_cabinet.open_puzzle_ui()
+			print("🔵 Opening cabinet UI")
+			nearby_cabinet.open_ui_only()
 		else:
 			print("❌ Không có nearby_workbench, computer, hoặc cabinet")
 
