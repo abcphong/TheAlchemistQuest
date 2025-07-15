@@ -1,0 +1,112 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2kgk3f4vg6vs"]
+
+[ext_resource type="Script" uid="uid://b0nthi3tcsgsc" path="res://The_Alchemist_Quest/scripts/puzzle/puzzle_ui_task_3.gd" id="1_ok8nf"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scences/puzzle/intro_room/puzzle_slot.tscn" id="2_crps2"]
+[ext_resource type="Texture2D" uid="uid://ddndcwdd1i37d" path="res://The_Alchemist_Quest/assets/puzzle/intro_room/blue_background.png" id="3_wlyns"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="4_1kqyt"]
+[ext_resource type="Texture2D" uid="uid://c2cc0j8csdk1j" path="res://The_Alchemist_Quest/assets/puzzle/intro_room/Gas_mask.png" id="4_qg1r4"]
+[ext_resource type="Texture2D" uid="uid://dtohymft25bkc" path="res://The_Alchemist_Quest/assets/puzzle/intro_room/Improved_mask.png" id="6_wlyns"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_omo2e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_qg1r4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_wlyns")
+}],
+"loop": true,
+"name": &"complete",
+"speed": 5.0
+}]
+
+[node name="PuzzleUI" type="CanvasLayer"]
+script = ExtResource("1_ok8nf")
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("4_1kqyt")]
+position = Vector2(593, 180)
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.605035
+anchor_top = 0.5
+anchor_right = 0.763021
+anchor_bottom = 0.865741
+offset_left = -402.0
+offset_top = -188.0
+offset_right = -160.0
+offset_bottom = -98.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_wlyns")
+metadata/_edit_use_anchors_ = true
+
+[node name="PuzzleSlot" parent="." instance=ExtResource("2_crps2")]
+anchors_preset = -1
+anchor_right = 0.0199653
+anchor_bottom = 0.0354938
+offset_left = 327.0
+offset_top = 244.0
+offset_right = 350.0
+offset_bottom = 267.0
+expected_item = "Gas_mask"
+metadata/_edit_use_anchors_ = true
+
+[node name="PuzzleSlot2" parent="." instance=ExtResource("2_crps2")]
+anchors_preset = -1
+anchor_right = 0.0199653
+anchor_bottom = 0.0354938
+offset_left = 433.0
+offset_top = 358.0
+offset_right = 456.0
+offset_bottom = 381.0
+expected_item = "Activated_coal"
+metadata/_edit_use_anchors_ = true
+
+[node name="PuzzleSlot3" parent="." instance=ExtResource("2_crps2")]
+anchors_preset = -1
+anchor_right = 0.0199653
+anchor_bottom = 0.0354938
+offset_left = 520.0
+offset_top = 360.0
+offset_right = 543.0
+offset_bottom = 383.0
+expected_item = "Filter_cotton"
+metadata/_edit_use_anchors_ = true
+
+[node name="PuzzleSlot4" parent="." instance=ExtResource("2_crps2")]
+anchors_preset = -1
+anchor_right = 0.0199653
+anchor_bottom = 0.0354938
+offset_left = 625.0
+offset_top = 240.0
+offset_right = 648.0
+offset_bottom = 263.0
+expected_item = "Mini_oxygen"
+metadata/_edit_use_anchors_ = true
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(501, 273)
+scale = Vector2(5.2775, 5.2775)
+sprite_frames = SubResource("SpriteFrames_omo2e")
+animation = &"complete"
+frame_progress = 0.0834444
+
+[node name="GasMask" type="Sprite2D" parent="."]
+position = Vector2(501, 247)
+scale = Vector2(6.38889, 6.38889)
+texture = ExtResource("4_qg1r4")
+
+[node name="ImprovedMask" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(524, 264)
+scale = Vector2(1.37667, 1.37667)
+texture = ExtResource("6_wlyns")
