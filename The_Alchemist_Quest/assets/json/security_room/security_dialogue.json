@@ -1,0 +1,29 @@
+{
+  "AI_Security_Guard": [
+	"Truy cập trái phép. Xác thực danh tính ngay lập tức.",
+	"Truy cập bị từ chối. Chỉ nhân viên cấp S mới có quyền truy cập."
+  ],
+  "Player_Security_Intro": [
+	"Không có thời gian cho mấy thứ này! Nếu không thoát ra, mình sẽ chết ở đây!",
+	"Tuyệt vời… Không có mã cấp S thì mình cũng chẳng đi được đâu.",
+	"Hệ thống này có thể bị đánh lừa không nhỉ?"
+  ],
+  "Player_detect_PH_system": [
+	"Chờ đã… Nó sử dụng một dung dịch đệm pH để kiểm tra mẫu sinh học. Nếu mình tạo một dung dịch có cùng pH, nó có thể mở khóa.",
+	"Mình cần một hệ đệm axit yếu và muối của nó… Axit Acetic và Natri Acetate sẽ hoạt động."
+  ],
+  "Player_pickup_Buffer_Chemicals": [
+	"CH₃COOH – Axit Acetic. Nếu mình kết hợp nó với muối của nó, mình có thể tạo hệ đệm.",
+	"Để có pH = 4.76, mình cần pha chúng theo tỷ lệ 1:1… Nếu lệch quá nhiều, cảm biến có thể phát hiện ra trò gian lận của mình."
+  ],
+  "Puzzle_Guide_Security": [
+	"Hãy hòa tan CH₃COOH và CH₃COONa trong nước theo tỷ lệ 1:1 để tạo hệ đệm pH, sau đó đổ vào khe cảm biến pH."
+  ],
+  "Player_finished_security_task": [
+	"Hỗn hợp này sẽ giữ pH ổn định dù có thêm axit hay bazơ… Nếu nó đánh lừa được hệ thống, mình sẽ qua được cửa.",
+	"Mình nên làm hacker thì hơn… Lối đi mở rồi!"
+  ],
+  "AI_hint_security": [
+	"Hệ thống bảo mật yêu cầu xác thực pH sinh học. Hãy tìm cách mô phỏng đúng pH để vượt qua kiểm tra."
+  ]
+}
