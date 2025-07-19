@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://db7u5fak3x31y"]
+
+[ext_resource type="Texture2D" uid="uid://cfl8dknmbk2c8" path="res://The_Alchemist_Quest/assets/item/Door-FinalRoom.png" id="1_4tciu"]
+[ext_resource type="Script" uid="uid://cg3ufn3omjyuc" path="res://The_Alchemist_Quest/scripts/puzzle/final_door/final_door.gd" id="1_7ho01"]
+[ext_resource type="PackedScene" path="res://The_Alchemist_Quest/scences/puzzle/final_room/puzzle_ui_task1.tscn" id="2_n3mf7"]
+[ext_resource type="PackedScene" path="res://The_Alchemist_Quest/scences/puzzle/final_room/puzzle_ui_task1-1.tscn" id="3_fap01"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twbjb"]
+size = Vector2(57, 51)
+
+[node name="FinalDoor" type="Node2D"]
+script = ExtResource("1_7ho01")
+puzzle_scenes = Array[PackedScene]([ExtResource("2_n3mf7"), ExtResource("3_fap01")])
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(-12, -8)
+shape = SubResource("RectangleShape2D_twbjb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-8.35295, -8)
+scale = Vector2(0.764706, 0.764706)
+texture = ExtResource("1_4tciu")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

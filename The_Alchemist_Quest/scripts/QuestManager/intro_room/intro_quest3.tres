@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="QuestResource" load_steps=2 format=3 uid="uid://bw1578owio0xx"]
+
+[ext_resource type="Script" uid="uid://cpdb8s4xxk6vc" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="1_ute2q"]
+
+[resource]
+script = ExtResource("1_ute2q")
+quest_name = "Chế tạo mặt nạ"
+quest_description = "Chế tạo mặt nạ phòng độc"
+reached_goal_text = "Bạn đã có mặt nạ an toàn!"
+activation_type = 1
+npc_id = ""
+next_scene = ""
+target_map = ""
+trigger_event = "PUZZLE_2_COMPLETED"
+show_marker = true
+metadata/_custom_type_script = "uid://cpdb8s4xxk6vc"

@@ -1,0 +1,78 @@
+[gd_scene load_steps=8 format=3 uid="uid://khiw8huelsm0"]
+
+[ext_resource type="Script" uid="uid://dy15bsygs55kr" path="res://The_Alchemist_Quest/scripts/puzzle/intro_room/puzzle_ui_task_2.gd" id="1_fbciq"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="2_mk035"]
+[ext_resource type="Texture2D" uid="uid://dty2tknb5ca3y" path="res://The_Alchemist_Quest/assets/puzzle/intro_room/task2/Task2_intro_room.png" id="3_261j8"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scences/puzzle/intro_room/puzzle_slot.tscn" id="4_4aetg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lnwa"]
+atlas = ExtResource("3_261j8")
+region = Rect2(0, 0, 150, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpdn0"]
+atlas = ExtResource("3_261j8")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w06p5"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lpdn0")
+}],
+"loop": true,
+"name": &"complete",
+"speed": 5.0
+}]
+
+[node name="PuzzleUI" type="CanvasLayer"]
+script = ExtResource("1_fbciq")
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("2_mk035")]
+position = Vector2(593, 180)
+
+[node name="BG" type="TextureRect" parent="."]
+offset_left = 375.0
+offset_top = 136.0
+offset_right = 677.0
+offset_bottom = 424.0
+texture = SubResource("AtlasTexture_8lnwa")
+
+[node name="PuzzleSlot" parent="." instance=ExtResource("4_4aetg")]
+anchors_preset = -1
+anchor_right = 0.0199653
+anchor_bottom = 0.0354938
+offset_left = 504.0
+offset_top = 165.0
+offset_right = 527.0
+offset_bottom = 188.0
+expected_item = Array[String](["Filter paper"])
+metadata/_edit_use_anchors_ = true
+
+[node name="PuzzleSlot2" parent="." instance=ExtResource("4_4aetg")]
+anchors_preset = -1
+anchor_right = 0.0199653
+anchor_bottom = 0.0354938
+offset_left = 504.0
+offset_top = 306.0
+offset_right = 527.0
+offset_bottom = 329.0
+expected_item = Array[String](["FeSO4"])
+metadata/_edit_use_anchors_ = true
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(543, 276)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_w06p5")
+animation = &"complete"

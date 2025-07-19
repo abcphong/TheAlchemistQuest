@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://jtw43r4xq7jj"]
+
+[ext_resource type="Script" uid="uid://7fb4tl1thp5u" path="res://The_Alchemist_Quest/scripts/demo_room/craft_item.gd" id="1_66xqi"]
+
+[node name="PuzzleSlot" type="Panel"]
+offset_left = -1.0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_66xqi")
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 43.0
+offset_bottom = 43.0

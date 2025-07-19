@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="QuestResource" load_steps=2 format=3 uid="uid://ethov075ahmr"]
+
+[ext_resource type="Script" uid="uid://cpdb8s4xxk6vc" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="1_w2x2h"]
+
+[resource]
+script = ExtResource("1_w2x2h")
+quest_name = "Thử nghiệm phòng thí nghiệm"
+quest_description = "Hãy kéo các vật phẩm vào ô phù hợp để hoàn thành phản ứng"
+reached_goal_text = "Chúc mừng bạn đã  hoàn thành phản ứng đầu tiên"
+activation_type = 0
+npc_id = "mentor"
+next_scene = "uid://b6hvy4ew7mftt"
+target_map = ""
+trigger_event = ""
+show_marker = true
+metadata/_custom_type_script = "uid://cpdb8s4xxk6vc"

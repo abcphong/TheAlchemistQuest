@@ -1,0 +1,140 @@
+[gd_scene load_steps=23 format=3 uid="uid://hupnwn10ee05"]
+
+[ext_resource type="PackedScene" uid="uid://b0lckgiw4has1" path="res://The_Alchemist_Quest/scences/level_manager.tscn" id="1_lfs5f"]
+[ext_resource type="PackedScene" uid="uid://bti40u8faydt" path="res://The_Alchemist_Quest/scences/decor/shelf.tscn" id="1_o5qgc"]
+[ext_resource type="Script" uid="uid://cpdb8s4xxk6vc" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="2_3a44u"]
+[ext_resource type="PackedScene" uid="uid://lelq75l35prl" path="res://The_Alchemist_Quest/scences/player.tscn" id="2_bugtt"]
+[ext_resource type="Resource" uid="uid://ethov075ahmr" path="res://The_Alchemist_Quest/scripts/QuestManager/trial.tres" id="3_5agb6"]
+[ext_resource type="PackedScene" uid="uid://cqrj5nyjqpygn" path="res://The_Alchemist_Quest/scences/worklab2D.tscn" id="3_22yb4"]
+[ext_resource type="PackedScene" uid="uid://cxm3k6ck844do" path="res://The_Alchemist_Quest/scences/Map/room 1.tscn" id="3_o5qgc"]
+[ext_resource type="PackedScene" uid="uid://df6aknphjx4ui" path="res://The_Alchemist_Quest/scences/mentor_npc.tscn" id="4_cbuwy"]
+[ext_resource type="PackedScene" uid="uid://c7kmbgu635u0d" path="res://The_Alchemist_Quest/scences/trial_puzzle/puzzle_ui.tscn" id="7_3a44u"]
+[ext_resource type="FontFile" uid="uid://ccdxh8aqwkjxn" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="7_x7s60"]
+[ext_resource type="PackedScene" uid="uid://de4tjmmo3avyw" path="res://The_Alchemist_Quest/scences/dialog_area.tscn" id="8_h8yaq"]
+[ext_resource type="PackedScene" uid="uid://wky3sup41c8s" path="res://The_Alchemist_Quest/scences/decor/alarm_bell_decor.tscn" id="11_6hkyf"]
+[ext_resource type="Script" uid="uid://caeh8rppwadex" path="res://The_Alchemist_Quest/scripts/demo_room/label_timer.gd" id="11_p3lsj"]
+[ext_resource type="PackedScene" uid="uid://bk3vj4l108qci" path="res://The_Alchemist_Quest/scences/player/inventoryUI.tscn" id="13_uubka"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="14_in84n"]
+[ext_resource type="Script" uid="uid://bhsjfqyt7fwyd" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="14_o5qgc"]
+[ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scences/player/hotbar.tscn" id="17_lfs5f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5cjre"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bugtt"]
+normal = Vector2(-0.120195, -0.99275)
+distance = -43.0631
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i2ae1"]
+normal = Vector2(-0.0167434, 0.99986)
+distance = -95.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_22yb4"]
+distance = -141.977
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7gosb"]
+normal = Vector2(-0.99275, 0.120196)
+distance = -185.0
+
+[node name="DemoRoom" type="Node2D"]
+position = Vector2(0, -1)
+
+[node name="LevelManager" parent="." instance=ExtResource("1_lfs5f")]
+quest_sequence = Array[ExtResource("2_3a44u")]([ExtResource("3_5agb6")])
+
+[node name="Shelf" parent="." instance=ExtResource("1_o5qgc")]
+position = Vector2(323, 53)
+
+[node name="DraggingLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+layer = 16
+script = ExtResource("14_o5qgc")
+
+[node name="Hotbar" parent="UserInterface" instance=ExtResource("17_lfs5f")]
+
+[node name="InventoryContainer" type="Control" parent="UserInterface"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Inventory" parent="UserInterface/InventoryContainer" instance=ExtResource("14_in84n")]
+process_mode = 3
+visible = false
+
+[node name="worklab2D" parent="." instance=ExtResource("3_22yb4")]
+position = Vector2(392, 75)
+explode_scene_path = ExtResource("7_3a44u")
+
+[node name="Room1" parent="." instance=ExtResource("3_o5qgc")]
+position = Vector2(-239, -173)
+
+[node name="mentorNPC" parent="Room1" instance=ExtResource("4_cbuwy")]
+position = Vector2(470, 242)
+
+[node name="DialogAreaMentor" parent="Room1/mentorNPC" instance=ExtResource("8_h8yaq")]
+position = Vector2(2, 3)
+dialog_file = "res://The_Alchemist_Quest/assets/json/demo_dialog.json"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Room1/mentorNPC/DialogAreaMentor"]
+shape = SubResource("RectangleShape2D_5cjre")
+
+[node name="Player" parent="." instance=ExtResource("2_bugtt")]
+top_level = true
+position = Vector2(181, 162)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-2, -15)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+
+[node name="InventoryUI" parent="Player" instance=ExtResource("13_uubka")]
+position = Vector2(116, -71)
+scale = Vector2(0.5625, 0.65625)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(176, 193)
+rotation = -0.0167443
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(68.4593, -26.8575)
+rotation = 0.137231
+shape = SubResource("WorldBoundaryShape2D_bugtt")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(107.308, -77.2141)
+shape = SubResource("WorldBoundaryShape2D_i2ae1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-37.9277, -4.6357)
+rotation = 1.59644
+shape = SubResource("WorldBoundaryShape2D_22yb4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(836.218, -5.9996)
+rotation = 0.137231
+shape = SubResource("WorldBoundaryShape2D_7gosb")
+
+[node name="Decor" type="Node" parent="."]
+
+[node name="alarmBell_decor" parent="Decor" instance=ExtResource("11_6hkyf")]
+position = Vector2(171, 24)
+
+[node name="Label" type="Label" parent="Decor"]
+offset_left = 197.0
+offset_top = 125.0
+offset_right = 492.0
+offset_bottom = 192.0
+theme_override_fonts/font = ExtResource("7_x7s60")
+theme_override_font_sizes/font_size = 20
+text = "Phòng chơi thử nghiệm"
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Timer" parent="Decor/Label"]
+wait_time = 3.0
+one_shot = true
+script = ExtResource("11_p3lsj")
+
+[connection signal="timeout" from="Decor/Label/Timer" to="Decor/Label/Timer" method="_on_timeout"]

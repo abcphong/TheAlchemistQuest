@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkmmlcs0f1qg"]
+
+[ext_resource type="Script" uid="uid://cw201a52mtsf2" path="res://The_Alchemist_Quest/scripts/inventory/pickup_item/computer.gd" id="1_yput7"]
+[ext_resource type="Texture2D" uid="uid://nwiq220sn78b" path="res://The_Alchemist_Quest/assets/decor/Computer_desk.png" id="2_yvnqm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixnqm"]
+size = Vector2(100, 100)
+
+[node name="Computer" type="Area2D" groups=["computer"]]
+collision_layer = 2
+script = ExtResource("1_yput7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yvnqm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ixnqm")

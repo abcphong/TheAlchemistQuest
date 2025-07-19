@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://t7q2p6hb4uc1"]
+
+[ext_resource type="Texture2D" uid="uid://uqc8jsssdhba" path="res://The_Alchemist_Quest/assets/decor/Door-SecurityRoom.png" id="1_8xi1v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqn1d"]
+size = Vector2(56, 48)
+
+[node name="SecurityDoor" type="Node2D"]
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_jqn1d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+scale = Vector2(0.733333, 0.733333)
+texture = ExtResource("1_8xi1v")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="QuestResource" load_steps=2 format=3 uid="uid://bt7haiskdeojg"]
+
+[ext_resource type="Script" uid="uid://cpdb8s4xxk6vc" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="1_o4tby"]
+
+[resource]
+script = ExtResource("1_o4tby")
+quest_name = "Khôi phục nguồn điện"
+quest_description = "Tìm cách vật dùng phù hợp để khôi phục hệ thống đèn. Bạn hãy thử tìm kiếm ở bàn máy tính, tủ điện và tủ đồ để nhận được vật dụng cần thiết."
+reached_goal_text = "Nguồn điện đã được khôi phục"
+activation_type = 1
+npc_id = ""
+next_scene = ""
+target_map = ""
+trigger_event = "MAP_ENTERED"
+show_marker = true
+metadata/_custom_type_script = "uid://cpdb8s4xxk6vc"

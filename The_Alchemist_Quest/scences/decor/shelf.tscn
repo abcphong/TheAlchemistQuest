@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bti40u8faydt"]
+
+[ext_resource type="Texture2D" uid="uid://c2few15nmhj8e" path="res://The_Alchemist_Quest/assets/item/Intro_room_shelf.png" id="1_210x1"]
+[ext_resource type="Script" uid="uid://cggi73ppu6v1v" path="res://The_Alchemist_Quest/scripts/inventory/pickup_item/shelf.gd" id="1_voip0"]
+[ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="2_voip0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44cwy"]
+size = Vector2(56.5, 70.5)
+
+[node name="Shelf" type="Area2D"]
+script = ExtResource("1_voip0")
+dialog_file = "res://The_Alchemist_Quest/assets/json/intro_room/intro_dialoge.json"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_210x1")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(20, 33)
+scale = Vector2(1.125, 1.16667)
+texture = ExtResource("2_voip0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.75, 1.75)
+shape = SubResource("RectangleShape2D_44cwy")
+one_way_collision_margin = 4.2

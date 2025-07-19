@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvn2ijvv1708u"]
+
+[ext_resource type="Texture2D" uid="uid://nwiq220sn78b" path="res://The_Alchemist_Quest/assets/decor/Computer_desk.png" id="1_g12ec"]
+[ext_resource type="Script" uid="uid://cw201a52mtsf2" path="res://The_Alchemist_Quest/scripts/inventory/pickup_item/computer.gd" id="1_tfupw"]
+[ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="3_h1iba"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vathp"]
+size = Vector2(71, 56)
+
+[node name="lab_tabel_decor" type="Area2D"]
+position = Vector2(173, 17)
+script = ExtResource("1_tfupw")
+dialog_file = "res://The_Alchemist_Quest/assets/json/intro_room/intro_dialoge.json"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(6, 8)
+texture = ExtResource("1_g12ec")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8.5, 7)
+shape = SubResource("RectangleShape2D_vathp")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(26.75, 23)
+scale = Vector2(1.125, 1.16667)
+texture = ExtResource("3_h1iba")

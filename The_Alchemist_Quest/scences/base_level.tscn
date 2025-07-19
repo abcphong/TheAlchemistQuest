@@ -1,0 +1,174 @@
+[gd_scene load_steps=19 format=3 uid="uid://cvmo2s0lahvwc"]
+
+[ext_resource type="Script" uid="uid://bcn3rvivk4w5" path="res://The_Alchemist_Quest/scripts/player/health_bar.gd" id="1_aqkn3"]
+[ext_resource type="Texture2D" uid="uid://b4752grm04sq4" path="res://The_Alchemist_Quest/assets/button/Health_bar.png" id="2_2yd0c"]
+[ext_resource type="Script" uid="uid://bhsjfqyt7fwyd" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="3_6wr8x"]
+[ext_resource type="PackedScene" uid="uid://bk3vj4l108qci" path="res://The_Alchemist_Quest/scences/player/inventoryUI.tscn" id="4_4v5ky"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="5_fkf8r"]
+[ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scences/player/hotbar.tscn" id="6_6rnqn"]
+[ext_resource type="PackedScene" uid="uid://b3l2wvyespade" path="res://The_Alchemist_Quest/scences/player/save_load_ui.tscn" id="7_ixfqt"]
+
+[sub_resource type="GDScript" id="GDScript_o0i1a"]
+script/source = "extends Node2D
+
+func _ready():
+	var inv = $UI/Inventory
+	UserInterface.inventory_node = inv
+
+func _input(event):
+	if event.is_action_pressed(\"open_inventory\"):
+		UserInterface.toggle_inventory()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogwtf"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(0, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mc52"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(0, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ctbl"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(52, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxet6"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(104, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4flo"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(156, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i8nx"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(104, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdsvl"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(208, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_weop6"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(208, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1y5t"]
+atlas = ExtResource("2_2yd0c")
+region = Rect2(260, 0, 52, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5fjsw"]
+animations = [{
+"frames": [{
+"duration": 30.0,
+"texture": SubResource("AtlasTexture_ogwtf")
+}],
+"loop": false,
+"name": &"Green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mc52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ctbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mc52")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ctbl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mc52")
+}, {
+"duration": 30.0,
+"texture": SubResource("AtlasTexture_nxet6")
+}],
+"loop": false,
+"name": &"Orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4flo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3i8nx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4flo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3i8nx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4flo")
+}, {
+"duration": 30.0,
+"texture": SubResource("AtlasTexture_gdsvl")
+}],
+"loop": false,
+"name": &"Red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_weop6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1y5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_weop6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1y5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_weop6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1y5t")
+}],
+"loop": false,
+"name": &"Red_blink",
+"speed": 5.0
+}]
+
+[node name="BaseLevel" type="Node2D"]
+script = SubResource("GDScript_o0i1a")
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("3_6wr8x")
+
+[node name="InventoryUI" parent="UI" instance=ExtResource("4_4v5ky")]
+position = Vector2(317.5, 109.5)
+scale = Vector2(0.71875, 0.65625)
+
+[node name="Inventory" parent="UI" instance=ExtResource("5_fkf8r")]
+visible = false
+position = Vector2(201, 133)
+
+[node name="Hotbar" parent="UI" instance=ExtResource("6_6rnqn")]
+
+[node name="SaveLoadUI" parent="UI" instance=ExtResource("7_ixfqt")]
+visible = false
+z_index = 100
+script = null
+
+[node name="HealthBar" type="Node2D" parent="UI" node_paths=PackedStringArray("healthbar", "HealthTimer")]
+script = ExtResource("1_aqkn3")
+healthbar = NodePath("AnimatedSprite2D")
+HealthTimer = NodePath("AnimatedSprite2D/Health_timer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI/HealthBar"]
+position = Vector2(92, 105)
+sprite_frames = SubResource("SpriteFrames_5fjsw")
+animation = &"Green"
+
+[node name="Health_timer" type="Timer" parent="UI/HealthBar/AnimatedSprite2D"]
+
+[node name="DraggingLayer" type="CanvasLayer" parent="."]
+
+[connection signal="timeout" from="UI/HealthBar/AnimatedSprite2D/Health_timer" to="UI/HealthBar" method="_on_health_timer_timeout"]

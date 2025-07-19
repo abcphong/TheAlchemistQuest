@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://buat83l2xi2kj"]
+
+[ext_resource type="Script" uid="uid://b0a6g8n0dnf45" path="res://The_Alchemist_Quest/scripts/inventory/pickup_item/electrical_cabinet.gd" id="1_2sx2f"]
+[ext_resource type="Texture2D" uid="uid://duh4245vr0uc5" path="res://The_Alchemist_Quest/assets/decor/Electrical_cabinet_close.png" id="2_dthu6"]
+[ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="3_cojvv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixnqm"]
+size = Vector2(55, 63)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xxxxx"]
+radius = 50.0
+
+[node name="ElectricalCabinet" type="Area2D" groups=["computer"]]
+collision_layer = 2
+script = ExtResource("1_2sx2f")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_dthu6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_ixnqm")
+one_way_collision_margin = 4.2
+
+[node name="DetectionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xxxxx")
+debug_color = Color(0, 1, 0, 0.5)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(17, 17)
+scale = Vector2(1.125, 1.16667)
+texture = ExtResource("3_cojvv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,201 @@
+[gd_scene load_steps=28 format=3 uid="uid://hu1m0l47wbpj"]
+
+[ext_resource type="Script" uid="uid://ugw270chycge" path="res://The_Alchemist_Quest/scripts/demo_room/trial_puzzle.gd" id="1_cxvh5"]
+[ext_resource type="Texture2D" uid="uid://dajyi0gjq6wik" path="res://The_Alchemist_Quest/assets/gameDemo/Explode.png" id="1_jbc4r"]
+[ext_resource type="Script" uid="uid://bhsjfqyt7fwyd" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="2_l1d71"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="3_65m3n"]
+[ext_resource type="Script" uid="uid://decinvfqdoil" path="res://The_Alchemist_Quest/scripts/demo_room/trialPuzzle_layer.gd" id="4_65m3n"]
+[ext_resource type="Script" uid="uid://7fb4tl1thp5u" path="res://The_Alchemist_Quest/scripts/demo_room/craft_item.gd" id="4_l1d71"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65m3n"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxvh5"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nu8vu"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gltv"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_miu8q"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7u03w"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fi6gm"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3vk4"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnewg"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eleri"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(1200, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d253r"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(1350, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irkpm"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(1500, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rlo2h"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(1650, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0vhd"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(1800, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ha1e"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(1950, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_de5ur"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(2100, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wl01d"]
+atlas = ExtResource("1_jbc4r")
+region = Rect2(2250, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nu8vu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxvh5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nu8vu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gltv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miu8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7u03w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fi6gm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3vk4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnewg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eleri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d253r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irkpm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rlo2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h0vhd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ha1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_de5ur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wl01d")
+}],
+"loop": true,
+"name": &"explode",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65m3n"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cxvh5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nu8vu"]
+
+[node name="trialPuzzle" type="Node2D"]
+position = Vector2(141, 100)
+script = ExtResource("1_cxvh5")
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+script = ExtResource("2_l1d71")
+
+[node name="Control" type="Control" parent="UserInterface"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -21.0
+offset_top = -9.0
+offset_right = 47.0
+offset_bottom = 35.0
+
+[node name="TrialPuzzle" type="TextureRect" parent="UserInterface/Control"]
+layout_mode = 0
+offset_left = 279.0
+offset_top = 173.0
+offset_right = 660.0
+offset_bottom = 506.0
+texture = SubResource("AtlasTexture_65m3n")
+script = ExtResource("4_65m3n")
+sprites = SubResource("SpriteFrames_nu8vu")
+
+[node name="craft_item1" type="Panel" parent="UserInterface/Control/TrialPuzzle"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 104.0
+offset_right = 193.0
+offset_bottom = 143.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_65m3n")
+script = ExtResource("4_l1d71")
+allowed_items = Array[String](["H₂ Gas Cylinder", "O₂ Gas Cylinder"])
+
+[node name="craft_item2" type="Panel" parent="UserInterface/Control/TrialPuzzle"]
+layout_mode = 0
+offset_left = 211.0
+offset_top = 102.0
+offset_right = 256.0
+offset_bottom = 139.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_cxvh5")
+script = ExtResource("4_l1d71")
+allowed_items = Array[String](["H₂ Gas Cylinder", "O₂ Gas Cylinder"])
+
+[node name="craft_item3" type="Panel" parent="UserInterface/Control/TrialPuzzle"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 218.0
+offset_right = 111.0
+offset_bottom = 276.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_nu8vu")
+script = ExtResource("4_l1d71")
+allowed_items = Array[String](["Bật lửa"])
+
+[node name="Inventory" parent="UserInterface" instance=ExtResource("3_65m3n")]
+position = Vector2(529, 238)

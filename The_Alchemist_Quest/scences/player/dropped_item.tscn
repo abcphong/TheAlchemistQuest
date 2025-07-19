@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://c44oe8uwxcsgv"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/inventory/dropped_item.gd" id="1_2k4m3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(16, 16)
+
+[node name="DroppedItem" type="Node2D"]
+script = ExtResource("1_2k4m3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 24.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 8
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_1")
+debug_color = Color(1, 0, 0, 0.5)
