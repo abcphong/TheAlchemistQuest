@@ -15,7 +15,7 @@ var player_in_area = false
 func _ready() -> void:
 	print("🛠 Mentor NPC Ready - Dialog Key: '" + dialog_key + "'")
 	if quest_data and quest_data.show_marker:
-		exclamination_mark.visible = false
+		exclamination_mark.visible = true
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player": # Kiểm tra bằng group an toàn hơn

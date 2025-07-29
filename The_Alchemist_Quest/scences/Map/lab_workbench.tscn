@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://dl16s7sg0g8no"]
 
-[ext_resource type="Script" uid="uid://dixqoxked7qwx" path="res://The_Alchemist_Quest/scripts/puzzle/lab_workbench.gd" id="1_1phwm"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/lab_workbench.gd" id="1_1phwm"]
 [ext_resource type="Texture2D" uid="uid://c3aggaohlxwiu" path="res://The_Alchemist_Quest/assets/decor/Lab_workbench.png" id="2_awdvr"]
 [ext_resource type="PackedScene" uid="uid://d2kgk3f4vg6vs" path="res://The_Alchemist_Quest/scences/puzzle/intro_room/puzzle_ui_task1.tscn" id="2_g24yl"]
 [ext_resource type="PackedScene" uid="uid://khiw8huelsm0" path="res://The_Alchemist_Quest/scences/puzzle/intro_room/puzzle_ui_task2.tscn" id="3_40pmi"]
 [ext_resource type="PackedScene" uid="uid://f6dbg7mqmc3q" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/puzzle_ui_task1.tscn" id="3_dh6mh"]
 [ext_resource type="PackedScene" uid="uid://b6tyhu4nkxru1" path="res://The_Alchemist_Quest/scences/puzzle/intro_room/puzzle_ui_task3.tscn" id="3_ef70f"]
 [ext_resource type="PackedScene" uid="uid://dxfddnhqh6mww" path="res://The_Alchemist_Quest/scences/puzzle/storage_room/puzzle_ui_task2.tscn" id="4_l3abc"]
-[ext_resource type="PackedScene" path="res://The_Alchemist_Quest/scences/puzzle/final_room/puzzle_ui_task1.tscn" id="7_1sx7t"]
+[ext_resource type="PackedScene" uid="uid://dgypr6xw3li0a" path="res://The_Alchemist_Quest/scences/puzzle/final_room/puzzle_ui_task1.tscn" id="7_1sx7t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukwlm"]
 size = Vector2(74, 47)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://buat83l2xi2kj"]
 
-[ext_resource type="Script" uid="uid://b0a6g8n0dnf45" path="res://The_Alchemist_Quest/scripts/inventory/pickup_item/electrical_cabinet.gd" id="1_2sx2f"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/inventory/pickup_item/electrical_cabinet.gd" id="1_2sx2f"]
 [ext_resource type="Texture2D" uid="uid://duh4245vr0uc5" path="res://The_Alchemist_Quest/assets/decor/Electrical_cabinet_close.png" id="2_dthu6"]
 [ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="3_cojvv"]
 

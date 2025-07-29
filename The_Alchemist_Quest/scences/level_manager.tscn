@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b0lckgiw4has1"]
 
-[ext_resource type="Script" uid="uid://18njsgportnv" path="res://The_Alchemist_Quest/scripts/levelManager.gd" id="1_7m7id"]
-[ext_resource type="Script" uid="uid://cpdb8s4xxk6vc" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="2_hu1dt"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/levelManager.gd" id="1_7m7id"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="2_hu1dt"]
 [ext_resource type="Resource" uid="uid://ethov075ahmr" path="res://The_Alchemist_Quest/scripts/QuestManager/trial.tres" id="3_dfopa"]
 [ext_resource type="Resource" uid="uid://bt7haiskdeojg" path="res://The_Alchemist_Quest/scripts/QuestManager/intro_room/intro_quest1.tres" id="4_nouy8"]
 [ext_resource type="Resource" uid="uid://dbmcr5tactoni" path="res://The_Alchemist_Quest/scripts/QuestManager/intro_room/intro_quest2.tres" id="5_35d33"]

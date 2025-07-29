@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="QuestResource" load_steps=2 format=3 uid="uid://dl23f0ehm2tyi"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="1_ceeek"]
+
+[resource]
+script = ExtResource("1_ceeek")
+quest_name = ""
+quest_description = ""
+reached_goal_text = ""
+activation_type = 0
+npc_id = ""
+next_scene = ""
+target_map = ""
+trigger_event = ""
+show_marker = true

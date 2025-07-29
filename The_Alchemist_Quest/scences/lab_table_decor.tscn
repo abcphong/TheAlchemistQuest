@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://k1xgqi502n3c"]
 
-[ext_resource type="Texture2D" uid="uid://bwmfseyyejlsa" path="res://The_Alchemist_Quest/assets/decor/lab table.png" id="1_wyx66"]
+[ext_resource type="Texture2D" uid="uid://1jo4sthlqq8g" path="res://The_Alchemist_Quest/assets/decor/lab table.png" id="1_wyx66"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vathp"]
 size = Vector2(63, 24.5)

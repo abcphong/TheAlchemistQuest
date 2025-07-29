@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://djubwjlrl4fu4"]
 
-[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="1_5thc5"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scences/player/inventory.tscn" id="1_5thc5"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/storage_room/puzzle_ui_task_1_2.gd" id="1_r2c62"]
 [ext_resource type="Texture2D" uid="uid://drs8s7ag3mfww" path="res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/Task1_storage_room.png" id="2_mxons"]
-[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scenes/puzzle/puzzle_slot.tscn" id="3_perv0"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scences/puzzle/intro_room/puzzle_slot.tscn" id="3_perv0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o5edi"]
 atlas = ExtResource("2_mxons")
