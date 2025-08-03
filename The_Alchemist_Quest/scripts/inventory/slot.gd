@@ -69,51 +69,126 @@ func initialize_item(item_name: String, item_quantity: int):
 		update_inventory_dict()
 
 func _on_gui_input(event: InputEvent):
-	# Right-click: take 1 item from stack if possible
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-		if item and item.item_quantity > 0 and UserInterface.holding_item == null:
-			create_right_click_item()
-			get_viewport().set_input_as_handled()
+	# Right-click hold: take 1 item from stack while holding
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		if event.pressed:
+			# Start holding item when right mouse pressed
+			if item and item.item_quantity > 0 and UserInterface.holding_item == null:
+				create_right_click_hold_item()
+				get_viewport().set_input_as_handled()
+		else:
+			# Release item back to slot when right mouse released
+			if UserInterface.holding_item and UserInterface.is_right_click_holding:
+				return_right_click_item()
+				get_viewport().set_input_as_handled()
 
-func create_right_click_item():
+func create_right_click_hold_item():
 	# Do nothing if no item or player already holding an item
 	if not item or UserInterface.holding_item != null:
 		return
-	
-	print("[DEBUG-RIGHTCLICK] Taking 1 item from stack...")
-	
+
+	# Store original item info for restoration
+	UserInterface.right_click_original_slot = self
+	UserInterface.right_click_original_item_name = item.item_name
+	UserInterface.right_click_original_quantity = item.item_quantity
+
 	# Instantiate new item with quantity 1
 	var new_item = ItemClass.instantiate()
 	new_item.set_item(item.item_name, 1)
-	
-	# Decrease quantity in current slot
+
+	# Temporarily decrease quantity in current slot (will be restored on release)
 	item.decrease_item_quantity(1)
 	update_inventory_dict()
-	
-	# Remove item if quantity zero
+
+	# Temporarily remove item if quantity zero (will be restored on release)
 	if item.item_quantity <= 0:
-		item.queue_free()
-		item = null
-	
+		item.visible = false  # Hide instead of destroying
+
 	# Add new item to player's hand
 	var ui_controller = get_tree().get_first_node_in_group("UserInterface")
 	if not ui_controller:
 		ui_controller = get_tree().get_root()
 	ui_controller.add_child(new_item)
-	
+
 	# Configure new item position and z-index
 	new_item.global_position = get_global_mouse_position()
 	new_item.set_z_as_relative(false)
 	new_item.z_index = 9999
-	
+
 	# Update player UI state
 	UserInterface.holding_item = new_item
-	UserInterface.original_slot_index = -1
-	UserInterface.original_is_hotbar = false
-	UserInterface.original_puzzle_slot = null
+	UserInterface.is_right_click_holding = true
 	UserInterface.is_dragging = true
-	
-	print("[DEBUG-RIGHTCLICK] Took 1 '", new_item.item_name, "' from stack")
+
+func return_right_click_item():
+	# Try to place item in nearest empty slot, fallback to original slot
+	if not UserInterface.holding_item or not UserInterface.is_right_click_holding:
+		return
+
+	var held_item = UserInterface.holding_item
+	var mouse_pos = get_viewport().get_mouse_position()
+
+	# Try to find nearest empty slot
+	var nearest_slot = find_nearest_empty_slot(mouse_pos)
+
+	if nearest_slot:
+		# Place item in nearest empty slot
+		# Remove held item from UI
+		held_item.get_parent().remove_child(held_item)
+
+		# Place in nearest slot
+		nearest_slot.putIntoSlot(held_item)
+
+		# Update inventory data (only inventory slots, not hotbar)
+		PlayerInventory.inventory[nearest_slot.slot_index] = [held_item.item_name, held_item.item_quantity]
+
+		UserInterface.holding_item = null
+	else:
+		# No empty slot found, return to original slot
+		# Remove the held item
+		held_item.queue_free()
+		UserInterface.holding_item = null
+
+		# Restore original item in slot
+		var original_slot = UserInterface.right_click_original_slot
+		if original_slot and is_instance_valid(original_slot):
+			# Restore the item quantity
+			if original_slot.item:
+				original_slot.item.add_item_quantity(1)
+				original_slot.item.visible = true
+			else:
+				# Recreate the item if it was completely removed
+				original_slot.initialize_item(UserInterface.right_click_original_item_name, 1)
+
+			original_slot.update_inventory_dict()
+
+	# Reset UI state
+	UserInterface.is_right_click_holding = false
+	UserInterface.is_dragging = false
+	UserInterface.right_click_original_slot = null
+	UserInterface.right_click_original_item_name = ""
+	UserInterface.right_click_original_quantity = 0
+
+func find_nearest_empty_slot(mouse_position: Vector2):
+	var nearest_slot = null
+	var nearest_distance = INF
+
+	# Check only inventory slots (exclude hotbar)
+	var inventory_slots = get_tree().get_nodes_in_group("InventorySlot")
+
+	for slot in inventory_slots:
+		# Check if slot is effectively empty (no item, or item with 0 quantity, or hidden item)
+		var is_slot_empty = (not slot.item) or (slot.item and slot.item.item_quantity <= 0) or (slot.item and not slot.item.visible)
+
+		if is_slot_empty and not slot.is_hotbar_slot and is_instance_valid(slot):  # Empty inventory slot only
+			var slot_center = slot.global_position + slot.size / 2
+			var distance = mouse_position.distance_to(slot_center)
+
+			if distance < nearest_distance:
+				nearest_distance = distance
+				nearest_slot = slot
+
+	return nearest_slot
 
 # --- LOGIC HIỂN THỊ POPUP KHI HOVER ---
 func _on_mouse_entered():

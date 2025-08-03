@@ -39,10 +39,9 @@ func set_item(nm: String, qt: int) -> void:
 		$TextureRect.texture = load("res://The_Alchemist_Quest/assets/item/unknow_item.png")
 
 	# Cập nhật stack và hiển thị số lượng
-	if JsonData.item_data.has(item_name):
-		max_quantity = int(JsonData.item_data[item_name].get("StackSize", 1))
-	elif JsonData.item_data.has("item") and JsonData.item_data["item"].has(item_name):
-		max_quantity = int(JsonData.item_data["item"][item_name].get("StackSize", 1))
+	var item_definitions = JsonData.item_data.get("item", {})
+	if item_definitions.has(item_name):
+		max_quantity = int(item_definitions.get(item_name, {"StackSize": 1}).get("StackSize", 1))
 	else:
 		max_quantity = 1
 		

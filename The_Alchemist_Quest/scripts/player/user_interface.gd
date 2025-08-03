@@ -7,6 +7,12 @@ var save_load_ui: Control = null
 var original_slot_index := -1
 var original_is_hotbar := false
 var original_puzzle_slot = null
+
+# Right-click hold variables
+var is_right_click_holding := false
+var right_click_original_slot = null
+var right_click_original_item_name := ""
+var right_click_original_quantity := 0
 @onready var dragging_layer = get_tree().get_current_scene().get_node("DraggingLayer")
 
 func _ready():
@@ -73,6 +79,12 @@ func hide_inventory():
 func _process(_delta):
 	if is_dragging and holding_item and is_instance_valid(holding_item):
 		holding_item.global_position = get_viewport().get_mouse_position()
+
+	# Handle right-click hold release when mouse button is no longer pressed
+	if is_right_click_holding and not Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		# Find the original slot and return the item
+		if right_click_original_slot and is_instance_valid(right_click_original_slot):
+			right_click_original_slot.return_right_click_item()
 
 	# Xử lý phím tắt mở menu lưu/tải game
 	if Input.is_action_just_pressed("toggle_save_menu"):

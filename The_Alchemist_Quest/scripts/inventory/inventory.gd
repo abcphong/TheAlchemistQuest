@@ -169,7 +169,7 @@ func try_drop_item(slot: Node, mouse_pos: Vector2):
 		snap_item_back_to_original_slot()
 		return
 
-	# CHỈ DỌN DẸP NẾU TRÊN TAY KHÔNG CÒN GÌ (SAU KHI SWAP THÌ VẪN CÒN)
+	# DỌN DẸP SAU KHI DROP/SWAP HOÀN TẤT
 	if not is_instance_valid(UserInterface.holding_item):
 		cleanup_after_drop()
 
@@ -318,7 +318,9 @@ func left_click_empty_slot(slot: SlotClass):
 	UserInterface.holding_item = null
 
 func left_click_same_item(slot: SlotClass):
-	var stack_size = int(JsonData.item_data[slot.item.item_name]["StackSize"])
+	# Truy cập đúng cấu trúc JsonData.item_data["item"][item_name]
+	var item_definitions = JsonData.item_data.get("item", {})
+	var stack_size = int(item_definitions.get(slot.item.item_name, {"StackSize": 1}).get("StackSize", 1))
 	var able_to_add = stack_size - slot.item.item_quantity
 	
 	if able_to_add >= UserInterface.holding_item.item_quantity:
@@ -333,24 +335,42 @@ func left_click_same_item(slot: SlotClass):
 	UserInterface.holding_item = null if UserInterface.holding_item.item_quantity <= 0 else UserInterface.holding_item
 
 func left_click_different_item(event: InputEvent, slot: SlotClass):
-	# 1. Lấy item ở slot đích ra và tạm giữ 
+	# SWAP LOGIC: Hoán đổi 2 items khác nhau
+	# 1. Lấy item ở slot đích ra và tạm giữ
 	var temp_item = slot.pickFromSlot()
 
 	# 2. Đặt item đang giữ trên chuột vào slot đích
 	slot.putIntoSlot(UserInterface.holding_item)
-	
-	# Cập nhật chính xác inventory data mà không phát signal (TRÁNH GỌI initialize_inventory)
+
+	# Cập nhật inventory data cho slot đích
 	var slot_index = slot.slot_index
 	PlayerInventory.inventory[slot_index] = [UserInterface.holding_item.item_name, UserInterface.holding_item.item_quantity]
 
-	# 3. Giờ con trỏ chuột sẽ giữ item đã được lấy ra lúc đầu
-	UserInterface.holding_item = temp_item
-	
-	# 4. Thêm item vừa cầm lên vào đúng layer để nó hiển thị và di chuyển theo chuột
-	if is_instance_valid(UserInterface.holding_item):
-		var parent_node = dragging_layer if dragging_layer else UserInterface
-		parent_node.add_child(UserInterface.holding_item)
-		UserInterface.holding_item.global_position = get_viewport().get_mouse_position()
+	# 3. Đặt temp_item vào slot ban đầu (nơi item đang cầm được lấy ra)
+	var original_index = UserInterface.original_slot_index
+	var is_from_hotbar = UserInterface.original_is_hotbar
+
+	if is_from_hotbar:
+		# Đặt vào hotbar slot
+		var hotbar_slots = get_tree().get_nodes_in_group("hotbar_slot")
+		for hotbar_slot in hotbar_slots:
+			if hotbar_slot.slot_index == original_index:
+				hotbar_slot.putIntoSlot(temp_item)
+				PlayerInventory.hotbar[original_index] = [temp_item.item_name, temp_item.item_quantity]
+				break
+	else:
+		# Đặt vào inventory slot
+		var inventory_slots = inventory_slots.get_children()
+		if original_index >= 0 and original_index < inventory_slots.size():
+			var original_slot = inventory_slots[original_index]
+			original_slot.putIntoSlot(temp_item)
+			PlayerInventory.inventory[original_index] = [temp_item.item_name, temp_item.item_quantity]
+
+	# 4. Clear holding item - swap hoàn tất
+	UserInterface.holding_item = null
+
+	# 5. Cleanup trạng thái drag
+	cleanup_after_drop()
 		
 #func clear_ui_inventory():
 	#print("[UI Inventory] Xóa các item slots")

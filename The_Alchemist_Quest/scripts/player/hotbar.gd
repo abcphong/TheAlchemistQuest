@@ -78,10 +78,11 @@ func handle_place_item(ui,slot: InventorySlot, event: InputEvent):
 		# Same item, try to merge
 		else:
 			# Verify the item exists in JsonData
-			if not JsonData.item_data.has(slot.item.item_name):
+			var item_definitions = JsonData.item_data.get("item", {})
+			if not item_definitions.has(slot.item.item_name):
 				return
-				
-			var stack_size = int(JsonData.item_data[slot.item.item_name].get("StackSize", 99))
+
+			var stack_size = int(item_definitions.get(slot.item.item_name, {"StackSize": 99}).get("StackSize", 99))
 			var able_to_add = stack_size - slot.item.item_quantity
 			if able_to_add >= ui.holding_item.item_quantity:
 				slot.item.add_item_quantity(ui.holding_item.item_quantity)
