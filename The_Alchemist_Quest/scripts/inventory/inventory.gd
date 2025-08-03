@@ -95,7 +95,7 @@ func handle_mouse_button_event(event: InputEvent, slot: SlotClass):
 		get_viewport().set_input_as_handled()
 		
 func handle_mouse_motion(event: InputEventMouseMotion) -> void:
-	if UserInterface.holding_item:
+	if UserInterface.holding_item and is_instance_valid(UserInterface.holding_item):
 		UserInterface.holding_item.global_position = get_viewport().get_mouse_position()
 
 func start_drag_item(slot: SlotClass):
@@ -159,13 +159,16 @@ func try_drop_item(slot: Node, mouse_pos: Vector2):
 			cleanup_after_drop()
 			return
 
-	
+
 	# Inventory slot handling (combined logic)
 	if slot is SlotClass and slot.get_global_rect().has_point(mouse_pos):
 		handle_inventory_drop(slot)
 	else:
-		drop_item_to_world(UserInterface.holding_item)
-	
+		# Snap item back to original slot instead of dropping to world
+		print("[DEBUG-SNAP] Item dropped outside valid zones, snapping back to original slot")
+		snap_item_back_to_original_slot()
+		return
+
 	# CHỈ DỌN DẸP NẾU TRÊN TAY KHÔNG CÒN GÌ (SAU KHI SWAP THÌ VẪN CÒN)
 	if not is_instance_valid(UserInterface.holding_item):
 		cleanup_after_drop()
@@ -187,10 +190,93 @@ func handle_inventory_drop(slot: SlotClass):
 	else:
 		left_click_different_item(null, slot)
 
+func snap_item_back_to_original_slot():
+	if not UserInterface.holding_item or not is_instance_valid(UserInterface.holding_item):
+		cleanup_after_drop()
+		return
+
+	var item = UserInterface.holding_item
+	var original_index = UserInterface.original_slot_index
+	var is_from_hotbar = UserInterface.original_is_hotbar
+	var original_puzzle_slot = UserInterface.original_puzzle_slot
+
+	print("[DEBUG-SNAP] Snapping item back to original slot: ", original_index, " (hotbar: ", is_from_hotbar, ", puzzle: ", original_puzzle_slot != null, ")")
+
+	# Handle puzzle slot case
+	if original_puzzle_slot and is_instance_valid(original_puzzle_slot):
+		print("[DEBUG-SNAP] Returning item to original puzzle slot")
+		original_puzzle_slot.receive_item(item)
+		cleanup_after_drop()
+		return
+
+	# Find the original slot
+	var original_slot = null
+	if is_from_hotbar:
+		# Find hotbar slot
+		var hotbar_slots = get_tree().get_nodes_in_group("HotbarSlot")
+		for slot in hotbar_slots:
+			if slot.slot_index == original_index:
+				original_slot = slot
+				break
+	else:
+		# Find inventory slot
+		var inventory_slots = get_tree().get_nodes_in_group("InventorySlot")
+		for slot in inventory_slots:
+			if slot.slot_index == original_index and not slot.is_hotbar_slot:
+				original_slot = slot
+				break
+
+	if original_slot:
+		# Check if original slot is now occupied
+		if original_slot.item:
+			print("[DEBUG-SNAP] Original slot occupied, trying to find empty slot instead")
+			# Try to find any empty slot as fallback
+			if not try_place_in_any_empty_slot(item):
+				print("[DEBUG-SNAP] No empty slots available, keeping item on cursor")
+				return
+		else:
+			# Original slot is empty, put item back
+			original_slot.putIntoSlot(item)
+			if is_from_hotbar:
+				PlayerInventory.hotbar[original_index] = [item.item_name, item.item_quantity]
+			else:
+				PlayerInventory.inventory[original_index] = [item.item_name, item.item_quantity]
+			print("[DEBUG-SNAP] Successfully snapped item back to original slot")
+	else:
+		print("[DEBUG-SNAP] Original slot not found, trying to find empty slot")
+		# Original slot not found, try to place in any empty slot
+		if not try_place_in_any_empty_slot(item):
+			print("[DEBUG-SNAP] No empty slots available, keeping item on cursor")
+			return
+
+	cleanup_after_drop()
+
+func try_place_in_any_empty_slot(item: Control) -> bool:
+	# Try inventory slots first
+	var inventory_slots = get_tree().get_nodes_in_group("InventorySlot")
+	for slot in inventory_slots:
+		if not slot.is_hotbar_slot and not slot.item:
+			slot.putIntoSlot(item)
+			PlayerInventory.inventory[slot.slot_index] = [item.item_name, item.item_quantity]
+			print("[DEBUG-SNAP] Placed item in empty inventory slot: ", slot.slot_index)
+			return true
+
+	# Try hotbar slots if inventory is full
+	var hotbar_slots = get_tree().get_nodes_in_group("HotbarSlot")
+	for slot in hotbar_slots:
+		if not slot.item:
+			slot.putIntoSlot(item)
+			PlayerInventory.hotbar[slot.slot_index] = [item.item_name, item.item_quantity]
+			print("[DEBUG-SNAP] Placed item in empty hotbar slot: ", slot.slot_index)
+			return true
+
+	return false
+
 func cleanup_after_drop():
 	UserInterface.holding_item = null
 	UserInterface.original_slot_index = -1
 	UserInterface.original_is_hotbar = false
+	UserInterface.original_puzzle_slot = null
 	#if not is_updating:
 		#initialize_inventory()
 
@@ -218,9 +304,9 @@ func show_description_popup(description: String, position: Vector2, item_name: S
 	popup_panel.show()
 
 func _input(event):
-	if UserInterface.holding_item:
+	if UserInterface.holding_item and is_instance_valid(UserInterface.holding_item):
 		UserInterface.holding_item.global_position = get_viewport().get_mouse_position()
-	
+
 	if event is InputEventMouseButton and event.pressed and popup_panel.visible:
 		if not popup_panel.get_global_rect().has_point(event.global_position):
 			popup_panel.hide()

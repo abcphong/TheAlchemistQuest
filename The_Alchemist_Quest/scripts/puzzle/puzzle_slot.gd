@@ -25,6 +25,11 @@ func _gui_input(event: InputEvent):
 			current_item.visible = true
 
 			UserInterface.holding_item = current_item
+			# Set original slot info to indicate this came from a puzzle slot
+			UserInterface.original_slot_index = -1  # -1 indicates puzzle slot
+			UserInterface.original_is_hotbar = false
+			UserInterface.original_puzzle_slot = self  # Store reference to this puzzle slot
+
 			current_item = null
 			is_filled = false
 			$ItemIcon.texture = null

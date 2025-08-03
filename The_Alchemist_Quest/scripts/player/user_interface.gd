@@ -71,9 +71,9 @@ func hide_inventory():
 		print("UserInterface hide_inventory called")
 
 func _process(_delta):
-	if is_dragging and holding_item:
+	if is_dragging and holding_item and is_instance_valid(holding_item):
 		holding_item.global_position = get_viewport().get_mouse_position()
-		
+
 	# Xử lý phím tắt mở menu lưu/tải game
 	if Input.is_action_just_pressed("toggle_save_menu"):
 		toggle_save_load_menu()
