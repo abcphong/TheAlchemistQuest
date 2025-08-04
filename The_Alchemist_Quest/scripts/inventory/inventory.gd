@@ -164,9 +164,9 @@ func try_drop_item(slot: Node, mouse_pos: Vector2):
 	if slot is SlotClass and slot.get_global_rect().has_point(mouse_pos):
 		handle_inventory_drop(slot)
 	else:
-		# Snap item back to original slot instead of dropping to world
-		print("[DEBUG-SNAP] Item dropped outside valid zones, snapping back to original slot")
-		snap_item_back_to_original_slot()
+		# Try to place item in nearest empty slot instead of snapping back to original
+		print("[DEBUG-NEAREST] Item dropped outside valid zones, trying to find nearest empty slot")
+		place_item_in_nearest_slot(mouse_pos)
 		return
 
 	# DỌN DẸP SAU KHI DROP/SWAP HOÀN TẤT
@@ -271,6 +271,72 @@ func try_place_in_any_empty_slot(item: Control) -> bool:
 			return true
 
 	return false
+
+func place_item_in_nearest_slot(mouse_pos: Vector2):
+	if not UserInterface.holding_item or not is_instance_valid(UserInterface.holding_item):
+		cleanup_after_drop()
+		return
+
+	var held_item = UserInterface.holding_item
+
+	# Try to find nearest empty slot
+	var nearest_slot = find_nearest_empty_slot(mouse_pos)
+
+	if nearest_slot:
+		# Place item in nearest empty slot
+		print("[DEBUG-NEAREST] Placing item in nearest empty slot: ", nearest_slot.slot_index)
+		nearest_slot.putIntoSlot(held_item)
+
+		# Update inventory data
+		if nearest_slot.is_hotbar_slot:
+			PlayerInventory.hotbar[nearest_slot.slot_index] = [held_item.item_name, held_item.item_quantity]
+		else:
+			PlayerInventory.inventory[nearest_slot.slot_index] = [held_item.item_name, held_item.item_quantity]
+
+		UserInterface.holding_item = null
+	else:
+		# No empty slot found, fallback to original behavior (snap back to original slot)
+		print("[DEBUG-NEAREST] No empty slot found, falling back to snap back to original slot")
+		snap_item_back_to_original_slot()
+		return
+
+	cleanup_after_drop()
+
+func find_nearest_empty_slot(mouse_position: Vector2):
+	var nearest_slot = null
+	var nearest_distance = INF
+
+	# Check inventory slots first (exclude hotbar for priority)
+	var inventory_slots = get_tree().get_nodes_in_group("InventorySlot")
+
+	for slot in inventory_slots:
+		# Check if slot is effectively empty
+		var is_slot_empty = (not slot.item) or (slot.item and slot.item.item_quantity <= 0) or (slot.item and not slot.item.visible)
+
+		if is_slot_empty and not slot.is_hotbar_slot and is_instance_valid(slot):
+			var slot_center = slot.global_position + slot.size / 2
+			var distance = mouse_position.distance_to(slot_center)
+
+			if distance < nearest_distance:
+				nearest_distance = distance
+				nearest_slot = slot
+
+	# If no inventory slot found, check hotbar slots
+	if not nearest_slot:
+		var hotbar_slots = get_tree().get_nodes_in_group("HotbarSlot")
+
+		for slot in hotbar_slots:
+			var is_slot_empty = (not slot.item) or (slot.item and slot.item.item_quantity <= 0) or (slot.item and not slot.item.visible)
+
+			if is_slot_empty and is_instance_valid(slot):
+				var slot_center = slot.global_position + slot.size / 2
+				var distance = mouse_position.distance_to(slot_center)
+
+				if distance < nearest_distance:
+					nearest_distance = distance
+					nearest_slot = slot
+
+	return nearest_slot
 
 func cleanup_after_drop():
 	UserInterface.holding_item = null
