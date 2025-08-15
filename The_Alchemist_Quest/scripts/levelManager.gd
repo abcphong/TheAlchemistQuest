@@ -14,13 +14,17 @@ var current_task_index: int = 0
 var all_tasks_completed: bool = false
 var current_quest: QuestResource = null
 
+# 🆕 HỖ TRỢ POST PUZZLE DIALOG
+var show_post_puzzle_dialog: bool = false
+
 # ==== THAM CHIẾU ====
 # QuestManager nên được đặt trong một scene Autoload hoặc một scene cố định
 # để dễ dàng truy cập. Giả sử nó là con của root.
 
 func _ready():
 	instance = self
-	
+	# 🔧 Đảm bảo instance luôn valid khi scene change
+	get_tree().node_added.connect(_on_node_added)
 	# Kết nối với các tín hiệu toàn cục
 	# Dòng này giờ sẽ hoạt động bình thường
 	QuestManager.task_completed.connect(_on_task_completed)
@@ -33,6 +37,10 @@ func _ready():
 	# Dòng này giờ sẽ hoạt động bình thường
 	EventBus.emit_signal("map_changed", map_name)
 	
+func _on_node_added(node):
+	if node is LevelManager and node != self:
+		# Nếu có LevelManager mới, update instance
+		instance = node	
 ## === BỘ NÃO XỬ LÝ NHIỆM VỤ === ##
 
 func start_new_task():
@@ -75,7 +83,7 @@ func _on_task_completed():
 		get_tree().change_scene_to_file(current_quest.next_scene)
 		return # Dừng lại sau khi chuyển cảnh
 		
-# Gọi lab_workbench để chuẩn bị puzzle_ui tiếp theo
+	# Gọi lab_workbench để chuẩn bị puzzle_ui tiếp theo
 	var workbench = get_tree().get_first_node_in_group("Workbench")
 	if workbench:
 		workbench.set_current_puzzle_ui(current_task_index)
@@ -85,11 +93,17 @@ func _on_task_completed():
 	# Chuyển sang nhiệm vụ tiếp theo trong chuỗi
 	start_new_task()
 
-
 ## === XỬ LÝ CÁC TÁC NHÂN BÊN NGOÀI === ##
 func _on_quest_event_triggered(event_name: String):
 	if event_name == "PUZZLE_%d_COMPLETED" % (current_task_index + 1):
-		print("🧩 Nhận tín hiệu puzzle hoàn thành -> Hoàn thành task.")
+		print("🧩 Nhận tín hiệu puzzle hoàn thành -> Kiểm tra Post_Puzzle_Sequence.")
+		
+		# 🆕 KIỂM TRA: Nếu có Post_Puzzle_Sequence, để Puzzle Script xử lý scene transition
+		if show_post_puzzle_dialog:
+			print("🔍 Post_Puzzle_Sequence đang active - để Puzzle Script xử lý scene transition")
+			return
+		
+		# Chỉ chuyển task thông thường nếu không có Post_Puzzle_Sequence
 		_on_task_completed()
 		return
 	
@@ -121,3 +135,21 @@ func update_shelves_for_current_task():
 		if shelf.has_method("setup_for_task"):
 			shelf.setup_for_task(task_number_for_shelf)
 	print("Đã cập nhật tủ đồ cho Task %d" % task_number_for_shelf)
+
+# 🆕 HÀM HỖ TRỢ POST PUZZLE DIALOG
+func set_post_puzzle_dialog_flag(value: bool):
+	show_post_puzzle_dialog = value
+	print("🔍 LevelManager: Post puzzle dialog flag set to:", value)
+
+func get_post_puzzle_dialog_flag() -> bool:
+	return show_post_puzzle_dialog
+
+func clear_post_puzzle_dialog_flag():
+	show_post_puzzle_dialog = false
+	print("🔍 LevelManager: Post puzzle dialog flag cleared")
+
+# 🆕 HÀM MỚI: Cho phép Puzzle Script hoàn thành task sau khi alert scene
+func complete_task_after_alert():
+	print("🎯 Completing task after alert scene...")
+	clear_post_puzzle_dialog_flag()
+	_on_task_completed()

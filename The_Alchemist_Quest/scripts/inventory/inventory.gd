@@ -348,7 +348,7 @@ func cleanup_after_drop():
 
 func drop_item_to_world(item):
 	if item and is_instance_valid(item):
-		var dropped_item = load("res://The_Alchemist_Quest/scences/player/dropped_item.tscn").instantiate()
+		var dropped_item = load("res://The_Alchemist_Quest/scenes/player/dropped_item.tscn").instantiate()
 		var player = get_tree().get_first_node_in_group("player")
 		if player:
 			dropped_item.global_position = player.global_position

@@ -1,0 +1,83 @@
+[gd_scene load_steps=3 format=3 uid="uid://qtt06kg0kwuw"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/homepage/about_us.gd" id="1_0iirm"]
+[ext_resource type="FontFile" uid="uid://ccdxh8aqwkjxn" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="1_nwpxe"]
+
+[node name="AboutUs" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_0iirm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 25.0
+offset_right = 1083.0
+offset_bottom = 309.0
+color = Color(0.176419, 0.176419, 0.176419, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 36.0
+offset_right = 1071.0
+offset_bottom = 334.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_nwpxe")
+text = "Game The Alchemist’s Quest là sản phẩm sáng tạo của nhóm gồm 6 thành viên đến từ Câu lạc bộ CodeCatalyst – Swinburne Việt Nam (cơ sở TP.HCM).
+
+Chúng tôi là những sinh viên đam mê công nghệ, cùng nhau phát triển trò chơi này trong khuôn khổ nhóm Software Development của CLB. Dự án không chỉ là bài học thực tế về lập trình game, mà còn là nỗ lực thể hiện niềm yêu thích với khoa học, kể chuyện và trải nghiệm người chơi.
+
+Xin cảm ơn bạn đã chơi thử và trải nghiệm game!"
+fit_content = true
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 343.0
+offset_right = 1086.0
+offset_bottom = 598.0
+color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 353.0
+offset_right = 1070.0
+offset_bottom = 588.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_nwpxe")
+bbcode_enabled = true
+text = "[center]Đội ngũ phát triển[/center]
+"
+fit_content = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_nwpxe")
+theme_override_fonts/bold_font = ExtResource("1_nwpxe")
+bbcode_enabled = true
+text = "[b]Lập trình chính:[/b] Phạm Tiên Phong     					[b]Kịch bản:[/b] Vũ Minh Tuấn
+[b]Lập trình viên:[/b] Nguyễn Anh Tú    							[b]Âm thanh % Hiệu ứng:[/b] Nguyễn Lâm Minh Huy
+[b]Đồ hoạ UI:[/b] Huỳnh Gia Phúc     								[b]Quản lý & kiểm thử:[/b] Trương Đông Nhi
+"
+fit_content = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="MarginContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("1_nwpxe")
+bbcode_enabled = true
+text = "[center]Dù không có thành viên chuyên về đồ họa hay âm thanh, chúng tôi luôn cố gắng mang đến một trải nghiệm game chỉn chu, mạch lạc và thú vị nhất có thể![/center]
+"
+fit_content = true

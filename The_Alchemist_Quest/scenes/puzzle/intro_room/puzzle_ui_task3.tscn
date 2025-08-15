@@ -1,0 +1,92 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6tyhu4nkxru1"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/intro_room/puzzle_ui_task_3.gd" id="1_63thl"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="1_fmhye"]
+[ext_resource type="Texture2D" uid="uid://c2y37qkqvaqo6" path="res://The_Alchemist_Quest/assets/puzzle/intro_room/task3/Task3_intro_room.png" id="2_4fbtv"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/intro_room/phase_slot.gd" id="4_eobfp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dvfu"]
+atlas = ExtResource("2_4fbtv")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iomsv"]
+atlas = ExtResource("2_4fbtv")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swrj4"]
+atlas = ExtResource("2_4fbtv")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h3bcy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iomsv")
+}],
+"loop": false,
+"name": &"Completed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swrj4")
+}],
+"loop": false,
+"name": &"Have_mask",
+"speed": 5.0
+}]
+
+[node name="PuzzleUiTask3" type="CanvasLayer"]
+script = ExtResource("1_63thl")
+reward_items = Array[String](["H2O2", "HCl", "Corrosion_reaction_note"])
+reward_amounts = Array[int]([1, 1, 1])
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("1_fmhye")]
+position = Vector2(593, 180)
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.680556
+anchor_bottom = 0.824074
+offset_left = -183.0
+offset_top = -198.0
+offset_right = -91.0
+offset_bottom = -108.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_3dvfu")
+metadata/_edit_use_anchors_ = true
+
+[node name="Phase1Slot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_eobfp")
+
+[node name="Phase2Slots" type="Control" parent="."]
+visible = false
+z_index = 20
+layout_mode = 3
+anchors_preset = 0
+offset_left = 473.0
+offset_top = 214.0
+offset_right = 513.0
+offset_bottom = 254.0
+script = ExtResource("4_eobfp")
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(543, 276)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_h3bcy")
+animation = &"Have_mask"

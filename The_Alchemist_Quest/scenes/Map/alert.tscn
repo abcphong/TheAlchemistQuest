@@ -1,0 +1,269 @@
+[gd_scene load_steps=38 format=3 uid="uid://crvvcfn7kmdh4"]
+
+[ext_resource type="Texture2D" uid="uid://38oqr3x6tr11" path="res://The_Alchemist_Quest/assets/decor/Intro_room_shelf.png" id="5_hu6s0"]
+[ext_resource type="PackedScene" uid="uid://cqrj5nyjqpygn" path="res://The_Alchemist_Quest/scenes/worklab2D.tscn" id="6_tpp1m"]
+[ext_resource type="PackedScene" uid="uid://c7kmbgu635u0d" path="res://The_Alchemist_Quest/scenes/trial_puzzle/puzzle_ui.tscn" id="7_c00xy"]
+[ext_resource type="PackedScene" uid="uid://cxm3k6ck844do" path="res://The_Alchemist_Quest/scenes/Map/room 1.tscn" id="8_0t5ua"]
+[ext_resource type="PackedScene" uid="uid://df6aknphjx4ui" path="res://The_Alchemist_Quest/scenes/mentor_npc.tscn" id="9_4xryb"]
+[ext_resource type="PackedScene" uid="uid://de4tjmmo3avyw" path="res://The_Alchemist_Quest/scenes/dialog_area.tscn" id="10_5t4gb"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/demo_room/transition_overlay.gd" id="10_r8vpm"]
+[ext_resource type="PackedScene" uid="uid://lelq75l35prl" path="res://The_Alchemist_Quest/scenes/player.tscn" id="11_ra0ph"]
+[ext_resource type="Texture2D" uid="uid://57jqqpk2oerl" path="res://The_Alchemist_Quest/assets/decor/Rotating_red_beacon.png" id="12_a5mah"]
+[ext_resource type="Texture2D" uid="uid://bbefedjrur1em" path="res://The_Alchemist_Quest/assets/decor/Electrical_cabinet.png" id="13_4oykt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjrkp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ach7e"]
+size = Vector2(43.9785, 9.94835)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jiwqm"]
+normal = Vector2(-0.120195, -0.99275)
+distance = -43.0631
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_5074j"]
+normal = Vector2(-0.0167434, 0.99986)
+distance = -53.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tav0f"]
+distance = -141.977
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_e2da1"]
+normal = Vector2(-0.99275, 0.120196)
+distance = -185.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1quw2"]
+size = Vector2(58.9749, 26.3495)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ctp6"]
+size = Vector2(56.9752, 31.1144)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xcyc"]
+size = Vector2(81.5211, 43.5145)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b6gl"]
+size = Vector2(54.977, 18.6321)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epl7p"]
+size = Vector2(670.982, 36.2417)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lbxs"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnjo6"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1h2i8"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j400m"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl7eh"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htdrm"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(1000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqlxv"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(1200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6tne"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(1400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bc84"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(1600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_macgv"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(1800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2aam"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(2000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu33m"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(2200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2gqe"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(2400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05wwv"]
+atlas = ExtResource("12_a5mah")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n7c30"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0lbxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnjo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1h2i8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j400m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl7eh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htdrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqlxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6tne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bc84")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_macgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2aam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wu33m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2gqe")
+}],
+"loop": true,
+"name": &"activated",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05wwv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ka66"]
+atlas = ExtResource("13_4oykt")
+region = Rect2(0, 0, 36, 51)
+
+[node name="Alert" type="Node2D"]
+
+[node name="Shelf2" type="Sprite2D" parent="."]
+position = Vector2(275, 69)
+texture = ExtResource("5_hu6s0")
+
+[node name="Shelf3" type="Sprite2D" parent="."]
+position = Vector2(316, 69)
+texture = ExtResource("5_hu6s0")
+
+[node name="DraggingLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="worklab2D" parent="." instance=ExtResource("6_tpp1m")]
+position = Vector2(392, 75)
+explode_scene_path = ExtResource("7_c00xy")
+
+[node name="Room1" parent="." instance=ExtResource("8_0t5ua")]
+z_index = -10
+position = Vector2(-239, -173)
+
+[node name="mentorNPC" parent="Room1" instance=ExtResource("9_4xryb")]
+position = Vector2(470, 242)
+
+[node name="DialogAreaMentor" parent="Room1/mentorNPC" instance=ExtResource("10_5t4gb")]
+position = Vector2(2, 3)
+dialog_file = "res://The_Alchemist_Quest/assets/json/demo_dialog.json"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Room1/mentorNPC/DialogAreaMentor"]
+shape = SubResource("RectangleShape2D_jjrkp")
+
+[node name="Player" parent="." instance=ExtResource("11_ra0ph")]
+top_level = true
+position = Vector2(396, 114)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-2, -15)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(176, 193)
+rotation = -0.0167443
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-133.651, -84.274)
+shape = SubResource("RectangleShape2D_ach7e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(68.4593, -26.8575)
+rotation = 0.137231
+shape = SubResource("WorldBoundaryShape2D_jiwqm")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(107.308, -77.2141)
+shape = SubResource("WorldBoundaryShape2D_5074j")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-37.9277, -4.6357)
+rotation = 1.59644
+shape = SubResource("WorldBoundaryShape2D_tav0f")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(836.218, -5.9996)
+rotation = 0.137231
+shape = SubResource("WorldBoundaryShape2D_e2da1")
+
+[node name="WorklabCollisionShape" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(224.671, -128.458)
+shape = SubResource("RectangleShape2D_1quw2")
+
+[node name="ControlPanelCollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(296.678, -121.703)
+shape = SubResource("RectangleShape2D_2ctp6")
+
+[node name="ShelfCollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(122.277, -134.972)
+rotation = 0.0174533
+shape = SubResource("RectangleShape2D_7xcyc")
+
+[node name="ComputerCollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(11.1754, -128.149)
+shape = SubResource("RectangleShape2D_0b6gl")
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(675.961, -81.8105)
+rotation = 0.0174533
+shape = SubResource("RectangleShape2D_epl7p")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-163.901, -126.762, -85.9282, -124.456, -33.1318, -171.579, -32.7012, -137.567, -83.3975, -96.4099, -164.386, -97.7661)
+
+[node name="RedLight" type="AnimatedSprite2D" parent="."]
+position = Vector2(444, 40)
+sprite_frames = SubResource("SpriteFrames_n7c30")
+animation = &"activated"
+
+[node name="ElectricCabin" type="Sprite2D" parent="."]
+position = Vector2(75, 102)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_5ka66")
+
+[node name="TransitionOverlay" type="CanvasLayer" parent="."]
+script = ExtResource("10_r8vpm")
+shake_intensity = 35.0
+fade_in_duration = 0.25

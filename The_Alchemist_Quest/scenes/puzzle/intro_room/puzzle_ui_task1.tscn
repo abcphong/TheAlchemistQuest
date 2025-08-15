@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://d2kgk3f4vg6vs"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/intro_room/puzzle_ui_task_1.gd" id="1_ok8nf"]
+[ext_resource type="Texture2D" uid="uid://ddiwsuyvisxpv" path="res://The_Alchemist_Quest/assets/puzzle/intro_room/Task1_intro_room.png" id="1_ygv66"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="4_1kqyt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35x6n"]
+atlas = ExtResource("1_ygv66")
+region = Rect2(0, 0, 150, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4kepx"]
+atlas = ExtResource("1_ygv66")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_omo2e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4kepx")
+}],
+"loop": true,
+"name": &"complete",
+"speed": 5.0
+}]
+
+[node name="PuzzleUI" type="CanvasLayer"]
+script = ExtResource("1_ok8nf")
+dialog_file = "res://The_Alchemist_Quest/assets/json/intro_room/intro_dialoge.json"
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("4_1kqyt")]
+position = Vector2(593, 180)
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.680556
+anchor_bottom = 0.824074
+offset_left = -183.0
+offset_top = -198.0
+offset_right = -91.0
+offset_bottom = -108.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_35x6n")
+metadata/_edit_use_anchors_ = true
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(543, 276)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_omo2e")
+animation = &"complete"

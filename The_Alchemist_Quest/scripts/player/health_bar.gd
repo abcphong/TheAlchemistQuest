@@ -135,7 +135,7 @@ func restart_game():
 	
 	# Tải lại scene game từ đầu
 	print("🔄 Đang khởi động lại game từ đầu...")
-	get_tree().change_scene_to_file("res://The_Alchemist_Quest/scences/game.tscn")
+	get_tree().change_scene_to_file("res://The_Alchemist_Quest/scenes/game.tscn")
 
 func reset_health():
 	remaining_time = MAX_HEALTH_TIME

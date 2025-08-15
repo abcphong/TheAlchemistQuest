@@ -17,7 +17,7 @@ signal dialog_finished
 
 func _ready():
 	# Instantiate dialogPlayer.tscn for UI (fix path typo: scenes -> scenes)
-	var dialog_scene = preload("res://The_Alchemist_Quest/scences/dialog_player.tscn")
+	var dialog_scene = preload("res://The_Alchemist_Quest/scenes/dialog_player.tscn")
 	var dialog_instance = dialog_scene.instantiate()
 	add_child(dialog_instance)
 	

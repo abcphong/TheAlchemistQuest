@@ -1,0 +1,181 @@
+[gd_scene load_steps=23 format=3 uid="uid://b0kqp8nywx2co"]
+
+[ext_resource type="Texture2D" uid="uid://dajyi0gjq6wik" path="res://The_Alchemist_Quest/assets/gameDemo/Explode.png" id="1_6norw"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/demo_room/trialPuzzle_layer.gd" id="2_q02kk"]
+[ext_resource type="PackedScene" uid="uid://jtw43r4xq7jj" path="res://The_Alchemist_Quest/scenes/puzzle_slot.tscn" id="3_optbw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65m3n"]
+atlas = ExtResource("1_6norw")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxvh5"]
+atlas = ExtResource("1_6norw")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nu8vu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxvh5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlfcf"]
+atlas = ExtResource("1_6norw")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1d71"]
+atlas = ExtResource("1_6norw")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6m2x"]
+atlas = ExtResource("1_6norw")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2liyp"]
+atlas = ExtResource("1_6norw")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqxot"]
+atlas = ExtResource("1_6norw")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjlnk"]
+atlas = ExtResource("1_6norw")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1n54t"]
+atlas = ExtResource("1_6norw")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aicxa"]
+atlas = ExtResource("1_6norw")
+region = Rect2(1200, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkxkh"]
+atlas = ExtResource("1_6norw")
+region = Rect2(1350, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ri40g"]
+atlas = ExtResource("1_6norw")
+region = Rect2(1500, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2oxil"]
+atlas = ExtResource("1_6norw")
+region = Rect2(1650, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1blb"]
+atlas = ExtResource("1_6norw")
+region = Rect2(1800, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg01o"]
+atlas = ExtResource("1_6norw")
+region = Rect2(1950, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6ton"]
+atlas = ExtResource("1_6norw")
+region = Rect2(2100, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n50s3"]
+atlas = ExtResource("1_6norw")
+region = Rect2(2250, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lb2hi"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_wlfcf")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_l1d71")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_v6m2x")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_2liyp")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_dqxot")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_jjlnk")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_1n54t")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_aicxa")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_hkxkh")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_ri40g")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_2oxil")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_g1blb")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_dg01o")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_a6ton")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_n50s3")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 10.0
+}]
+
+[node name="TrialPuzzle" type="TextureRect"]
+process_mode = 3
+offset_left = 507.0
+offset_top = 63.0
+offset_right = 888.0
+offset_bottom = 396.0
+texture = SubResource("AtlasTexture_65m3n")
+script = ExtResource("2_q02kk")
+sprites = SubResource("SpriteFrames_nu8vu")
+
+[node name="PuzzleSlot" parent="." instance=ExtResource("3_optbw")]
+visible = false
+layout_mode = 0
+offset_left = 147.0
+offset_top = 97.0
+offset_right = 188.0
+offset_bottom = 138.0
+
+[node name="PuzzleSlot2" parent="." instance=ExtResource("3_optbw")]
+visible = false
+layout_mode = 0
+offset_left = 211.0
+offset_top = 98.0
+offset_right = 255.0
+offset_bottom = 140.0
+
+[node name="PuzzleSlot3" parent="." instance=ExtResource("3_optbw")]
+visible = false
+layout_mode = 0
+offset_left = 49.0
+offset_top = 221.0
+offset_right = 106.0
+offset_bottom = 265.0
+
+[node name="Explode" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 20
+position = Vector2(190, 169)
+scale = Vector2(2.51333, 2.25333)
+sprite_frames = SubResource("SpriteFrames_lb2hi")
+animation = &"explode"
+frame = 1
+speed_scale = 2.0

@@ -189,7 +189,7 @@ func add_new_item_to_inventory(item_name: String, quantity: int) -> bool:
 		print("[DEBUG-UI] Không thể thêm ", item_name, " vào PlayerInventory, tạo holding_item")
 		
 		# Nếu không thể thêm vào inventory, tạo item cho người chơi cầm tạm thời
-		var item_scene = load("res://The_Alchemist_Quest/scences/player/item.tscn")
+		var item_scene = load("res://The_Alchemist_Quest/scenes/player/item.tscn")
 		if item_scene == null:
 			print("[DEBUG-UI] Không thể tải item scene!")
 			return false

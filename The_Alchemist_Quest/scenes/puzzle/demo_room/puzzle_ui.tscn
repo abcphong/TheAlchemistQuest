@@ -1,0 +1,188 @@
+[gd_scene load_steps=25 format=3 uid="uid://bibhfrcoq3jaw"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/demo_room/puzzle_ui_trial.gd" id="1_2j264"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="1_xxpip"]
+[ext_resource type="Texture2D" uid="uid://dajyi0gjq6wik" path="res://The_Alchemist_Quest/assets/gameDemo/Explode.png" id="2_nepsl"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scenes/puzzle/puzzle_slot.tscn" id="4_g7vub"]
+[ext_resource type="PackedScene" uid="uid://de4tjmmo3avyw" path="res://The_Alchemist_Quest/scenes/dialog_area.tscn" id="5_wk7e1"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/dialog/dialog_area_trial_puzzle.gd" id="6_hyigg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fem2f"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlfcf"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1d71"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v6m2x"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(450, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2liyp"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(600, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqxot"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(750, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jjlnk"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(900, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1n54t"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aicxa"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(1200, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hkxkh"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(1350, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ri40g"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(1500, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2oxil"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(1650, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1blb"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(1800, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dg01o"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(1950, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6ton"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(2100, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n50s3"]
+atlas = ExtResource("2_nepsl")
+region = Rect2(2250, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vsofh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wlfcf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1d71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v6m2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2liyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqxot")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jjlnk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1n54t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aicxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hkxkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ri40g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2oxil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1blb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dg01o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6ton")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n50s3")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8gyt0"]
+radius = 225.539
+
+[node name="PuzzleUi" type="CanvasLayer"]
+script = ExtResource("1_2j264")
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("1_xxpip")]
+position = Vector2(593, 180)
+
+[node name="Background" type="TextureRect" parent="."]
+offset_left = 393.0
+offset_top = 126.0
+offset_right = 543.0
+offset_bottom = 276.0
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_fem2f")
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 20
+position = Vector2(543, 276)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_vsofh")
+animation = &"explode"
+speed_scale = 2.0
+
+[node name="PuzzleSlot4" parent="." instance=ExtResource("4_g7vub")]
+offset_left = 437.0
+offset_top = 306.0
+offset_right = 483.0
+offset_bottom = 352.0
+expected_item = Array[String](["Bật lửa"])
+
+[node name="PuzzleSlot5" parent="." instance=ExtResource("4_g7vub")]
+offset_left = 503.0
+offset_top = 212.0
+offset_right = 549.0
+offset_bottom = 258.0
+expected_item = Array[String](["H₂ Gas Cylinder", "O₂ Gas Cylinder"])
+
+[node name="PuzzleSlot6" parent="." instance=ExtResource("4_g7vub")]
+offset_left = 555.0
+offset_top = 212.0
+offset_right = 601.0
+offset_bottom = 258.0
+expected_item = Array[String](["O₂ Gas Cylinder", "H₂ Gas Cylinder"])
+
+[node name="DialogAreaPuzzle" parent="." instance=ExtResource("5_wk7e1")]
+script = ExtResource("6_hyigg")
+dialog_key = "Puzzle_guide"
+dialog_file = "res://The_Alchemist_Quest/assets/json/demo_AI_dialoge.json"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DialogAreaPuzzle"]
+position = Vector2(539, 278)
+shape = SubResource("CircleShape2D_8gyt0")

@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://orwl62uixeyv"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/final_door/puzzle_ui_task_1_1.gd" id="1_rr13k"]
+[ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="2_tex72"]
+[ext_resource type="Texture2D" uid="uid://b1jotj1hg7vqd" path="res://The_Alchemist_Quest/assets/puzzle/final_door/Task1-1_final_room.png" id="3_nq1s8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ves2l"]
+atlas = ExtResource("3_nq1s8")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3358"]
+atlas = ExtResource("3_nq1s8")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fnviu"]
+animations = [{
+"frames": [{
+"duration": 2.5,
+"texture": SubResource("AtlasTexture_x3358")
+}],
+"loop": false,
+"name": &"mixed",
+"speed": 5.0
+}]
+
+[node name="PuzzleUi" type="CanvasLayer"]
+script = ExtResource("1_rr13k")
+reward_items = Array[String](["H2O2+HCl_finaldoor"])
+reward_amounts = Array[int]([1])
+
+[node name="InventoryContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Inventory" parent="InventoryContainer" instance=ExtResource("2_tex72")]
+position = Vector2(593, 180)
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.458
+anchor_top = 0.295
+anchor_right = 0.486
+anchor_bottom = 0.345
+offset_left = -134.616
+offset_top = -65.16
+offset_right = -16.872
+offset_bottom = 52.44
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_ves2l")
+metadata/_edit_use_anchors_ = true
+
+[node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(543, 276)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fnviu")
+animation = &"mixed"

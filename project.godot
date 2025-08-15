@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TheAlchemistQuest"
-run/main_scene="res://The_Alchemist_Quest/scences/game.tscn"
+run/main_scene="res://The_Alchemist_Quest/scenes/homepage/homepage.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
@@ -21,13 +21,13 @@ SignalBus="*res://The_Alchemist_Quest/scripts/dialog/SignalBus.gd"
 JsonData="*res://The_Alchemist_Quest/scripts/inventory/demo_room/JSONData.gd"
 PlayerInventory="*res://The_Alchemist_Quest/scripts/inventory/playerInventory.gd"
 ScreenTransition="*res://The_Alchemist_Quest/scripts/SceneMoving/screen_transition.gd"
-ScenceManager="*res://The_Alchemist_Quest/scripts/SceneMoving/ScenceManager.gd"
+ScenceManager="*res://The_Alchemist_Quest/scripts/SceneMoving/SceneManager.gd"
 UserInterface="*res://The_Alchemist_Quest/scripts/player/user_interface.gd"
 DialogPlayer="*res://The_Alchemist_Quest/scripts/player/dialog_player.gd"
 CheckpointManager="*res://The_Alchemist_Quest/scripts/player/checkpoint_manager.gd"
 SaveLoadManager="*res://The_Alchemist_Quest/scripts/player/save_load_manager.gd"
 EventBus="*res://The_Alchemist_Quest/scripts/QuestManager/Event_bus.gd"
-QuestManager="*res://The_Alchemist_Quest/scences/quest_manager.tscn"
+QuestManager="*res://The_Alchemist_Quest/scenes/quest_manager.tscn"
 
 [gui]
 

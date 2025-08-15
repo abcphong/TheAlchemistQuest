@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="QuestResource" load_steps=2 format=3 uid="uid://bt7haiskdeojg"]
 
-[ext_resource type="Script" uid="uid://cpdb8s4xxk6vc" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="1_o4tby"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/QuestManager/QuestResource.gd" id="1_o4tby"]
 
 [resource]
 script = ExtResource("1_o4tby")

@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://dll77vxtpl44d"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/homepage/homepage.gd" id="1_6bc3p"]
+[ext_resource type="Texture2D" uid="uid://5f0pmy1kw62j" path="res://The_Alchemist_Quest/assets/decor/homepage_background.png" id="2_jw5i0"]
+[ext_resource type="Texture2D" uid="uid://dscfk1tuv2yyd" path="res://The_Alchemist_Quest/assets/button/New_play_button.png" id="3_mmejj"]
+[ext_resource type="Texture2D" uid="uid://78fpmqwxtwak" path="res://The_Alchemist_Quest/assets/button/Continue_button.png" id="4_mum2y"]
+[ext_resource type="Texture2D" uid="uid://dfu6hymrlheqr" path="res://The_Alchemist_Quest/assets/button/Instruction_button.png" id="5_8ro2s"]
+[ext_resource type="Texture2D" uid="uid://h1vtff5ei7ea" path="res://The_Alchemist_Quest/assets/button/About_us_button.png" id="6_sapjc"]
+[ext_resource type="Texture2D" uid="uid://du5e6qpu1sbha" path="res://The_Alchemist_Quest/assets/button/Exit_button.png" id="7_evck2"]
+
+[node name="Homepage" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_6bc3p")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = -77.0
+offset_right = 1153.0
+offset_bottom = 649.0
+texture = ExtResource("2_jw5i0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 701.0
+offset_top = 67.0
+offset_right = 875.0
+offset_bottom = 423.0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="NewGameButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_mmejj")
+
+[node name="ContinueButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("4_mum2y")
+
+[node name="TutorialButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_8ro2s")
+
+[node name="AboutUsButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_sapjc")
+
+[node name="ExitButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_evck2")
+
+[node name="FadeRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 1157.0
+offset_bottom = 653.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/TutorialButton" to="." method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/AboutUsButton" to="." method="_on_about_us_button_pressed"]
