@@ -67,7 +67,6 @@ script = ExtResource("1_d4shp")
 
 [node name="Room1" parent="." instance=ExtResource("1_g8hxy")]
 position = Vector2(-237, -165)
-scale = Vector2(1, 1)
 
 [node name="LevelManager" parent="." instance=ExtResource("2_7jjqs")]
 quest_sequence = Array[ExtResource("3_d8lrq")]([ExtResource("4_3ir28"), ExtResource("5_xbq25"), ExtResource("6_162mh")])
@@ -123,7 +122,6 @@ shape = SubResource("WorldBoundaryShape2D_7gosb")
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(-161.889, -67.7201)
 rotation = 0.0167443
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ila7f")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
@@ -150,7 +148,6 @@ shape = SubResource("RectangleShape2D_537g8")
 
 [node name="WorklabCollisionShape" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(192.798, -105.787)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_414s3")
 
 [node name="Player" parent="." instance=ExtResource("2_bugtt")]

@@ -150,7 +150,6 @@ shape = SubResource("WorldBoundaryShape2D_7gosb")
 
 [node name="WorklabCollisionShape" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(218.079, -122.366)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_gg8s0")
 
 [node name="ControlPanelCollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -169,7 +168,6 @@ shape = SubResource("RectangleShape2D_673i0")
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(672.906, -78.8648)
 rotation = 0.0174533
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_1wsyi")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]

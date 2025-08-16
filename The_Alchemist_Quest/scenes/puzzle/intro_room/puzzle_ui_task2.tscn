@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://khiw8huelsm0"]
+[gd_scene load_steps=16 format=3 uid="uid://khiw8huelsm0"]
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/intro_room/puzzle_ui_task_2.gd" id="1_fbciq"]
 [ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="2_mk035"]
 [ext_resource type="Texture2D" uid="uid://dty2tknb5ca3y" path="res://The_Alchemist_Quest/assets/puzzle/intro_room/task2/Task2_intro_room.png" id="3_261j8"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scenes/puzzle/puzzle_slot.tscn" id="4_8ai01"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8lnwa"]
 atlas = ExtResource("3_261j8")
@@ -101,7 +102,22 @@ texture = SubResource("AtlasTexture_8lnwa")
 
 [node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
 visible = false
+z_index = 20
 position = Vector2(543, 276)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_w06p5")
 animation = &"complete"
+
+[node name="PuzzleSlot" parent="." instance=ExtResource("4_8ai01")]
+offset_left = 521.0
+offset_top = 158.0
+offset_right = 567.0
+offset_bottom = 204.0
+expected_item = Array[String](["Filter paper"])
+
+[node name="PuzzleSlot2" parent="." instance=ExtResource("4_8ai01")]
+offset_left = 521.0
+offset_top = 304.0
+offset_right = 567.0
+offset_bottom = 350.0
+expected_item = Array[String](["FeSO4"])

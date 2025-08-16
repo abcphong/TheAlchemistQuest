@@ -4,7 +4,8 @@
 [ext_resource type="FontFile" uid="uid://ccdxh8aqwkjxn" path="res://The_Alchemist_Quest/assets/font/FVF_Fernando_08.ttf" id="2_4m1fg"]
 
 [node name="Item" type="Control"]
-z_index = 1
+visibility_layer = 2
+z_index = 5
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_m1k51")

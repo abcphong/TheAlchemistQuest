@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6tyhu4nkxru1"]
+[gd_scene load_steps=10 format=3 uid="uid://b6tyhu4nkxru1"]
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/intro_room/puzzle_ui_task_3.gd" id="1_63thl"]
 [ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="1_fmhye"]
 [ext_resource type="Texture2D" uid="uid://c2y37qkqvaqo6" path="res://The_Alchemist_Quest/assets/puzzle/intro_room/task3/Task3_intro_room.png" id="2_4fbtv"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/intro_room/phase_slot.gd" id="4_eobfp"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scenes/puzzle/puzzle_slot.tscn" id="5_tso77"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3dvfu"]
 atlas = ExtResource("2_4fbtv")
@@ -73,6 +74,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_eobfp")
 
+[node name="PuzzleSlot" parent="Phase1Slot" instance=ExtResource("5_tso77")]
+layout_mode = 0
+expected_item = Array[String](["Gas_mask"])
+
 [node name="Phase2Slots" type="Control" parent="."]
 visible = false
 z_index = 20
@@ -83,6 +88,30 @@ offset_top = 214.0
 offset_right = 513.0
 offset_bottom = 254.0
 script = ExtResource("4_eobfp")
+
+[node name="PuzzleSlot" parent="Phase2Slots" instance=ExtResource("5_tso77")]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 20.0
+offset_right = 190.0
+offset_bottom = 66.0
+expected_item = Array[String](["Mini_oxygen", "Activated_coal", "Filter cotton"])
+
+[node name="PuzzleSlot2" parent="Phase2Slots" instance=ExtResource("5_tso77")]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 144.0
+offset_right = 91.0
+offset_bottom = 190.0
+expected_item = Array[String](["Mini_oxygen", "Activated_coal", "Filter cotton"])
+
+[node name="PuzzleSlot3" parent="Phase2Slots" instance=ExtResource("5_tso77")]
+layout_mode = 0
+offset_left = -38.0
+offset_top = 144.0
+offset_right = 8.0
+offset_bottom = 190.0
+expected_item = Array[String](["Mini_oxygen", "Activated_coal", "Filter cotton"])
 
 [node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
 visible = false
