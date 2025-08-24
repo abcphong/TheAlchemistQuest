@@ -12,30 +12,59 @@ var puzzle_solved := false
 
 
 func _ready():
-	print("🔵 Puzzle UI Task 1 initializing")
+	layer = 5  # ✅ Set layer to match Puzzle 0 for consistent z-index behavior
+	print("🔵 Puzzle UI Task 1 initializing with layer =", layer)
 	if has_node("SuccessAnim"):
 		success_anim.visible = false
 	add_to_group("PuzzleSlot")
 	
-	# Ensure inventory is properly initialized
+	# SAFE inventory initialization - avoid destructive operations during drag
 	if inventory:
-		print("✅ Initializing puzzle inventory")
-		inventory.initialize_inventory()
-		
+		print("✅ Connecting to puzzle inventory safely")
+
 		# Connect to inventory update signal
-		inventory.connect("inventory_updated", Callable(self, "_on_inventory_updated"))
+		if not inventory.is_connected("inventory_updated", Callable(self, "_on_inventory_updated")):
+			inventory.connect("inventory_updated", Callable(self, "_on_inventory_updated"))
+
+		# Only initialize if no drag operations are active
+		if not inventory.is_drag_operation_active():
+			print("✅ Safe to initialize inventory - no drag operations active")
+			inventory.initialize_inventory()
+		else:
+			print("⚠️ Skipping inventory initialization - drag operation in progress")
+			# Defer initialization until drag operation completes
+			_defer_inventory_initialization()
 	else:
 		print("❌ No inventory node found")
 
 func _on_inventory_updated():
-	print("🔵 Inventory updated, refreshing display")
 	# Chỉ cập nhật UI nhẹ nhàng, KHÔNG gọi lại initialize_inventory()
 	# Ví dụ: cập nhật label, hiệu ứng, kiểm tra slot...
 	check_all_slots_filled()
 
+func _defer_inventory_initialization():
+	# Wait for drag operations to complete before initializing
+
+	# Check periodically if drag operations have finished
+	var timer = Timer.new()
+	timer.wait_time = 0.1
+	timer.timeout.connect(_check_drag_completion)
+	add_child(timer)
+	timer.start()
+
+func _check_drag_completion():
+	if inventory and not inventory.is_drag_operation_active():
+		inventory.initialize_inventory()
+
+		# Remove the timer
+		for child in get_children():
+			if child is Timer:
+				child.queue_free()
+				break
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
-		print("🔵 Closing puzzle UI")
+		emit_signal("puzzle_closed")
 		queue_free()
 
 func check_all_slots_filled():

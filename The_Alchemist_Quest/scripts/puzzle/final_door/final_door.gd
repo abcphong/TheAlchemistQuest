@@ -59,7 +59,7 @@ func _spawn_puzzle(index: int):
 		return
 
 	# Dọn puzzle cũ nếu có
-	if current_puzzle:
+	if current_puzzle and is_instance_valid(current_puzzle):
 		current_puzzle.queue_free()
 		current_puzzle = null
 
@@ -82,7 +82,7 @@ func _on_puzzle_completed():
 	current_puzzle_index += 1
 
 	# Dọn dẹp puzzle khỏi màn hình
-	if current_puzzle:
+	if current_puzzle and is_instance_valid(current_puzzle):
 		current_puzzle.queue_free()
 		current_puzzle = null
 

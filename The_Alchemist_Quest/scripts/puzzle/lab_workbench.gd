@@ -51,8 +51,9 @@ func _spawn_puzzle(index: int):
 		return
 
 	# Dọn puzzle cũ nếu có
-	if current_puzzle:
+	if current_puzzle and is_instance_valid(current_puzzle):
 		current_puzzle.queue_free()
+		current_puzzle = null
 
 	# Tạo mới puzzle
 	current_puzzle = puzzle_scene.instantiate()
@@ -64,27 +65,43 @@ func _spawn_puzzle(index: int):
 	else:
 		print("⚠️ Puzzle không phát tín hiệu 'puzzle_solved'.")
 
-	print("🧩 Puzzle ", index + 1, " đã được mở.")
+	# Kết nối tín hiệu đóng puzzle nếu có
+	if current_puzzle.has_signal("puzzle_closed"):
+		current_puzzle.connect("puzzle_closed", Callable(self, "_on_puzzle_closed"))
+
+	# Kết nối tín hiệu tree_exiting để cleanup khi puzzle bị xóa
+	current_puzzle.connect("tree_exiting", Callable(self, "_on_puzzle_tree_exiting"))
+
+
 	
 	if current_puzzle.has_method("set_inventory"):
 		current_puzzle.set_inventory(PlayerInventory.inventory)
 
 # ✅ Xử lý khi puzzle hoàn thành
 func _on_puzzle_completed():
-	print("🎉 Puzzle task %d hoàn thành." % (current_task_index + 1))
 	puzzle_completed_flags[current_task_index] = true
 
-	if current_puzzle:
+	if current_puzzle and is_instance_valid(current_puzzle):
 		current_puzzle.queue_free()
 		current_puzzle = null
 
 	# Phát sự kiện cho LevelManager biết
 	EventBus.emit_signal("quest_event", "PUZZLE_%d_COMPLETED" % (current_task_index + 1))
 
-	print("▶️ Sẵn sàng chuyển task hoặc mở puzzle tiếp theo.")
-	
+# ✅ Xử lý khi puzzle bị đóng bởi người dùng (ESC)
+func _on_puzzle_closed():
+	print("🔔 Puzzle đã được đóng bởi người dùng")
+	current_puzzle = null
+	is_puzzle_open = false
+
+# ✅ Xử lý khi puzzle bị xóa khỏi scene tree
+func _on_puzzle_tree_exiting():
+	print("🔔 Puzzle đang bị xóa khỏi scene tree")
+	current_puzzle = null
+	is_puzzle_open = false
+
 func close_puzzle_ui():
-	if puzzle_ui:
+	if puzzle_ui and is_instance_valid(puzzle_ui):
 		if puzzle_ui.has_method("hide_puzzle"):
 			puzzle_ui.hide_puzzle()  # This will sync with dialog close
 		puzzle_ui.queue_free()

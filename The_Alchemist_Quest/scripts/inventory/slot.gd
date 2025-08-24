@@ -52,12 +52,16 @@ func check_puzzle_ui_status():
 		is_puzzle_ui = false
 		
 func initialize_item(item_name: String, item_quantity: int):
-	#Clear existing item
+	# SAFETY CHECK: Don't destroy item if it's currently being dragged
+	if item and is_item_being_dragged(item):
+		return
+
+	#Clear existing item (only if not being dragged)
 	if item:
 		remove_child(item)
 		item.queue_free()
 		item = null
-	
+
 	#Create item if valid
 	if item_name != "" and item_name != null  and item_quantity > 0:
 		item = ItemClass.instantiate()
@@ -65,8 +69,15 @@ func initialize_item(item_name: String, item_quantity: int):
 		item.set_item(item_name, item_quantity)
 		item.position = Vector2(0, 0)
 		item.name = "InventoryItem"
-		
+
 		update_inventory_dict()
+
+# SAFETY FUNCTION: Check if item is being dragged
+func is_item_being_dragged(check_item: Control) -> bool:
+	if not check_item or not is_instance_valid(check_item):
+		return false
+
+	return UserInterface.holding_item == check_item
 
 func _on_gui_input(event: InputEvent):
 	# Right-click hold: take 1 item from stack while holding
@@ -131,8 +142,9 @@ func return_right_click_item():
 	# Try to find nearest empty slot
 	var nearest_slot = find_nearest_empty_slot(mouse_pos)
 
-	if nearest_slot:
+	if nearest_slot and nearest_slot.slot_index >= 0:
 		# Place item in nearest empty slot
+		print("[DEBUG-SLOT] Placing item in nearest empty slot: ", nearest_slot.slot_index)
 		# Remove held item from UI
 		held_item.get_parent().remove_child(held_item)
 
@@ -144,7 +156,11 @@ func return_right_click_item():
 
 		UserInterface.holding_item = null
 	else:
-		# No empty slot found, return to original slot
+		# No empty slot found or invalid slot, return to original slot
+		if nearest_slot:
+			print("[DEBUG-SLOT] Found slot but invalid slot_index: ", nearest_slot.slot_index, " - destroying item")
+		else:
+			print("[DEBUG-SLOT] No empty slot found, destroying item")
 		# Remove the held item
 		held_item.queue_free()
 		UserInterface.holding_item = null
@@ -180,7 +196,7 @@ func find_nearest_empty_slot(mouse_position: Vector2):
 		# Check if slot is effectively empty (no item, or item with 0 quantity, or hidden item)
 		var is_slot_empty = (not slot.item) or (slot.item and slot.item.item_quantity <= 0) or (slot.item and not slot.item.visible)
 
-		if is_slot_empty and not slot.is_hotbar_slot and is_instance_valid(slot):  # Empty inventory slot only
+		if is_slot_empty and not slot.is_hotbar_slot and is_instance_valid(slot) and slot.slot_index >= 0:  # Empty inventory slot only with valid index
 			var slot_center = slot.global_position + slot.size / 2
 			var distance = mouse_position.distance_to(slot_center)
 
@@ -253,31 +269,56 @@ func _show_popup(item_name: String, description: String):
 
 func update_inventory_dict():
 	if slot_index == -1 or inventory_ref == null:
+		print("⚠️ [UPDATE_DICT] Không thể update - slot_index:", slot_index, " inventory_ref:", inventory_ref)
 		return
-		
+	
+	print("📝 [UPDATE_DICT] Update inventory dict for slot ", slot_index, ":")
+	print("  - Is hotbar slot: ", is_hotbar_slot)
+	
 	if item:
+		print("  - Setting to: [", item.item_name, ", ", item.item_quantity, "]")
 		inventory_ref[slot_index] = [item.item_name, item.item_quantity]
 	else:
 		# Set empty slot default values
 		if is_hotbar_slot:
+			print("  - Setting hotbar slot to empty: [\"\", 0]")
 			inventory_ref[slot_index] = ["", 0]
 		else:
+			print("  - Setting inventory slot to empty: [null, 0]")
 			inventory_ref[slot_index] = [null, 0]
+	
+	print("✅ [UPDATE_DICT] inventory_ref[", slot_index, "] = ", inventory_ref[slot_index])
 
 func pickFromSlot() -> Control:
+	print("🎯 [PICK_FROM_SLOT] pickFromSlot called on slot ", slot_index)
+	print("  - Has item: ", item.item_name if item else "null")
+	
 	if item == null:
+		print("  - No item to pick")
 		return null
 		
 	var picked_item = item
-	print("[DEBUG-DRAG] Picking up '", picked_item.item_name, "' (x", picked_item.item_quantity, ") from slot ", slot_index)
+	print("  - Removing item from slot: ", picked_item.item_name)
 	remove_child(item)
 	item = null
+	
+	print("  - Slot cleared, calling update_inventory_dict")
 	update_inventory_dict()
+	
+	print("  - Slot item after clear: ", item)
+	print("✅ [PICK_FROM_SLOT] Item picked successfully")
 	return picked_item
 
 func putIntoSlot(new_item: Control) -> Control:
 	if new_item == null:
+		print("❌ [SLOT_PUT] new_item is null")
 		return null
+
+	print("📥 [SLOT_PUT] Đặt item vào slot ", slot_index, ":")
+	print("  - New item: ", new_item.item_name, " x", new_item.item_quantity)
+	print("  - Is hotbar slot: ", is_hotbar_slot)
+	if item:
+		print("  - Old item: ", item.item_name, " x", item.item_quantity)
 
 	# Remove from old parent if needed
 	var old_parent = new_item.get_parent()
@@ -287,9 +328,10 @@ func putIntoSlot(new_item: Control) -> Control:
 	# Store old item to return
 	var old_item = item
 	
-	# Remove old item from slot (keep for swap)
+	# Remove old item from slot and clear reference properly
 	if item:
 		remove_child(item)
+		item = null  # Clear reference immediately to prevent sync issues
 
 	# Add new item to slot
 	item = new_item
@@ -299,8 +341,11 @@ func putIntoSlot(new_item: Control) -> Control:
 	item.set_z_as_relative(false)
 	item.z_index = 10
 	item.name = "InventoryItem"
+	
+	print("  - Gọi update_inventory_dict()")
 	update_inventory_dict()
 	
+	print("✅ [SLOT_PUT] Hoàn tất đặt item vào slot")
 	return old_item
 
 func is_mouse_over() -> bool:

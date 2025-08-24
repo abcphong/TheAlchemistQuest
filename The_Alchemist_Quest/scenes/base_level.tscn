@@ -170,5 +170,6 @@ animation = &"Green"
 [node name="Health_timer" type="Timer" parent="UI/HealthBar/AnimatedSprite2D"]
 
 [node name="DraggingLayer" type="CanvasLayer" parent="."]
+layer = 20
 
 [connection signal="timeout" from="UI/HealthBar/AnimatedSprite2D/Health_timer" to="UI/HealthBar" method="_on_health_timer_timeout"]

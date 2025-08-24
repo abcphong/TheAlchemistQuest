@@ -1,5 +1,6 @@
 extends CanvasLayer
 signal puzzle_solved  # 🔔 Tín hiệu thông báo puzzle đã hoàn thành
+signal puzzle_closed
 
 @onready var success_anim = $SuccessAnim  # AnimatedSprite2D
 @onready var puzzle_slot = $PuzzleSlot  # Trỏ trực tiếp tới slot
@@ -10,12 +11,14 @@ signal puzzle_solved  # 🔔 Tín hiệu thông báo puzzle đã hoàn thành
 var space_press_count = 0  # Đếm số lần nhấn Space
 
 func _ready():
+	layer = 5  # ✅ Set layer for consistent z-index behavior
 	success_anim.visible = false
 	success_anim.connect("animation_finished", Callable(self, "_on_success_anim_done"))
 	puzzle_slot.visible = false  # Mặc định ẩn PuzzleSlot
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
+		emit_signal("puzzle_closed")
 		queue_free()
 
 	if event.is_action_pressed("ui_accept"):  # Space

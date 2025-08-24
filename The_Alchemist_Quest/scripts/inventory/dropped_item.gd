@@ -5,21 +5,18 @@ var item_quantity: int = 0
 var can_pickup: bool = false
 const DROPPED_ITEM_SCALE = 0.5  # Adjust this value to control the size of dropped items
 const PICKUP_RANGE = 100  # Distance at which player can pick up the item
-var last_print_time: float = 0.0
-const PRINT_COOLDOWN: float = 2.0  # Time in seconds between debug prints
+
 
 func _ready():
 	# Add to pickup group
 	add_to_group("dropped_items")
-	print("Dropped item initialized: ", item_name)
-	
+
 	# Connect area signals
 	$Area2D.body_entered.connect(_on_body_entered)
 	$Area2D.body_exited.connect(_on_body_exited)
-	
+
 	# Enable debug visualization
 	$Area2D/CollisionShape2D.debug_color = Color(1, 0, 0, 0.5)
-	print("Collision layer: ", $Area2D.collision_layer, " Collision mask: ", $Area2D.collision_mask)
 
 func initialize(item_name: String, quantity: int):
 	self.item_name = item_name
@@ -46,11 +43,7 @@ func _process(_delta):
 		var distance = global_position.distance_to(player.global_position)
 		can_pickup = distance < PICKUP_RANGE
 		
-		# Debug print for pickup state with cooldown
-		var current_time = Time.get_ticks_msec() / 1000.0
-		if can_pickup and (current_time - last_print_time) >= PRINT_COOLDOWN:
-			print("Player in range of item: ", item_name, " (Distance: ", distance, ")")
-			last_print_time = current_time
+
 		
 		# If player is in range and presses F, pick up the item
 		if can_pickup and Input.is_action_just_pressed("pick_up"):

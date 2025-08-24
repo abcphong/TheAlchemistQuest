@@ -5,6 +5,7 @@ extends CanvasLayer
 var inventory_ref = null
 
 func _ready():
+	layer = 5  # ✅ Set layer for consistent z-index behavior
 	if has_node("SuccessAnim"):
 		success_anim.visible = false
 	add_to_group("PuzzleSlot")

@@ -404,13 +404,10 @@ func _unhandled_input(event):
 		return
 	
 	if event.is_action_pressed("ui_accept"):
-		print("🔧 DEBUG: Restarting sequence")
 		restart_sequence()
 	elif event.is_action_pressed("ui_select"):
-		print("🔧 DEBUG: Force change scene")
 		await black_screen_transition()
 	elif event.is_action_pressed("ui_home"):
-		print("🔧 DEBUG: Test black screen transition")
 		await black_screen_transition()
 
 func restart_sequence():

@@ -9,7 +9,7 @@
 radius = 225.539
 
 [node name="PuzzleUI" type="CanvasLayer"]
-layer = 15
+layer = 5
 script = ExtResource("1_lcasl")
 
 [node name="TrialPuzzle" parent="." instance=ExtResource("2_a4w5f")]

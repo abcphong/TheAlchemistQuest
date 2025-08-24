@@ -93,11 +93,7 @@ func _pickup_next_item():
 		print("⚠️ Shelf: Item name trống.")
 		return
 
-	print("🔵 Shelf: Cố gắng nhặt '%s'" % item_name)
-
 	if PlayerInventory.add_item(item_name, item_quantity):
-		print("✅ Shelf: Đã thêm '%s' vào túi đồ" % item_name)
-
 		if item_dialog_map.has(item_name):
 			var dialog_key = item_dialog_map[item_name]
 			if dialog_file:
@@ -106,14 +102,12 @@ func _pickup_next_item():
 
 		current_item_index += 1
 		_set_current_item()
-	else:
-		print("❌ Shelf: Túi đồ đầy, không thể nhặt '%s'" % item_name)
 
 # Không cần override _can_give_item hay _give_item, vì Shelf dùng cơ chế riêng hoàn toàn
 # Không cần quan tâm can_interact, chỉ dùng interaction_enabled để kiểm soát pickup flow
 
 func _on_player_entered(body: Node2D):
-	print("🔵 Shelf: Player vào khu vực tủ đồ")
+	pass  # Player entered shelf area
 
 func _on_player_exited(body: Node2D):
 	print("🴴 Shelf: Player rời khỏi khu vực tủ đồ")

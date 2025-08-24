@@ -33,7 +33,14 @@ func open_puzzle_ui():
 		if puzzle_ui:
 			get_tree().current_scene.add_child(puzzle_ui)
 			is_puzzle_open = true
-			
+
+			# Kết nối tín hiệu đóng puzzle nếu có
+			if puzzle_ui.has_signal("puzzle_closed"):
+				puzzle_ui.connect("puzzle_closed", Callable(self, "_on_puzzle_closed"))
+
+			# Kết nối tín hiệu tree_exiting để cleanup khi puzzle bị xóa
+			puzzle_ui.connect("tree_exiting", Callable(self, "_on_puzzle_tree_exiting"))
+
 			# Assign dialog player singleton or node to puzzle_ui
 			var dialog_player = get_node_or_null("/root/Game/DialogPlayerTrialPuzzle")
 			if dialog_player:
@@ -61,7 +68,7 @@ func open_puzzle_ui():
 			print("❌ Error: Failed to instantiate PuzzleUI as CanvasLayer")
 
 func close_puzzle_ui():
-	if puzzle_ui:
+	if puzzle_ui and is_instance_valid(puzzle_ui):
 		print("🔵 Đóng puzzle UI ")
 		puzzle_ui.queue_free()
 		puzzle_ui = null
@@ -71,7 +78,19 @@ func close_puzzle_ui():
 			player.is_in_puzzle_mode = false
 			player.can_open_main_inventory = true
 			print("Puzzle đã bị đóng - người chơi có thể mở lại inventory ")
-		
+
+# ✅ Xử lý khi puzzle bị đóng bởi người dùng (ESC)
+func _on_puzzle_closed():
+	print("🔔 Puzzle đã được đóng bởi người dùng")
+	puzzle_ui = null
+	is_puzzle_open = false
+
+# ✅ Xử lý khi puzzle bị xóa khỏi scene tree
+func _on_puzzle_tree_exiting():
+	print("🔔 Puzzle đang bị xóa khỏi scene tree")
+	puzzle_ui = null
+	is_puzzle_open = false
+
 func _process(delta):
 	if is_puzzle_open and Input.is_action_just_pressed("ui_cancel"):
 		close_puzzle_ui()

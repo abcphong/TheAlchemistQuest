@@ -1,5 +1,6 @@
 extends CanvasLayer
 signal puzzle_solved  # 🔔 Tín hiệu thông báo puzzle đã hoàn thành
+signal puzzle_closed
 
 @onready var success_anim = $SuccessAnim  # AnimatedSprite2D
 
@@ -9,12 +10,22 @@ signal puzzle_solved  # 🔔 Tín hiệu thông báo puzzle đã hoàn thành
 @export var allow_flexible_matching: bool = false
 
 func _ready():
+	layer = 5  # ✅ Set layer for consistent z-index behavior
 	success_anim.visible = false
 	success_anim.connect("animation_finished", Callable(self, "_on_success_anim_done"))
 	add_to_group("PuzzleSlot")
+	
+	# 🔧 FIX: Tự động hiển thị inventory để hỗ trợ drag/drop như puzzle 0
+	var ui = get_tree().get_first_node_in_group("UserInterface")
+	if ui and ui.has_method("force_show_inventory_for_puzzle"):
+		print("🔧 Storage Room Puzzle Task 2: Force showing inventory for drag/drop support")
+		ui.force_show_inventory_for_puzzle()
+	else:
+		print("⚠️ Warning: UserInterface not found or missing force_show_inventory_for_puzzle method")
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
+		emit_signal("puzzle_closed")
 		queue_free()
 
 # ✅ Kiểm tra tất cả slot đã được lắp đúng chưa

@@ -21,7 +21,7 @@ func _ready():
 	inventory_node = $InventoryContainer/Inventory
 	find_save_load_ui()
 	hide_inventory()
-	print("[DEBUG-UI] UserInterface khởi tạo thành công")
+
 
 func find_save_load_ui() -> bool:
 	save_load_ui = get_tree().get_current_scene().find_child("SaveLoadUI", true, false)
@@ -41,10 +41,29 @@ func update_held_item_visibility():
 			print("✅ Holding item texture rect visible:", holding_item.item_name)
 			
 func is_puzzle_ui_active() -> bool:
-	var puzzle_ui = get_tree().get_current_scene().find_child("PuzzleUI", true, false)
-	if not puzzle_ui:
-		puzzle_ui = get_tree().get_current_scene().find_child("puzzle_ui_task1", true, false)
-	return puzzle_ui != null and puzzle_ui.visible
+	# Kiểm tra tất cả các loại puzzle UI có thể có
+	var puzzle_ui_names = [
+		"PuzzleUI", 
+		"puzzle_ui_task1", 
+		"puzzle_ui_task_1",
+		"PuzzleUiTask1",
+		"PuzzleUiTask2",
+		"storage_puzzle_ui",
+		"intro_puzzle_ui"
+	]
+	
+	for ui_name in puzzle_ui_names:
+		var puzzle_ui = get_tree().get_current_scene().find_child(ui_name, true, false)
+		if puzzle_ui and puzzle_ui.visible:
+			return true
+	
+	# Kiểm tra bằng cách tìm nodes trong group PuzzleSlot
+	var puzzle_slots = get_tree().get_nodes_in_group("PuzzleSlot")
+	for slot in puzzle_slots:
+		if slot.visible and is_instance_valid(slot) and slot.is_inside_tree():
+			return true
+			
+	return false
 	
 func toggle_save_load_menu():
 	# Kiểm tra và tìm lại SaveLoadUI nếu cần
@@ -61,20 +80,49 @@ func toggle_save_load_menu():
 		print("[DEBUG-UI] SaveLoadUI không hợp lệ hoặc không có phương thức toggle_visibility!")
 
 func toggle_inventory():
-	# Không cho phép toggle inventory khi đang giải puzzle
+	# CHO PHÉP inventory hoạt động khi puzzle active để hỗ trợ drag/drop
+	# Chỉ block khi có operations đang xung đột
 	if is_puzzle_ui_active():
-		print("[DEBUG-UI] Không thể mở inventory khi đang giải puzzle!")
-		return
-		
+		print("[DEBUG-UI] Puzzle UI đang active - cho phép inventory nhưng với chế độ hạn chế")
+		# Vẫn cho phép mở inventory nhưng với safe mode
+		if inventory_node and holding_item:
+			print("[DEBUG-UI] Đang hold item trong puzzle - cho phép inventory interaction")
+		elif inventory_node and not inventory_node.visible:
+			print("[DEBUG-UI] Mở inventory trong puzzle mode để hỗ trợ drag/drop")
+		else:
+			print("[DEBUG-UI] Inventory đã mở hoặc không cần thiết")
+			return
+
 	if inventory_node:
 		inventory_node.visible = not inventory_node.visible
 		if inventory_node.visible:
-			inventory_node.initialize_inventory()  # Cập nhật UI mỗi khi mở inventory
+			# SAFE initialization - only if no drag operations active
+			if not inventory_node.is_drag_operation_active():
+				inventory_node.initialize_inventory()  # Cập nhật UI mỗi khi mở inventory
+			else:
+				print("[DEBUG-UI] Skipping inventory initialization - drag operation in progress")
 
 func hide_inventory():
 	if inventory_node:
 		inventory_node.visible = false
 		print("UserInterface hide_inventory called")
+
+# Phương thức mới để force show inventory khi puzzle cần thiết
+func force_show_inventory_for_puzzle():
+	"""
+	Force hiển thị inventory để hỗ trợ drag/drop với puzzle.
+	Phương thức này bỏ qua các giới hạn thông thường.
+	"""
+	print("[DEBUG-UI] Force showing inventory for puzzle interaction")
+	if inventory_node:
+		inventory_node.visible = true
+		# SAFE initialization - only if no drag operations active
+		if not inventory_node.is_drag_operation_active():
+			inventory_node.initialize_inventory()
+		else:
+			print("[DEBUG-UI] Skipping inventory initialization - drag operation in progress")
+	else:
+		print("[DEBUG-UI] Warning: inventory_node is null!")
 
 func _process(_delta):
 	if is_dragging and holding_item and is_instance_valid(holding_item):
@@ -117,7 +165,7 @@ func close_all_inventories():
 	# Close any open puzzle UI (which contains workbench inventory)
 	# But only if it's not the one we just created
 	var puzzle_ui = get_tree().get_current_scene().find_child("PuzzleUI", true, false)
-	if puzzle_ui and not puzzle_ui.is_queued_for_deletion():
+	if puzzle_ui and is_instance_valid(puzzle_ui) and not puzzle_ui.is_queued_for_deletion():
 		print("🔵 Closing existing puzzle UI")
 		puzzle_ui.queue_free()
 
@@ -180,18 +228,15 @@ func add_new_item_to_inventory(item_name: String, quantity: int) -> bool:
 	var success = PlayerInventory.add_item(item_name, quantity)
 	
 	if success:
-		print("[DEBUG-UI] Đã thêm ", item_name, " vào PlayerInventory thành công")
-		
 		# Cập nhật lại UI
 		update_all_ui()
 		return true
 	else:
-		print("[DEBUG-UI] Không thể thêm ", item_name, " vào PlayerInventory, tạo holding_item")
+		pass  # Create holding item if can't add to inventory
 		
 		# Nếu không thể thêm vào inventory, tạo item cho người chơi cầm tạm thời
 		var item_scene = load("res://The_Alchemist_Quest/scenes/player/item.tscn")
 		if item_scene == null:
-			print("[DEBUG-UI] Không thể tải item scene!")
 			return false
 			
 		var item_instance = item_scene.instantiate()

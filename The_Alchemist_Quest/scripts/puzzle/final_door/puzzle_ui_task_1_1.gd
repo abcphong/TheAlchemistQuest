@@ -9,6 +9,7 @@ signal puzzle_solved  # 🔔 Tín hiệu thông báo puzzle đã hoàn thành
 @export var allow_flexible_matching: bool = false
 
 func _ready():
+	layer = 5  # ✅ Set layer for consistent z-index behavior
 	success_anim.visible = false
 	success_anim.connect("animation_finished", Callable(self, "_on_success_anim_done"))
 	add_to_group("PuzzleSlot")

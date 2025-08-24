@@ -57,8 +57,7 @@ func _ready():
 		detection_area.body_entered.connect(_on_detection_area_body_entered)
 		detection_area.body_exited.connect(_on_detection_area_body_exited)
 		detection_area.get_node("CollisionShape2D").debug_color = Color(1, 0, 0, 0.5)
-	else:
-		print("Error: DetectionArea không tìm thấy!")
+
 	
 	# Checkpoint and save system
 	if get_node_or_null("/root/CheckpointManager"):
@@ -163,28 +162,22 @@ func _process(delta):
 		user_interface.toggle_inventory()
 		print("Inventory toggled - visible:", user_interface.inventory_node.visible)
 	
-	# Debug: Log when inventory is blocked
-	if is_in_puzzle_mode and Input.is_action_just_pressed("open_inventory"):
-		print("Inventory disabled during puzzle")
+
 
 func _on_workbench_entered(player_node):
 	if player_node == self:
-		print("Workbench interaction ready")
 		can_interact = true
 
 func _on_workbench_exited(player_node):
 	if player_node == self:
-		print("Left workbench area")
 		can_interact = false
 		nearby_workbench = null
 
 func handle_workbench_interaction():
 	if not is_instance_valid(nearby_workbench):
-		print("ERROR: Nearby workbench is invalid")
 		return
-	
+
 	nearby_workbench.open_puzzle_ui()
-	print("Puzzle đã mở - dùng ESC để tắt")
 	
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	print("[DEBUG-PLAYER] DetectionArea body entered:", body.name)

@@ -25,24 +25,19 @@ func _on_player_exited(body: Node2D):
 	print("🴴 Player exited computer area")
 
 func _handle_interaction():
-	print("🔵 Computer interaction triggered")
-	
 	if not initial_dialog_shown:
 		# Hiện thị dialog environemnt của computer
 		DialogPlayer.set_dialog_file(dialog_file)
 		SignalBus.emit_signal("display_dialog", initial_dialog_key)
 		initial_dialog_shown = true
-		print("Dialog states:", "Initial shown:", initial_dialog_shown)
 	else:
 		# Cho lớp cha xử lí pickup
 		super._handle_interaction()
 
 func _on_item_given():
-	# Hiển thị dialog khi pick up thành công 
-	print("✅ Successfully added Zinc bar to inventory")
+	# Hiển thị dialog khi pick up thành công
 	DialogPlayer.set_dialog_file(dialog_file)
 	SignalBus.emit_signal("display_dialog", pickup_dialog_key)
-	print("Dialog states:", "Initial shown:", initial_dialog_shown, "Has item:", has_given_item)
-	
+
 	# Tuyền signal (Nếu cần cho thiết bị khác)
 	super._on_item_given()

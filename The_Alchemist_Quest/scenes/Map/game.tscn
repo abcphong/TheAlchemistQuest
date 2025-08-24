@@ -164,6 +164,7 @@ zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
 [node name="DraggingLayer" type="CanvasLayer" parent="."]
+layer = 20
 
 [node name="DynamicLighting" parent="." instance=ExtResource("18_xxxxx")]
 z_index = 1000

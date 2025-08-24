@@ -33,11 +33,9 @@ func add_item(item_name, item_quantity):
 	var item_definitions = JsonData.item_data.get("item", {})
 	
 	if not item_definitions.has(item_name):
-		print("[PlayerInventory] CẢNH BÁO: Item ", item_name, " không tồn tại trong JsonData!")
-		# Vẫn tiếp tục xử lý với stack_size mặc định
-	
+		pass  # Item not found in JsonData, continue with default stack_size
+
 	var stack_size = int(item_definitions.get(item_name, {"StackSize": 1}).get("StackSize", 1))
-	print("[PlayerInventory] Thêm item ", item_name, " x ", item_quantity, " (stack_size: ", stack_size, ")")
 	
 	# 1. Ưu tiên cộng dồn vào stack item cùng loại trong inventory
 	for slot_index in inventory:
@@ -62,7 +60,6 @@ func add_item(item_name, item_quantity):
 				var add_amount = min(stack_size, quantity_to_add)
 				inventory[slot_index] = [item_name, add_amount]
 				quantity_to_add -= add_amount
-				print("[PlayerInventory] Đã thêm ", add_amount, " ", item_name, " vào inventory slot trống ", slot_index)
 				
 				if quantity_to_add <= 0:
 					inventory_changed.emit()
@@ -143,20 +140,17 @@ func add_item_quantity(slot: SlotClass, quantity_to_add: int, is_hotbar: bool = 
 	inventory_changed.emit()
 	
 func clear_inventory():
-	print("[PlayerInventory] Xóa tất cả item ở puzzle cũ" )
-	
 	#Xóa inventory chính
 	for slot in inventory:
 		inventory[slot] = [null,0]
-		
+
 	#Xóa hotbar
 	for slot in hotbar:
 		hotbar[slot] = [null,0]
-	
+
 	#Reset những item
 	active_item_slot = 0
-	
+
 	#Truyền signal để update UI
 	inventory_changed.emit()
-	print("[Inventory] Inventory được xóa thành công ")
 	

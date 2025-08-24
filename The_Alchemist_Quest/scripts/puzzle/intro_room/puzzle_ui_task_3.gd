@@ -11,6 +11,7 @@ signal puzzle_solved  # 🔔 Gửi tín hiệu khi puzzle hoàn thành
 var current_phase := 1  # Theo dõi phase hiện tại
 
 func _ready():
+	layer = 5  # ✅ Set layer for consistent z-index behavior
 	success_anim.visible = false
 	$Phase1Slot.visible = true
 	$Phase2Slots.visible = false

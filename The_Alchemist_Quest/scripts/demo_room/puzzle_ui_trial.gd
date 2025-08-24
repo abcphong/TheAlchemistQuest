@@ -2,6 +2,7 @@
 extends CanvasLayer
 
 signal puzzle_solved
+signal puzzle_closed
 signal start_alert_transition  # 🆕 Signal mới để trigger alert
 
 @onready var slot_container = $InventoryContainer/Inventory/GridContainer
@@ -47,6 +48,7 @@ func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		print("🟥 ESC pressed - Closing puzzle")
 		hide_puzzle()
+		emit_signal("puzzle_closed")
 		queue_free()
 		get_viewport().set_input_as_handled()
 	
@@ -91,9 +93,6 @@ func check_all_slots_filled():
 		for slot in slots:
 			if not slot.is_filled:
 				return
-			print("Slot:", slot.name, "Filled:", slot.is_filled, "Expected Item:", slot.expected_item)
-	
-	print("➡️ Puzzle complete! Playing success animation.")
 	puzzle_solved_flag = true
 	
 	if QuestManager:
@@ -160,23 +159,17 @@ func _change_to_alert_scene():
 	var scene_tree = get_tree()
 	if scene_tree and is_inside_tree():
 		scene_tree.change_scene_to_file("res://The_Alchemist_Quest/scenes/Map/alert.tscn")
-		print("✅ Successfully changed to alert scene")
-	else:
-		print("❌ Cannot change scene - tree not available")
 
 # 🗑️ CÁC HÀM CŨ - giữ lại để tương thích ngược
 func end_puzzle_sequence():
 	if QuestManager:
 		QuestManager.complete_current_task()
-	print("🔍 Puzzle sequence ended - proceeding to alert")
 	proceed_to_alert_with_dialog()
 
 func _on_post_puzzle_dialog_finished():
 	if puzzle_solved_flag:
-		print("🔍 Post-puzzle dialog finished in alert scene")
 		# Không cần làm gì thêm - alert scene sẽ xử lý
-	else:
-		print("Puzzle not solved yet, ignoring dialog finish")
+		pass
 
 func proceed_to_alert_scene():
 	# 🗑️ Deprecated - sử dụng proceed_to_alert_with_dialog() thay thế
@@ -192,7 +185,6 @@ func clear_slots():
 	for slot in slots:
 		if slot.has_method("clear_slot"):
 			slot.clear_slot()
-			print("🔍 Cleared slot:", slot.name)
 	
 	if has_node("SuccessAnim"):
 		success_anim.visible = false
@@ -203,7 +195,6 @@ func _force_setup_puzzle():
 		success_anim.stop()
 		if success_anim.is_playing():
 			success_anim.stop()
-		print("🔍 SUCCESS ANIMATION FORCED HIDDEN: ", success_anim.visible)
 	
 	show_puzzle()
 
@@ -234,31 +225,19 @@ func show_puzzle():
 	
 	if inventory:
 		inventory.visible = true
-		print("📦 Opened inventory for puzzle")
-	
+
 	if dialog_player:
 		dialog_player.layer = 20
-	else:
-		print("❌ DialogPlayer not found for puzzle guide")
-	
-	print("🔍 PUZZLE DEBUG INFO:")
-	print("   - Node path:", get_path())
-	print("   - Parent:", get_parent())
-	print("   - Tree valid:", is_inside_tree())
-	print("   - Success anim visible:", success_anim.visible if has_node("SuccessAnim") else "N/A")
-	print("   - Puzzle layer:", layer)
 
 func hide_puzzle():
 	clear_slots()
 	visible = false
-	print("🔍 Puzzle UI hidden")
-	
+
 	if dialog_player and dialog_player.in_progress:
 		dialog_player.finish()
-	
+
 	if inventory and inventory.visible:
 		inventory.visible = false
-		print("🔍 Inventory hidden")
 
 func set_inventory(inventory_data):
 	inventory_ref = inventory_data
@@ -266,11 +245,9 @@ func set_inventory(inventory_data):
 
 func update_ui():
 	if inventory_ref == null:
-		print("⚠️ Chưa có inventory để hiển thị.")
 		return
-		
+
 	if not slot_container:
-		print("⚠️ Slot container not found.")
 		return
 		
 	var slots = slot_container.get_children()

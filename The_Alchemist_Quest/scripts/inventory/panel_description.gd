@@ -20,14 +20,10 @@ func _ready():
 
 func set_item(new_item_name: String):
 	item_name = new_item_name
-	print_debug("Item set in slot: ", item_name)
 	
 
 func load_item_data():
-	print_debug("Loading item data from JsonData...")
 	item_data = JsonData.item_data.get("item", {})
-	print_debug("Successfully loaded ", item_data.size(), " items")
-	print_debug("Item keys: ", item_data.keys())
 		
 	gui_input.connect(_on_gui_input)
 	
@@ -43,19 +39,13 @@ func _show_item_popup(item_name:String):
 
 	if item == null or not is_instance_valid(popup_panel) or not is_instance_valid(popup_label):
 		return
-	
-	print("Showing popup for item: ", item.item_name)
+
 	var description = _get_popup_text(item.item_name)
-	print("Description text: ", description)
 	#Set popup text based on item
-	popup_label.text = description 
+	popup_label.text = description
 	popup_panel.show()
 	
-	print("Popup visibility:", popup_panel.visible)
-	print("Label text:", popup_label.text)
-	
 func _get_popup_text(item_name: String) -> String:
-	print_debug("Getting description for: ", item_name)
 	if item_name in item_data:
 		return item_data[item_name].get("Description", "Không có mô tả về vật phẩm này")
 	return "Không tìm thấy đồ vật này"
