@@ -19,6 +19,15 @@ var message_timer = 0.0
 const MESSAGE_DISPLAY_TIME = 3.0
 
 func _ready():
+	print("[DEBUG-SaveLoadUI] _ready() được gọi")
+	
+	# Đảm bảo SaveLoadUI có thể nhận input
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	
+	print("[DEBUG-SaveLoadUI] Process mode:", process_mode)
+	print("[DEBUG-SaveLoadUI] Mouse filter:", mouse_filter)
+	
 	# Khởi tạo các nút và label cho từng slot
 	for i in range(SaveLoadManager.MAX_SAVE_SLOTS):
 		# Tạo container cho mỗi slot
@@ -36,6 +45,7 @@ func _ready():
 		var save_button = Button.new()
 		save_button.text = "Lưu"
 		save_button.custom_minimum_size = Vector2(60, 0)
+		save_button.mouse_filter = Control.MOUSE_FILTER_STOP
 		save_button.pressed.connect(_on_save_slot_button_pressed.bind(i))
 		slot_container.add_child(save_button)
 		save_slot_buttons.append(save_button)
@@ -44,6 +54,7 @@ func _ready():
 		var load_button = Button.new()
 		load_button.text = "Tải"
 		load_button.custom_minimum_size = Vector2(60, 0)
+		load_button.mouse_filter = Control.MOUSE_FILTER_STOP
 		load_button.pressed.connect(_on_load_slot_button_pressed.bind(i))
 		slot_container.add_child(load_button)
 		load_slot_buttons.append(load_button)
@@ -52,12 +63,19 @@ func _ready():
 		var delete_button = Button.new()
 		delete_button.text = "Xóa"
 		delete_button.custom_minimum_size = Vector2(60, 0)
+		delete_button.mouse_filter = Control.MOUSE_FILTER_STOP
 		delete_button.pressed.connect(_on_delete_slot_button_pressed.bind(i))
 		slot_container.add_child(delete_button)
 		delete_slot_buttons.append(delete_button)
 	
 	# Kết nối nút đóng
-	close_button.pressed.connect(_on_close_button_pressed)
+	if close_button:
+		close_button.pressed.connect(_on_close_button_pressed)
+		print("[DEBUG-SaveLoadUI] Đã kết nối nút Đóng")
+		# Đảm bảo nút Đóng có thể nhận input
+		close_button.mouse_filter = Control.MOUSE_FILTER_STOP
+	else:
+		print("[ERROR-SaveLoadUI] Không tìm thấy close_button!")
 	
 	# Ẩn menu khi khởi động
 	visible = false
@@ -135,6 +153,7 @@ func _on_delete_slot_button_pressed(slot: int):
 		show_message("Không có bản lưu nào ở slot " + str(slot + 1) + "!", true)
 
 func _on_close_button_pressed():
+	print("[DEBUG-SaveLoadUI] Nút Đóng được ấn!")
 	visible = false
 
 func _unhandled_input(event):

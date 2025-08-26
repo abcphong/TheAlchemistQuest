@@ -21,16 +21,29 @@ func _ready():
 	inventory_node = $InventoryContainer/Inventory
 	find_save_load_ui()
 	hide_inventory()
+	
+	# Kiểm tra flag từ homepage
+	if get_tree().root.has_meta("show_save_ui_on_load") and get_tree().root.get_meta("show_save_ui_on_load"):
+		get_tree().root.remove_meta("show_save_ui_on_load") # Xóa flag
+		toggle_save_load_menu()
 
 
 func find_save_load_ui() -> bool:
-	save_load_ui = get_tree().get_current_scene().find_child("SaveLoadUI", true, false)
+	# SaveLoadUI là child trực tiếp của UserInterface trong game scene
+	save_load_ui = get_node_or_null("SaveLoadUI")
 	if save_load_ui:
 		print("[DEBUG-UI] Đã tìm thấy SaveLoadUI")
 		return true
 	else:
-		print("[DEBUG-UI] Không tìm thấy SaveLoadUI")
-		return false
+		print("[DEBUG-UI] Không tìm thấy SaveLoadUI, thử tìm trong scene tree")
+		# Fallback: tìm trong toàn scene tree nếu không tìm thấy
+		save_load_ui = get_tree().get_current_scene().find_child("SaveLoadUI", true, false)
+		if save_load_ui:
+			print("[DEBUG-UI] Đã tìm thấy SaveLoadUI trong scene tree")
+			return true
+		else:
+			print("[DEBUG-UI] Không tìm thấy SaveLoadUI")
+			return false
 
 func update_held_item_visibility():
 	if holding_item:

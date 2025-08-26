@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://hupnwn10ee05"]
+[gd_scene load_steps=29 format=3 uid="uid://hupnwn10ee05"]
 
 [ext_resource type="PackedScene" uid="uid://dl16s7sg0g8no" path="res://The_Alchemist_Quest/scenes/Map/lab_workbench.tscn" id="1_34cys"]
 [ext_resource type="PackedScene" uid="uid://b0lckgiw4has1" path="res://The_Alchemist_Quest/scenes/level_manager.tscn" id="1_lfs5f"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="14_o5qgc"]
 [ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scenes/player/hotbar.tscn" id="17_lfs5f"]
 [ext_resource type="Texture2D" uid="uid://bbefedjrur1em" path="res://The_Alchemist_Quest/assets/decor/Electrical_cabinet.png" id="19_t13hq"]
+[ext_resource type="PackedScene" uid="uid://b3l2wvyespade" path="res://The_Alchemist_Quest/scenes/player/save_load_ui.tscn" id="18_save_load_ui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cjre"]
 
@@ -97,6 +98,8 @@ scale = Vector2(2.45313, 2.53906)
 [node name="Inventory" parent="UserInterface/InventoryContainer" instance=ExtResource("14_in84n")]
 process_mode = 3
 visible = false
+
+[node name="SaveLoadUI" parent="UserInterface" instance=ExtResource("18_save_load_ui")]
 
 [node name="Room1" parent="." instance=ExtResource("3_o5qgc")]
 z_index = -10
