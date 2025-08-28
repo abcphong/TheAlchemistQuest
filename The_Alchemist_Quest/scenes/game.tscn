@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://hupnwn10ee05"]
+[gd_scene load_steps=30 format=3 uid="uid://hupnwn10ee05"]
 
 [ext_resource type="PackedScene" uid="uid://dl16s7sg0g8no" path="res://The_Alchemist_Quest/scenes/Map/lab_workbench.tscn" id="1_34cys"]
 [ext_resource type="PackedScene" uid="uid://b0lckgiw4has1" path="res://The_Alchemist_Quest/scenes/level_manager.tscn" id="1_lfs5f"]
@@ -13,9 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://bk3vj4l108qci" path="res://The_Alchemist_Quest/scenes/player/inventoryUI.tscn" id="13_uubka"]
 [ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="14_in84n"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="14_o5qgc"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/dialog/auto_dialog_manager.gd" id="17_ivpeg"]
 [ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scenes/player/hotbar.tscn" id="17_lfs5f"]
-[ext_resource type="Texture2D" uid="uid://bbefedjrur1em" path="res://The_Alchemist_Quest/assets/decor/Electrical_cabinet.png" id="19_t13hq"]
 [ext_resource type="PackedScene" uid="uid://b3l2wvyespade" path="res://The_Alchemist_Quest/scenes/player/save_load_ui.tscn" id="18_save_load_ui"]
+[ext_resource type="Texture2D" uid="uid://bbefedjrur1em" path="res://The_Alchemist_Quest/assets/decor/Electrical_cabinet.png" id="19_t13hq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5cjre"]
 
@@ -31,7 +32,7 @@ normal = Vector2(-0.0167434, 0.99986)
 distance = -53.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_22yb4"]
-distance = -133.977
+distance = -128.995
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7gosb"]
 normal = Vector2(-0.99275, 0.120196)
@@ -180,3 +181,6 @@ polygon = PackedVector2Array(-163.901, -126.762, -85.9282, -124.456, -33.1318, -
 position = Vector2(75, 102)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_snten")
+
+[node name="AutoDialogManager" type="Node2D" parent="."]
+script = ExtResource("17_ivpeg")

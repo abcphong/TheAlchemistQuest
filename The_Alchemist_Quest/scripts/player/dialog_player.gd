@@ -1,13 +1,13 @@
 extends CanvasLayer
 
-@export_file("*.json") var dialog_text_file: String  # Optional, can be overridden dynamically
+@export_file("*.json") var dialog_text_file: String
 
 var dialog_text = {}
 var selected_text = []
 var in_progress = false
 var is_active = false
-var associated_node = null  # For MentorNPC, puzzle, or null for Player_2
-
+var associated_node = null
+var is_repeatable = false
 
 signal dialog_finished
 
@@ -16,7 +16,7 @@ signal dialog_finished
 @onready var turnoff_label = $MarginContainer/Background/TurnOff
 
 func _ready():
-	# Instantiate dialogPlayer.tscn for UI (fix path typo: scenes -> scenes)
+	# Instantiate dialogPlayer.tscn for UI
 	var dialog_scene = preload("res://The_Alchemist_Quest/scenes/dialog_player.tscn")
 	var dialog_instance = dialog_scene.instantiate()
 	add_child(dialog_instance)
@@ -31,7 +31,7 @@ func _ready():
 		push_error("❌ Dialog UI nodes not found. Check dialog_player.tscn structure.")
 		return
 	
-	# Ensure dialog starts hidden with a small delay
+	# Ensure dialog starts hidden
 	await get_tree().create_timer(0.1).timeout
 	if background:
 		background.visible = false
@@ -40,20 +40,21 @@ func _ready():
 		turnoff_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		print("📋 Dialog initialized, background hidden")
 	
-	# Load dialog text and log result
+	# Load dialog text
 	if dialog_text_file:
 		dialog_text = load_dialog_text()
 		print("📄 Loaded dialog file: ", dialog_text_file, " - Content: ", dialog_text.keys())
 	else:
 		print("⚠️ No default dialog_text_file set in DialogPlayer")
 	
-	# Connect signals (alternative syntax without callable)
+	# Connect signals
 	if not SignalBus.is_connected("display_dialog", self.on_display_dialog):
 		var err = SignalBus.connect("display_dialog", self.on_display_dialog)
 		if err != OK:
 			print("❌ Failed to connect display_dialog signal: ", err)
 		else:
 			print("✅ Connected display_dialog signal")
+	
 	if not SignalBus.is_connected("display_puzzle_dialog", self.on_display_dialog):
 		var err = SignalBus.connect("display_puzzle_dialog", self.on_display_dialog)
 		if err != OK:
@@ -62,7 +63,7 @@ func _ready():
 			print("✅ Connected display_puzzle_dialog signal")
 	
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
+
 func load_dialog_text():
 	var file = FileAccess.open(dialog_text_file, FileAccess.READ)
 	if file:
@@ -84,6 +85,15 @@ func load_dialog_text():
 		print("❌ Could not open dialog file: ", dialog_text_file, " - Check path and file existence")
 		return {}
 
+func set_repeatable_mode(repeatable: bool):
+	is_repeatable = repeatable
+	print("🔄 Dialog repeatable mode:", repeatable)
+
+func set_dialog_file(new_file: String):
+	if new_file != dialog_text_file or dialog_text.is_empty():
+		dialog_text_file = new_file
+		dialog_text = load_dialog_text()
+		print("📄 Switched dialog file to:", new_file, " - Content: ", dialog_text.keys())
 
 func show_dialog():
 	if selected_text.is_empty():
@@ -108,8 +118,6 @@ func _input(event):
 		elif event.is_action_pressed("turn_off_dialog"):
 			finish()
 			get_viewport().set_input_as_handled()
-		elif event is InputEventMouseButton:
-			return
 
 func finish():
 	print("✅ Finishing dialog...")
@@ -122,13 +130,21 @@ func finish():
 	set_process_input(false)
 	get_tree().paused = false
 	
-	if associated_node and "dialog_stage" in associated_node:
-		associated_node.dialog_stage += 1
-		print("📌 Moved to Stage:", associated_node.dialog_stage)
-		if associated_node.dialog_stage == 1:
-			if "exclamination_mark" in associated_node:
-				associated_node.exclamination_mark.visible = true
-				print("✅ Showing Exclamation Mark!")
+	# Chỉ xử lý dialog_stage cho các NPC khác (không phải mentor với single dialog)
+	if associated_node and "dialog_stage" in associated_node and not is_repeatable:
+		# Kiểm tra xem có phải mentor không
+		if associated_node.has_method("get_class") and associated_node.get_class() == "MentorNPC":
+			# Mentor chỉ có 1 dialog, không cần advance
+			print("🧙 Mentor dialog completed - no stage advancement needed")
+		else:
+			# Các NPC khác - advance như bình thường
+			associated_node.dialog_stage += 1
+			print("📌 Advanced to Stage:", associated_node.dialog_stage + 1)
+			
+			if associated_node.dialog_stage == 1:
+				if "exclamination_mark" in associated_node:
+					associated_node.exclamination_mark.visible = false
+					print("🙈 Hiding Exclamation Mark!")
 	
 	emit_signal("dialog_finished")
 
@@ -136,33 +152,48 @@ func on_display_dialog(text_key, node = null):
 	if in_progress:
 		print("⚠️ Dialog already in progress, ignoring new request")
 		return
-	print("✅ Signal received! Text Key:", text_key, " Node:", node)
-	associated_node = node
-	in_progress = true
-	is_active = true
-	set_process_input(true)
-	get_tree().paused = true
-	if background:
-		background.visible = true
 	
+	print("✅ Signal received! Text Key:", text_key, " Node:", node, " Repeatable:", is_repeatable)
+	associated_node = node
+	
+	# Tìm dialog key phù hợp
 	var matched_key = null
 	for key in dialog_text.keys():
 		if key.begins_with(text_key):
 			matched_key = key
 			break
+	
 	print("📄 Dialog keys available:", dialog_text.keys())
 	print("Requested key:", text_key)
+	
 	if matched_key:
 		selected_text = dialog_text[matched_key].duplicate()
 		print("Found dialog:", matched_key, " Text:", selected_text)
+		
+		# Bắt đầu dialog
+		in_progress = true
+		is_active = true
+		set_process_input(true)
+		get_tree().paused = true
+		
+		if background:
+			background.visible = true
+		
+		show_dialog()
 	else:
-		print("No dialog found for key:", text_key)
-		selected_text = ["(Missing dialog for: " + text_key + ")"]
-	
-	show_dialog()
-
-func set_dialog_file(new_file: String):
-	if new_file != dialog_text_file or dialog_text.is_empty():
-		dialog_text_file = new_file
-		dialog_text = load_dialog_text()
-		print("📄 Switched dialog file to:", new_file, " - Content: ", dialog_text.keys())
+		print("❌ No dialog found for key:", text_key)
+		# Không hiện dialog nếu không tìm thấy key
+		if is_repeatable:
+			print("🔄 Repeatable dialog - no action taken for missing key")
+		else:
+			# Chỉ hiện error message cho non-repeatable dialog
+			selected_text = ["(Missing dialog for: " + text_key + ")"]
+			in_progress = true
+			is_active = true
+			set_process_input(true)
+			get_tree().paused = true
+			
+			if background:
+				background.visible = true
+			
+			show_dialog()

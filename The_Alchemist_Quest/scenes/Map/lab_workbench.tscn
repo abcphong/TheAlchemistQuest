@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl16s7sg0g8no"]
+[gd_scene load_steps=12 format=3 uid="uid://dl16s7sg0g8no"]
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/lab_workbench.gd" id="1_1phwm"]
 [ext_resource type="Texture2D" uid="uid://c3aggaohlxwiu" path="res://The_Alchemist_Quest/assets/decor/Lab_workbench.png" id="2_awdvr"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://b6tyhu4nkxru1" path="res://The_Alchemist_Quest/scenes/puzzle/intro_room/puzzle_ui_task3.tscn" id="3_ef70f"]
 [ext_resource type="PackedScene" uid="uid://dxfddnhqh6mww" path="res://The_Alchemist_Quest/scenes/puzzle/storage_room/puzzle_ui_task2.tscn" id="4_l3abc"]
 [ext_resource type="PackedScene" uid="uid://dgypr6xw3li0a" path="res://The_Alchemist_Quest/scenes/puzzle/final_room/puzzle_ui_task1.tscn" id="7_1sx7t"]
+[ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="9_ythan"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/interaction/EButton.gd" id="10_fe2xw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukwlm"]
 size = Vector2(74, 47)
@@ -24,6 +26,12 @@ shape = SubResource("RectangleShape2D_ukwlm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_awdvr")
+
+[node name="EButton" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(18, -14)
+texture = ExtResource("9_ythan")
+script = ExtResource("10_fe2xw")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_area_2d_body_exited"]

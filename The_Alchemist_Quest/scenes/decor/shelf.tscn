@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bti40u8faydt"]
+[gd_scene load_steps=6 format=3 uid="uid://bti40u8faydt"]
 
 [ext_resource type="Texture2D" uid="uid://c2few15nmhj8e" path="res://The_Alchemist_Quest/assets/item/Intro_room_shelf.png" id="1_210x1"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/inventory/pickup_item/shelf.gd" id="1_voip0"]
 [ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="2_voip0"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/interaction/EButton.gd" id="4_sn1ay"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_44cwy"]
 size = Vector2(56.5, 70.5)
@@ -14,10 +15,11 @@ dialog_file = "res://The_Alchemist_Quest/assets/json/intro_room/intro_dialoge.js
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_210x1")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(20, 33)
-scale = Vector2(1.125, 1.16667)
+[node name="EButton" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(18, 4)
 texture = ExtResource("2_voip0")
+script = ExtResource("4_sn1ay")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.75, 1.75)

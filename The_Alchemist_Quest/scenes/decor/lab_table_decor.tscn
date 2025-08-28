@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvn2ijvv1708u"]
+[gd_scene load_steps=6 format=3 uid="uid://bvn2ijvv1708u"]
 
 [ext_resource type="Texture2D" uid="uid://nwiq220sn78b" path="res://The_Alchemist_Quest/assets/decor/Computer_desk.png" id="1_g12ec"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/inventory/pickup_item/computer.gd" id="1_tfupw"]
 [ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="3_h1iba"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/interaction/EButton.gd" id="4_0qgra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vathp"]
 size = Vector2(71, 56)
@@ -22,6 +23,7 @@ position = Vector2(8.5, 7)
 shape = SubResource("RectangleShape2D_vathp")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(26.75, 23)
-scale = Vector2(1.125, 1.16667)
+z_index = 10
+position = Vector2(32, 1)
 texture = ExtResource("3_h1iba")
+script = ExtResource("4_0qgra")
