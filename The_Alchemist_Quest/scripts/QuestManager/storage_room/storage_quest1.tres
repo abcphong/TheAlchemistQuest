@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_ceeek")
-quest_name = ""
-quest_description = ""
-reached_goal_text = ""
-activation_type = 0
+quest_name = "Chế tạo dung dịch"
+quest_description = "Chế tạo dung dịch ăn mòn để mở khóa phòng kho"
+reached_goal_text = "Bạn đã có thể tìm và chế tạo hợp chất trung hoà không khí!"
+activation_type = 1
 npc_id = ""
 next_scene = ""
 target_map = ""

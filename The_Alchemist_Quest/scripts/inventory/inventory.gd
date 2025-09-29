@@ -29,7 +29,8 @@ func _ready():
 		initialize_inventory_system()
 		connect_signals()
 		#Thêm connection vào
-		PlayerInventory.connect("inventory_changed",Callable(self,"clear_ui_inventory"))
+		# PlayerInventory.connect("inventory_changed",Callable(self,"clear_ui_inventory"))
+		PlayerInventory.connect("inventory_changed", Callable(self, "safe_initialize_inventory"))
 
 func initialize_inventory_system():
 	for inv_slot in inventory_slots.get_children():

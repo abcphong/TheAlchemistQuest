@@ -158,10 +158,23 @@ func on_display_dialog(text_key, node = null):
 	
 	# Tìm dialog key phù hợp
 	var matched_key = null
-	for key in dialog_text.keys():
-		if key.begins_with(text_key):
-			matched_key = key
-			break
+	
+	# 1) Exact match (case-sensitive)
+	if dialog_text.has(text_key):
+		matched_key = text_key
+	else:
+		# 2) Exact match (case-insensitive)
+		for key in dialog_text.keys():
+			if key.to_lower() == text_key.to_lower():
+				matched_key = key
+				break
+	
+	# 3) Fallback: begins_with (chỉ dùng khi không có exact)
+	if matched_key == null:
+		for candidate_key in dialog_text.keys():
+			if candidate_key.begins_with(text_key):
+				matched_key = candidate_key
+				break
 	
 	print("📄 Dialog keys available:", dialog_text.keys())
 	print("Requested key:", text_key)

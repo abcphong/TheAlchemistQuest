@@ -6,7 +6,7 @@
 		},
 		"Filter paper" : {
 			"StackSize" : 1,
-			"Description": "Một tờ giấy lọc. Cần thiết để lọc khí độc"
+			"Description": "Một tờ giấy lọc. Cần thiết để nhận diện khí độc"
 		},
 	}
 }

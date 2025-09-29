@@ -7,8 +7,13 @@ signal task_items_updated
 @export var pickup_ZnSO4 := "Player_pickup_ZnSO4"
 @export var pickup_filter_paper := "Player_pick_up_filter_paper"
 @export var pickup_FeSO4 := "Player_pick_up_FeSO4"
-@export var pickup_activated_coal := "Player_pickup_C"
+@export var pickup_mask := "Player_pickup_mask"
+@export var pickup_activated_coal := "Player_pickup_coal"
 @export var pickup_mini_oxygen := "Player_pickup_oxymini"
+@export var pickup_mini_filtercotton := "Player_pickup_filtercotton"
+@export var pickup_H2O2 := "Player_pickup_H2O2"
+@export var pickup_HCl := "Player_pickup_HCl"
+@export var pickup_corrosionnote := "Player_pickup_corrosionnote"
 @export_file("*.json") var dialog_file
 
 var task_items = {
@@ -22,8 +27,17 @@ var task_items = {
 		{"name" : "Filter paper" , "quantity" : 1},
 	],
 	3: [
+		# Chuẩn hóa tên Task 3 bằng dấu cách để khớp puzzle + dialog
+		{"name" : "Gas mask" , "quantity" : 1},
 		{"name" : "Activated coal" , "quantity" : 1},
-		{"name" : "Mini Oxygen" , "quantity" : 1},
+		{"name" : "Mini oxygen" , "quantity" : 1},
+		{"name" : "Filter cotton" , "quantity" : 1},
+	],
+	4: [
+		# task 1 storage room
+		{"name" : "H2O2" , "quantity" : 1},
+		{"name" : "HCl" , "quantity" : 1},
+		{"name" : "Corrosion reaction note" , "quantity" : 1},
 	]
 }
 
@@ -41,13 +55,25 @@ func _ready():
 
 func _init_dialog_map():
 	item_dialog_map = {
+		#task 1 intro room
 		"Salt bridge": pickup_salt_bridge,
 		"CuSO4": pickup_CuSO4,
 		"ZnSO4": pickup_ZnSO4,
+		
+		#task 2 intro room
 		"FeSO4": pickup_FeSO4,
-		"Filter Paper": pickup_filter_paper,
+		"Filter paper": pickup_filter_paper,
+		
+		#task 3 intro room
+		"Gas mask": pickup_mask,
 		"Activated coal": pickup_activated_coal,
-		"Mini Oxygen": pickup_mini_oxygen
+		"Mini oxygen": pickup_mini_oxygen,
+		"Filter cotton": pickup_mini_filtercotton,
+		
+		#task 1 storage room
+		"H2O2": pickup_H2O2,
+		"HCl": pickup_HCl,
+		"Corrosion reaction note": pickup_corrosionnote,
 	}
 
 func setup_for_task(task_number: int):
@@ -89,8 +115,9 @@ func _pickup_next_item():
 		print("⚠️ Shelf: Không còn vật phẩm để nhặt.")
 		return
 
-	if item_name.is_empty():
-		print("⚠️ Shelf: Item name trống.")
+	# Bảo vệ: tên rỗng/số lượng không hợp lệ thì không nhặt
+	if item_name.is_empty() or item_quantity <= 0:
+		print("⚠️ Shelf: Item name trống hoặc số lượng không hợp lệ.")
 		return
 
 	if PlayerInventory.add_item(item_name, item_quantity):
@@ -99,6 +126,13 @@ func _pickup_next_item():
 			if dialog_file:
 				DialogPlayer.set_dialog_file(dialog_file)
 				SignalBus.emit_signal("display_dialog", dialog_key)
+				# TẠM KHÓA pickup cho đến khi dialog đóng
+				interaction_enabled = false
+				# Kết nối one-shot để bật lại khi dialog đóng
+				if DialogPlayer and not DialogPlayer.is_connected("dialog_finished", _on_pickup_dialog_finished):
+					DialogPlayer.connect("dialog_finished", _on_pickup_dialog_finished, CONNECT_ONE_SHOT)
+		else:
+			print("ℹ️ Shelf: Không có dialog mapping cho:", item_name)
 
 		current_item_index += 1
 		_set_current_item()
@@ -111,3 +145,7 @@ func _on_player_entered(body: Node2D):
 
 func _on_player_exited(body: Node2D):
 	print("🴴 Shelf: Player rời khỏi khu vực tủ đồ")
+
+func _on_pickup_dialog_finished():
+	interaction_enabled = true
+	print("✅ Shelf: Dialog closed, interaction re-enabled")

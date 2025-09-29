@@ -101,10 +101,14 @@ func save_game(slot: int, save_name: String = "") -> bool:
 	# Lấy trạng thái thanh máu từ GameManager
 	var health_state = {}
 	var ventilation_system_state = {}
+	# Thêm biến power_state
+	var power_state = {}
 	var game_manager = get_node_or_null("/root/GameManager")
 	if game_manager:
 		health_state = game_manager.health_state
 		ventilation_system_state = game_manager.ventilation_system_state
+		# Lấy trạng thái điện
+		power_state = game_manager.power_state
 	
 	# Cập nhật trạng thái cửa từ các cửa trong scene hiện tại
 	# Kiểm tra cả hai nhóm: StorageDoors và SecurityDoors
@@ -208,12 +212,18 @@ func apply_loaded_data(data):
 		if game_manager:
 			game_manager.health_state = data["player_health"]
 	
-	# Áp dụng trạng thái hệ thống thông gió
+	# Áp dụng trạng thái hệ thống gió
 	if data.has("ventilation_system_state"):
 		var game_manager = get_node_or_null("/root/GameManager")
 		if game_manager:
 			game_manager.ventilation_system_state = data["ventilation_system_state"]
 			print("[SaveSystem] Đã tải trạng thái hệ thống thông gió: ", game_manager.ventilation_system_state)
+
+	# Khôi phục trạng thái điện
+	if data.has("power_state"):
+		var game_manager = get_node_or_null("/root/GameManager")
+		if game_manager:
+			game_manager.power_state = data["power_state"]
 
 	# RESET HOÀN TOÀN INVENTORY VÀ HOTBAR
 	print("[SaveSystem] Khởi tạo lại inventory và hotbar...")

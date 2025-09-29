@@ -82,3 +82,24 @@ func set_light_color(color: Color):
 func _on_player_moved(new_position: Vector2):
 	if enabled:
 		player_light.global_position = new_position + light_offset # Apply offset
+
+# Thêm các hàm tiện ích bật/tắt blackout theo trạng thái "điện"
+func power_outage_on():
+	# Bật blackout: bật overlay tối + bật đèn pin người chơi
+	set_enabled(true)
+	# 0.0 = tối đen, 1.0 = sáng bình thường (theo logic CanvasModulate)
+	set_darkness(0.0)
+	# Tuỳ chỉnh bán kính ánh sáng khi mất điện
+	set_light_radius(60.0)
+
+func power_restore_on():
+	# Điện trở lại: tắt overlay tối và tắt đèn pin người chơi
+	# Về mặt kỹ thuật: tắt overlay là đủ, nhưng có thể setDarkness(1.0) để rõ ràng
+	set_darkness(1.0)
+	set_enabled(false)
+
+func apply_power_state(is_power_on: bool):
+	if is_power_on:
+		power_restore_on()
+	else:
+		power_outage_on()

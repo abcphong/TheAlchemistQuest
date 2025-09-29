@@ -9,7 +9,8 @@ signal puzzle_closed
 
 # THÊM MỚI: Biến trạng thái để đảm bảo sequence chỉ chạy 1 lần
 var puzzle_solved := false
-
+@export var guide_dialog_key: String = "Puzzle_Guide_Introroom_Task1"
+@export_file("*.json") var guide_dialog_file: String = "res://The_Alchemist_Quest/assets/json/intro_room/intro_dialoge.json"
 
 func _ready():
 	layer = 5  # ✅ Set layer to match Puzzle 0 for consistent z-index behavior
@@ -18,6 +19,11 @@ func _ready():
 		success_anim.visible = false
 	add_to_group("PuzzleSlot")
 	
+	# Hiển thị hướng dẫn puzzle khi mở
+	if guide_dialog_file:
+		DialogPlayer.set_dialog_file(guide_dialog_file)
+		SignalBus.emit_signal("display_puzzle_dialog", guide_dialog_key, null)
+
 	# SAFE inventory initialization - avoid destructive operations during drag
 	if inventory:
 		print("✅ Connecting to puzzle inventory safely")

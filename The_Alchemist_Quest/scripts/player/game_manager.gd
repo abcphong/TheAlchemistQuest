@@ -22,6 +22,11 @@ var ventilation_system_state = {
 	"is_ventilation_fixed": false
 }
 
+# Thêm trạng thái hệ thống điện
+var power_state = {
+	"is_power_on": false
+}
+
 func _ready():
 	print("[GameManager] Khởi tạo thành công")
 	
@@ -166,4 +171,4 @@ func reset_to_initial_state():
 		"is_ventilation_fixed": false
 	}
 	
-	print("[GameManager] Đã reset tất cả các biến về trạng thái ban đầu") 
+	print("[GameManager] Đã reset tất cả các biến về trạng thái ban đầu")

@@ -151,10 +151,10 @@ func _process(delta):
 			if nearby_workbench != null and is_instance_valid(nearby_workbench):
 				handle_workbench_interaction()
 			elif nearby_computer != null and is_instance_valid(nearby_computer):
-				print("[DEBUG-PLAYER] Player tương tác với computer")
+				print("[DEBUG-PLAYER] Player tương tác với computer (handled by InteractableBase)")
 				nearby_computer._on_item_given()
 			elif nearby_cabinet != null and is_instance_valid(nearby_cabinet):
-				print("[DEBUG-PLAYER] Player tương tác với cabinet")
+				print("[DEBUG-PLAYER] Player tương tác với cabinet (handled by InteractableBase)")
 				nearby_cabinet._on_item_given()
 	
 	# Handle main inventory toggle

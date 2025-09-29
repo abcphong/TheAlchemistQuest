@@ -1,19 +1,44 @@
 extends CanvasLayer
-signal puzzle_solved  # 🔔 Tín hiệu thông báo puzzle đã hoàn thành
 signal puzzle_closed  # 🔔 Tín hiệu thông báo puzzle đã đóng
 
 @onready var success_anim = $SuccessAnim  # AnimatedSprite2D
+@onready var inventory = $InventoryContainer/Inventory
 
 # 🎁 Phần thưởng cho người chơi (danh sách item và số lượng)
 @export var reward_items: Array[String] = []
 @export var reward_amounts: Array[int] = []
 @export var allow_flexible_matching: bool = false
 
+var puzzle_solved := false
+# Hiển thị Inventory cục bộ của puzzle như các puzzle khác (không dùng UI chính)
+@onready var inventory_container := $InventoryContainer
+
 func _ready():
 	layer = 5  # ✅ Set layer for consistent z-index behavior
 	success_anim.visible = false
 	success_anim.connect("animation_finished", Callable(self, "_on_success_anim_done"))
 	add_to_group("PuzzleSlot")
+	
+	# Bật Inventory cục bộ của puzzle và init an toàn
+	if inventory_container:
+		inventory_container.visible = true
+	if inventory:
+		if not inventory.is_connected("inventory_updated", Callable(self, "_on_inventory_updated")):
+			inventory.connect("inventory_updated", Callable(self, "_on_inventory_updated"))
+		if not inventory.is_drag_operation_active():
+			inventory.initialize_inventory()
+		else:
+			_defer_inventory_initialization()
+	
+	# Loại bỏ ép mở Inventory UI chính để tránh lệch vị trí và trùng Inventory
+	# (Giữ nguyên UI chính ở trạng thái của nó, chỉ dùng Inventory cục bộ của puzzle)
+	if inventory:
+		if not inventory.is_connected("inventory_updated", Callable(self, "_on_inventory_updated")):
+			inventory.connect("inventory_updated", Callable(self, "_on_inventory_updated"))
+		if not inventory.is_drag_operation_active():
+			inventory.initialize_inventory()
+		else:
+			_defer_inventory_initialization()
 	
 	# 🔧 FIX: Tự động hiển thị inventory để hỗ trợ drag/drop như puzzle 0
 	var ui = get_tree().get_first_node_in_group("UserInterface")
@@ -28,11 +53,30 @@ func _input(event):
 		emit_signal("puzzle_closed")
 		_cleanup_and_close()
 
+func _defer_inventory_initialization():
+	var timer = Timer.new()
+	timer.wait_time = 0.1
+	timer.timeout.connect(_check_drag_completion)
+	add_child(timer)
+	timer.start()
+
+func _check_drag_completion():
+	if inventory and not inventory.is_drag_operation_active():
+		inventory.initialize_inventory()
+	for child in get_children():
+		if child is Timer:
+			child.queue_free()
+			break
+
+func _on_inventory_updated():
+	check_all_slots_filled()
+
 func _cleanup_and_close():
 	"""
 	Dọn dẹp và đóng puzzle UI một cách an toàn
 	"""
 	print("🧹 Cleaning up Storage Room Puzzle Task 1")
+	# KHÔNG tắt inventory của UserInterface ở đây vì ta không ép mở nó trong _ready()
 	
 	# Ẩn inventory nếu không còn puzzle nào khác active
 	var ui = get_tree().get_first_node_in_group("UserInterface")
@@ -55,6 +99,8 @@ func _cleanup_and_close():
 
 # ✅ Kiểm tra tất cả slot đã được lắp đúng chưa
 func check_all_slots_filled():
+	if puzzle_solved:
+		return
 	var slots := []
 	for child in get_children():
 		if child is PuzzleSlot:
@@ -85,6 +131,7 @@ func check_all_slots_filled():
 				return
 
 	# ✅ Tất cả hợp lệ
+	puzzle_solved = true
 	print("➡️ Puzzle complete! Playing success animation.")
 	success_anim.visible = true
 	success_anim.play("finished compound")
@@ -92,7 +139,10 @@ func check_all_slots_filled():
 # 🔚 Khi animation thành công kết thúc
 func _on_success_anim_done():
 	print("✅ SuccessAnim đã kết thúc")
-
+	# Báo UI quest đã đạt mục tiêu (giống Intro tasks)
+	if QuestManager:
+		QuestManager.reach_goal()
+	# Trao thưởng
 	var ui = get_tree().get_first_node_in_group("UserInterface")
 	if ui:
 		for i in range(min(reward_items.size(), reward_amounts.size())):
@@ -102,9 +152,6 @@ func _on_success_anim_done():
 			ui.add_new_item_to_inventory(item_name, qty)
 	else:
 		print("❌ Không tìm thấy UserInterface để nhận item")
-
-	# 🔔 Gửi tín hiệu cho lab_workbench
+	# 🔔 Gửi tín hiệu cho lab_workbench (sẽ emit EventBus.quest_event "PUZZLE_X_COMPLETED")
 	emit_signal("puzzle_solved")
-
-	# 🧼 Dọn giao diện sau khi hoàn tất với cleanup
 	_cleanup_and_close()

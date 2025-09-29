@@ -1,22 +1,22 @@
 {
 	"Player_1": [
-		"Player: Cái gì vừa xảy ra ?! Phòng thí nghiệm... Nó bị phá hủy sao? Mình phải ra khỏi đây... Nhưng trước tiên, cần khởi động lại nguồn điện,
-		Tất cả hệ thống đều sập...Nếu mình có thể tạo ra một dòng điện... có lẽ mình có thể bật lại nguồn điện"
+		"Player:\n Chuyện gì vừa xảy ra?! Phòng thí nghiệm... Nó bị phá hủy sao? Mình phải ra khỏi đây... Tối quá, có vẻ nguồn điện khẩn cấp cũng không hoạt động. Mình cần khởi động lại nguồn điện thì mới có thể mở cửa.",
+		"Mình có thể tạo ra một dòng điện rồi kết nối nó với tủ điện ở góc phòng xem sao"
 	],
 	"Player_pickup_cu":[
-		"Player: Đồng (Cu) có thể đóng vai trò cực dương... nhưng mình vẫn cần một cực âm"
+		"Player:\n Đồng (Cu) có thể đóng vai trò cực dương... mình cần thêm một cực âm"
 	],
 	"Player_pickup_zn":[
-		"Player: Kẽm (Zn) có thể đóng vai trò cực âm... chỉ cần thêm dung dịch điện phân phù hợp"
+		"Player:\n Kẽm (Zn) có thể đóng vai trò cực âm... cần thêm dung dịch điện phân phù hợp"
 	],
 	"Player_pickup_copper_wire":[
-		"Player: Dây đồng sẽ đóng vai trò dẫn điện, kết nói các cực trong phản ứng điện hóa."
+		"Player:\n Một dây đồng (Cu)! khi điện phân dung dịch CuSO₄, ion Cu²⁺ sẽ bám lên điện cực đồng, tạo lớp kim loại mới."
 	],
 	"Player_pickup_electric_wire":[
-		"Player: Dây điện dùng để kết nối các cực của tế bào điện hóa, giúp dòng điện chạy qua các phản ứng cần thiết."
+		"Player:\n Dây điện dùng để kết nối các cực của tế bào điện hóa, giúp dòng điện chạy qua các phản ứng cần thiết."
 	],
 	"Player_pickup_salt_bridge":[
-		"Player: Cầu muối kết nối các dung dịch trong tế bào điện hóa, duy trì dòng điện bằng cách giúp ion di chuyển giữa các cực."
+		"Player:\n Cầu muối kết nối các dung dịch trong tế bào điện hóa, duy trì dòng điện bằng cách giúp ion di chuyển giữa các cực."
 	],
 	"Player_pickup_CuSO4":[
 		"Player: Dung dịch đồng sunfat chứa ion Cu²⁺, giúp hoàn thành các phản ứng khử oxi hóa trong các thí nghiệm điện hóa."
@@ -34,26 +34,24 @@
 		"Player: Tủ đồ là nơi mình có thể dùng để thu thập những chất hóa học cần thiết."
 	],
 	"Player_in_introRoom_task1":[
-		"Player: Zn sẽ bị oxy hóa, giải phóng electron. Đồng sẽ nhận electron và tạo ra dòng điện. Nếu mình thành công nối hai cực này lại và sử dụng NaCl làm dung dịch điện phân, nó sẽ giúp dòng điện ổn định hơn"
+		"Player:\n Kẽm sẽ bị oxi hóa trong dung dịch ZnSO₄, giải phóng electron. \nNhững electron này di chuyển qua mạch ngoài tới cực đồng, nơi ion Cu²⁺ trong dung dịch CuSO₄ bị khử và bám lên điện cực đồng. \nCầu muối NaCl giữ cho dung dịch trung hòa điện tích, giúp dòng điện chạy ổn định hơn."
 	],
 		"AI quản lý_1" : [
-		"AI quản lý: Hãy tìm kiếm đồ vật xung quanh phòng thí nghiệm để có thể bật khôi phục nguồn điện. Hãy đi tìm Đồng, Kẽm và lõi dây điện",
-		"AI quản lý: Hãy tiến hành khôi phục thực hiện khôi phục điện tại phòng bàn thí nghiệm"
+		"AI quản lý: Hãy tìm kiếm đồ vật xung quanh phòng thí nghiệm để có thể bật khôi phục nguồn điện.\nBạn có thể tìm thấy Đồng, Kẽm, dây điện và các hợp chất phù hợp để thực hiện phản ứng điện phân.",
+		"AI quản lý: Sau khi thu thập đủ vật liệu, thực hiện phản ứng điện phân tại bàn thí nghiệm"
 	],
 		"Puzzle_Guide_Introroom_Task1" :[
 		"Hãy bỏ kẽm, đồng, lõi dây điện và dung dịch điện phân NaCl vào các ô chế tạo. Đảm bảo bỏ chính xác đồ vật vào các ô."
 	],
 	"Player_finished_introRoom_Task1" :[
-		"Player: Tốt, Hệ thống điện đã hoạt động trở lại. Giờ mình có thể tìm hiểu chuyện gì đang xảy ra..."
-	],
-	"Player_2":[
-		"Player: Mùi này... nó giống xyanua.. Có thể nào? Mình cần xác định xem phải X-92 không trước khi làm"
-	],
-	"AI quản lý_2" :[
-		"AI quản lý: Hãy đi tìm giấy thử và FeSO₄ trong tủ đồ"
+		"Player: \nThành công rồi! Hệ thống điện đã hoạt động trở lại.\nTại sao chỉ còn mỗi mình ở đây? Mình đã ngất bao lâu vậy chứ.",
+		"Thôi kệ đi, quan trọng là phải tìm cách ra khỏi đây...Mùi gì vậy nhỉ?",
+		"Giống như mùi xyanua vậy, mùi hạnh nhân đắng! Khi nãy AI cảnh báo rò rỉ khí, lẽ nào tin đồn về việc CodeCatalyst đang lén điều chế Cyanogen (C₂N₂) là thật sao?!",
+		"Mình phải giữ mạng cho đến khi tìm được lối ra! Kiểm tra nhanh xem có phải C₂N₂ đang bị rò rỉ không",
+		"AI quản lý:\nBạn có thể tìm thấy giấy lọc và FeSO₄ trong tủ đồ."
 	],
 	"Player_pick_up_filter_paper": [
-		"Player: Giấy thử sẽ giúp ta phân biệt độ pH của dung dịch"
+		"Player: Giấy lọc sẽ dùng để nhúng vào trong dung dịch"
 	],
 	"Player_pick_up_FeSO4":[
 		"Player: Một bình chứa khí sắt (II) sunfat. Cần thiết để nhận diện khí độc"
@@ -65,11 +63,17 @@
 	"Player_finished_introroom_task2" :[
 		"Player: Không thể nhầm lẫn được... X-92! Cyanogen có mặt trong không khí. Nếu mình không bảo vệ bản thân, mình sẽ chết vì nhiễm độc."
 	],
-	"Player_pickup_C":[
+	"Player_pickup_mask":[
+		"Player: Một chiếc mặt nạ phòng độc cũ. Ai lại để đồ đã qua sử dụng ở trong tủ chứ?"
+	],
+	"Player_pickup_coal":[
 		"Player: Than hoạt tính có thể giữ lại khí độc... Nhưng chỉ vậy là chưa đủ"
 	],
 	"Player_pickup_oxymini":[
 		"Player: Nếu mình có thể lọc khí bằng than hoạt tính và đảm bảo oxy sạch, mình có thể sống sót"
+	],
+	"Player_pickup_filtercotton":[
+		"Player: Quấn bông lọc quanh than để tăng hiệu quả lọc"
 	],
 	"AI quản lý_3" :[
 		"AI quản lý: Hãy đi tìm than hoạt tính sau đó bình oxy mini vào mặt nạ"
@@ -79,5 +83,14 @@
 	],
 	"Player_finished_introroom_task3":[
 		"Player: Cảm giác khá ổn... ít nhất thì mình có thể thở mà không lo bị nhiễm độc. Bây giờ mình cần tìm cách thoát khỏi đây"
+	],
+	"Player_pickup_HCl":[
+		"Player:\nHCl là một axit mạnh, thường dùng trong thí nghiệm để trung hòa bazơ, phản ứng với kim loại, và làm dung dịch chuẩn độ."
+	],
+	"Player_pickup_H2O2":[
+		"Player:\nH₂O₂ là một chất oxy hóa mạnh, thường được dùng để khử trùng, tẩy trắng hoặc làm tác nhân phản ứng trong các thí nghiệm hóa học."
+	],
+	"Player_pickup_corrosionnote":[
+		"Player:\nSắt (Fe) phản ứng với axit HCl tạo ra khí hiđro (H₂) thoát ra sủi bọt và dung dịch muối sắt(II) clorua (FeCl₂) có màu xanh lục. Khi có mặt chất oxi hóa như H₂O₂, Fe²⁺ tiếp tục bị oxi hóa thành Fe³⁺, dung dịch đổi sang màu vàng của FeCl₃. Đây là ví dụ điển hình của quá trình ăn mòn kim loại."
 	],
 }

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="1_5thc5"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/storage_room/puzzle_ui_task_1_2.gd" id="1_r2c62"]
 [ext_resource type="Texture2D" uid="uid://drs8s7ag3mfww" path="res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/Task1_storage_room.png" id="2_mxons"]
-[ext_resource type="PackedScene" uid="uid://jtw43r4xq7jj" path="res://The_Alchemist_Quest/scenes/puzzle_slot.tscn" id="3_perv0"]
+[ext_resource type="PackedScene" uid="uid://ccq6a4w52omms" path="res://The_Alchemist_Quest/scenes/puzzle/puzzle_slot.tscn" id="4_xtbun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o5edi"]
 atlas = ExtResource("2_mxons")
@@ -40,8 +40,7 @@ animations = [{
 
 [node name="PuzzleUI" type="CanvasLayer"]
 script = ExtResource("1_r2c62")
-reward_items = Array[String](["Na2S2O3", "H2O", "Note_Na2S2O3+H2O"])
-reward_amounts = Array[int]([1, 1, 1])
+reward_items = Array[String](["H2O2+HCl"])
 
 [node name="InventoryContainer" type="Control" parent="."]
 layout_mode = 3
@@ -66,7 +65,7 @@ offset_bottom = 52.44
 scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_o5edi")
 
-[node name="PuzzleSlot" parent="." instance=ExtResource("3_perv0")]
+[node name="PuzzleSlot" parent="." instance=ExtResource("4_xtbun")]
 offset_left = 521.0
 offset_top = 184.0
 offset_right = 567.0

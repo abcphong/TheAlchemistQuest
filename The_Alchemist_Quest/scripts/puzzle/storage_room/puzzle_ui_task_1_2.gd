@@ -1,24 +1,36 @@
 extends CanvasLayer
-signal puzzle_solved  # 🔔 Tín hiệu thông báo puzzle đã hoàn thành
 
-@onready var success_anim = $SuccessAnim  # AnimatedSprite2D
-
-# 🎁 Phần thưởng cho người chơi (danh sách item và số lượng)
+signal puzzle_solved
 @export var reward_items: Array[String] = []
 @export var reward_amounts: Array[int] = []
 @export var allow_flexible_matching: bool = false
 
+@onready var success_anim = $SuccessAnim
+# ✅ Dùng inventory nhúng trong scene puzzle (giống intro room)
+@onready var inventory_container := $InventoryContainer
+@onready var inventory := $InventoryContainer/Inventory
+
 func _ready():
-	layer = 5  # ✅ Set layer for consistent z-index behavior
-	success_anim.visible = false
-	success_anim.connect("animation_finished", Callable(self, "_on_success_anim_done"))
+	layer = 5
+	if has_node("SuccessAnim"):
+		success_anim.visible = false
 	add_to_group("PuzzleSlot")
 	
-	# 🔧 FIX: Tự động hiển thị inventory để hỗ trợ drag/drop như puzzle 0
-	var ui = get_tree().get_first_node_in_group("UserInterface")
-	if ui and ui.has_method("force_show_inventory_for_puzzle"):
-		print("🔧 Storage Room Puzzle Task 1-2: Force showing inventory for drag/drop support")
-		ui.force_show_inventory_for_puzzle()
+	# ✅ Hiển thị Inventory của scene puzzle & init an toàn (giống intro room)
+	if inventory_container:
+		inventory_container.visible = true
+	if inventory:
+		if not inventory.is_connected("inventory_updated", Callable(self, "_on_inventory_updated")):
+			inventory.connect("inventory_updated", Callable(self, "_on_inventory_updated"))
+		if not inventory.is_drag_operation_active():
+			inventory.initialize_inventory()
+		else:
+			_defer_inventory_initialization()
+	
+	# ⛔ Không còn ép mở Inventory của UserInterface để tránh khác vị trí với intro room
+	# var ui = get_tree().get_first_node_in_group("UserInterface")
+	# if ui and ui.has_method("force_show_inventory_for_puzzle"):
+	# 	ui.force_show_inventory_for_puzzle()
 	else:
 		print("⚠️ Warning: UserInterface not found or missing force_show_inventory_for_puzzle method")
 
@@ -81,3 +93,22 @@ func _on_success_anim_done():
 
 	# 🧼 Dọn giao diện sau khi hoàn tất
 	queue_free()
+
+func _defer_inventory_initialization():
+	var timer = Timer.new()
+	timer.wait_time = 0.1
+	timer.timeout.connect(_check_drag_completion)
+	add_child(timer)
+	timer.start()
+
+func _check_drag_completion():
+	if inventory and not inventory.is_drag_operation_active():
+		inventory.initialize_inventory()
+	for child in get_children():
+		if child is Timer:
+			child.queue_free()
+			break
+
+func _on_inventory_updated():
+	# Cập nhật logic kiểm tra puzzle khi inventory thay đổi
+	check_all_slots_filled()

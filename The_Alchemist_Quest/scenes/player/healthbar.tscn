@@ -1,0 +1,134 @@
+[gd_scene load_steps=13 format=3 uid="uid://dxvn0lr6rd4kn"]
+
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/health_bar.gd" id="1_4x5qb"]
+[ext_resource type="Texture2D" uid="uid://b4752grm04sq4" path="res://The_Alchemist_Quest/assets/button/Health_bar.png" id="2_bnu8i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew3gr"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(0, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blte0"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(0, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxl2o"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(52, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l17xi"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(104, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqdvy"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(156, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3hrq"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(104, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yri5t"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(208, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q04n6"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(208, 0, 52, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3bpcy"]
+atlas = ExtResource("2_bnu8i")
+region = Rect2(260, 0, 52, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1w80k"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_ew3gr")
+}],
+"loop": true,
+"name": &"Green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blte0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxl2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blte0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxl2o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blte0")
+}, {
+"duration": 100.0,
+"texture": SubResource("AtlasTexture_l17xi")
+}],
+"loop": true,
+"name": &"Orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqdvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3hrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqdvy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3hrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqdvy")
+}, {
+"duration": 100.0,
+"texture": SubResource("AtlasTexture_yri5t")
+}],
+"loop": true,
+"name": &"Red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q04n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bpcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q04n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bpcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q04n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3bpcy")
+}],
+"loop": true,
+"name": &"Red_blink",
+"speed": 5.0
+}]
+
+[node name="Healthbar" type="Node2D" node_paths=PackedStringArray("healthbar", "HealthTimer", "player_sprite")]
+script = ExtResource("1_4x5qb")
+healthbar = NodePath("AnimatedSprite2D")
+HealthTimer = NodePath("Health_Timer")
+player_sprite = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(85, 40)
+scale = Vector2(2.25, 2.25)
+sprite_frames = SubResource("SpriteFrames_1w80k")
+animation = &"Red_blink"
+
+[node name="Health_Timer" type="Timer" parent="."]

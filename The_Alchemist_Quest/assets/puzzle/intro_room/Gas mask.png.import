@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byhww2oxnftqw"
-path="res://.godot/imported/Filter cotton.png-735075de034cc76c9d7fa5b4e25aeb61.ctex"
+uid="uid://cswliw7a4iwhf"
+path="res://.godot/imported/Gas mask.png-507650274c0e76bf2b63be33cbbeac47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://The_Alchemist_Quest/assets/puzzle/intro_room/Filter cotton.png"
-dest_files=["res://.godot/imported/Filter cotton.png-735075de034cc76c9d7fa5b4e25aeb61.ctex"]
+source_file="res://The_Alchemist_Quest/assets/puzzle/intro_room/Gas mask.png"
+dest_files=["res://.godot/imported/Gas mask.png-507650274c0e76bf2b63be33cbbeac47.ctex"]
 
 [params]
 

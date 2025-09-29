@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mlddo614fj4h"
-path="res://.godot/imported/Corrosion_reaction_note.png-12eb9245841062b172322d8b4085e56c.ctex"
+uid="uid://browgq0yiha8h"
+path="res://.godot/imported/Activated coal.png-1a87c7f0d0d7282984d385a4062de77f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://The_Alchemist_Quest/assets/puzzle/storage_room/task1/Corrosion_reaction_note.png"
-dest_files=["res://.godot/imported/Corrosion_reaction_note.png-12eb9245841062b172322d8b4085e56c.ctex"]
+source_file="res://The_Alchemist_Quest/assets/puzzle/intro_room/Activated coal.png"
+dest_files=["res://.godot/imported/Activated coal.png-1a87c7f0d0d7282984d385a4062de77f.ctex"]
 
 [params]
 

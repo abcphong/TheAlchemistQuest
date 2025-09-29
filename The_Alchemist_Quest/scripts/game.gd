@@ -12,12 +12,28 @@ func _ready():
 
 	# Initialize lighting system
 	if lighting_system:
-		# Set initial lighting parameters
-		lighting_system.set_light_radius(50.0)  # Even smaller light radius
-		lighting_system.set_light_color(Color(1, 0.95, 0.9))  # Very slight warm tint
-		lighting_system.set_darkness(0.0)  # Almost no global darkness, just the light effect
-		lighting_system.light_offset = Vector2(0, -10) # Adjust light position slightly upwards
-		
+		# Giữ cấu hình màu, bán kính, offset như bạn muốn
+		lighting_system.set_light_radius(50.0)  # đèn pin nhỏ khi mất điện
+		lighting_system.set_light_color(Color(1, 0.95, 0.9))  # ánh sáng ấm
+		# Không set set_darkness ở đây nữa, để apply theo trạng thái điện
+		lighting_system.light_offset = Vector2(0, -10)
+
+		# Áp trạng thái điện ban đầu theo GameManager.power_state
+		var gm = get_node_or_null("/root/GameManager")
+		var is_power_on := false
+		if gm and gm.get("power_state") != null and gm.power_state.has("is_power_on"):
+			is_power_on = gm.power_state["is_power_on"]
+		lighting_system.apply_power_state(is_power_on)
+
+		# Lắng nghe load game để áp lại trạng thái điện sau khi load
+		var save_load_manager = get_node_or_null("/root/SaveLoadManager")
+		if save_load_manager and not save_load_manager.is_connected("game_loaded", Callable(self, "_on_game_loaded")):
+			save_load_manager.connect("game_loaded", Callable(self, "_on_game_loaded"))
+
+		# Lắng nghe khi giải xong Puzzle 1 để bật điện
+		if EventBus and not EventBus.quest_event.is_connected(_on_quest_event_triggered):
+			EventBus.quest_event.connect(_on_quest_event_triggered)
+
 		if DialogPlayer:
 			DialogPlayer.connect("dialog_finished", _on_dialog_finished)
 			show_dialog("Player_1")
@@ -73,3 +89,25 @@ func on_player_pickup(item_name: String):
 		# Add more items as needed
 	if dialog_key != "":
 		show_dialog(dialog_key)
+
+func _on_game_loaded():
+	# Sau khi load, áp lại trạng thái điện
+	var gm = get_node_or_null("/root/GameManager")
+	var is_power_on := false
+	if gm and gm.get("power_state") != null and gm.power_state.has("is_power_on"):
+		is_power_on = gm.power_state["is_power_on"]
+	if lighting_system:
+		lighting_system.apply_power_state(is_power_on)
+
+func _on_quest_event_triggered(event_name: String):
+	# Khi hoàn thành Puzzle 1 -> bật điện trở lại
+	if event_name == "PUZZLE_1_COMPLETED":
+		var gm = get_node_or_null("/root/GameManager")
+		if gm:
+			gm.power_state["is_power_on"] = true
+		if lighting_system:
+			lighting_system.power_restore_on()
+
+
+func _on_health_timer_timeout() -> void:
+	pass # Replace with function body.

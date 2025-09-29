@@ -28,13 +28,5 @@
 		"StackSize" : 1,
 		"Description" :"Cầu muối kết nối các dung dịch trong tế bào điện hóa, duy trì dòng điện bằng cách giúp ion di chuyển giữa các cực."
 		},
-		"FeSO4" : {
-			"StackSize" : 1,
-			"Description" : "Một bình chứa khí sắt (II) sunfat. Cần thiết để nhận diện khí độc"
-		},
-		"Filter paper" : {
-			"StackSize" : 1,
-			"Description": "Một tờ giấy lọc. Cần thiết để lọc khí độc"
-		},
 	}
 }

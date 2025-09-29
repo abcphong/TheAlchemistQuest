@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://hupnwn10ee05"]
+[gd_scene load_steps=32 format=3 uid="uid://hupnwn10ee05"]
 
 [ext_resource type="PackedScene" uid="uid://dl16s7sg0g8no" path="res://The_Alchemist_Quest/scenes/Map/lab_workbench.tscn" id="1_34cys"]
 [ext_resource type="PackedScene" uid="uid://b0lckgiw4has1" path="res://The_Alchemist_Quest/scenes/level_manager.tscn" id="1_lfs5f"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="14_o5qgc"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/dialog/auto_dialog_manager.gd" id="17_ivpeg"]
 [ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scenes/player/hotbar.tscn" id="17_lfs5f"]
+[ext_resource type="AudioStream" uid="uid://dk16by1j24beh" path="res://The_Alchemist_Quest/assets/audio/music/BGM_2.wav" id="18_5v8b4"]
 [ext_resource type="PackedScene" uid="uid://b3l2wvyespade" path="res://The_Alchemist_Quest/scenes/player/save_load_ui.tscn" id="18_save_load_ui"]
 [ext_resource type="Texture2D" uid="uid://bbefedjrur1em" path="res://The_Alchemist_Quest/assets/decor/Electrical_cabinet.png" id="19_t13hq"]
 
@@ -52,6 +53,9 @@ size = Vector2(54.977, 18.6321)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wsyi"]
 size = Vector2(676.989, 42.2389)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_klkj1"]
+size = Vector2(20, 11.9649)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_snten"]
 atlas = ExtResource("19_t13hq")
@@ -177,6 +181,10 @@ shape = SubResource("RectangleShape2D_1wsyi")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(-163.901, -126.762, -85.9282, -124.456, -33.1318, -171.579, -32.7012, -137.567, -84.5648, -86.428, -165.553, -87.7843)
 
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(58.2693, -133.027)
+shape = SubResource("RectangleShape2D_klkj1")
+
 [node name="ElectricCabin" type="Sprite2D" parent="."]
 position = Vector2(75, 102)
 scale = Vector2(0.7, 0.7)
@@ -184,3 +192,8 @@ texture = SubResource("AtlasTexture_snten")
 
 [node name="AutoDialogManager" type="Node2D" parent="."]
 script = ExtResource("17_ivpeg")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("18_5v8b4")
+autoplay = true

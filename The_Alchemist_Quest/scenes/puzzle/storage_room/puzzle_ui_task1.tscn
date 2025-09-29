@@ -48,9 +48,19 @@ scale = Vector2(2, 2)
 texture = SubResource("AtlasTexture_vxq4e")
 metadata/_edit_use_anchors_ = true
 
-[node name="PuzzleSlot3" parent="." instance=ExtResource("4_0yt7u")]
+[node name="PuzzleSlot" parent="." instance=ExtResource("4_0yt7u")]
+offset_left = 501.0
+offset_top = 240.0
+offset_right = 547.0
+offset_bottom = 286.0
+expected_item = Array[String](["H2O2", "HCl"])
 
-[node name="PuzzleSlot4" parent="." instance=ExtResource("4_0yt7u")]
+[node name="PuzzleSlot2" parent="." instance=ExtResource("4_0yt7u")]
+offset_left = 561.0
+offset_top = 300.0
+offset_right = 607.0
+offset_bottom = 346.0
+expected_item = Array[String](["H2O2", "HCl"])
 
 [node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
 visible = false

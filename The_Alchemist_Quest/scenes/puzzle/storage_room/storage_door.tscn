@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c64et3qhtvjwv"]
+[gd_scene load_steps=7 format=3 uid="uid://c64et3qhtvjwv"]
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/puzzle/storage_door.gd" id="1_lg08s"]
 [ext_resource type="Texture2D" uid="uid://bb0v2pw5p3fkh" path="res://The_Alchemist_Quest/assets/decor/Door-StorageRoom.png" id="2_ei2ft"]
 [ext_resource type="PackedScene" uid="uid://djubwjlrl4fu4" path="res://The_Alchemist_Quest/scenes/puzzle/storage_room/puzzle_ui_task1-2.tscn" id="2_krgoa"]
-
+[ext_resource type="Texture2D" uid="uid://dwuigly7xvx4b" path="res://The_Alchemist_Quest/assets/button/E_button.png" id="4_7hw5o"]
+[ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/interaction/EButton.gd" id="5_u4c8b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvrlc"]
 size = Vector2(28, 47)
@@ -21,6 +22,12 @@ shape = SubResource("RectangleShape2D_mvrlc")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.688, 0.688)
 texture = ExtResource("2_ei2ft")
+
+[node name="EButton" type="Sprite2D" parent="."]
+z_index = 10
+position = Vector2(-13, -6)
+texture = ExtResource("4_7hw5o")
+script = ExtResource("5_u4c8b")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

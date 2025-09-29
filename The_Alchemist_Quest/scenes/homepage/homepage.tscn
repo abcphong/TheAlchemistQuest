@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dll77vxtpl44d"]
+[gd_scene load_steps=9 format=3 uid="uid://dll77vxtpl44d"]
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/homepage/homepage.gd" id="1_6bc3p"]
 [ext_resource type="Texture2D" uid="uid://5f0pmy1kw62j" path="res://The_Alchemist_Quest/assets/decor/homepage_background.png" id="2_jw5i0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dfu6hymrlheqr" path="res://The_Alchemist_Quest/assets/button/Instruction_button.png" id="5_8ro2s"]
 [ext_resource type="Texture2D" uid="uid://h1vtff5ei7ea" path="res://The_Alchemist_Quest/assets/button/About_us_button.png" id="6_sapjc"]
 [ext_resource type="Texture2D" uid="uid://du5e6qpu1sbha" path="res://The_Alchemist_Quest/assets/button/Exit_button.png" id="7_evck2"]
+[ext_resource type="AudioStream" uid="uid://cqnwak41tq0md" path="res://The_Alchemist_Quest/assets/audio/music/BGM_1.mp3" id="8_y03ob"]
 
 [node name="Homepage" type="Control"]
 layout_mode = 3
@@ -63,6 +64,10 @@ color = Color(0, 0, 0, 1)
 [node name="SaveUILayer" type="CanvasLayer" parent="."]
 layer = 100
 visible = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_y03ob")
+autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]

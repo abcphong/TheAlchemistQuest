@@ -39,8 +39,6 @@ animations = [{
 
 [node name="PuzzleUiTask3" type="CanvasLayer"]
 script = ExtResource("1_63thl")
-reward_items = Array[String](["H2O2", "HCl", "Corrosion_reaction_note"])
-reward_amounts = Array[int]([1, 1, 1])
 
 [node name="InventoryContainer" type="Control" parent="."]
 layout_mode = 3
@@ -76,7 +74,11 @@ script = ExtResource("4_eobfp")
 
 [node name="PuzzleSlot" parent="Phase1Slot" instance=ExtResource("5_tso77")]
 layout_mode = 0
-expected_item = Array[String](["Gas_mask"])
+offset_left = 449.0
+offset_top = 226.0
+offset_right = 495.0
+offset_bottom = 272.0
+expected_item = Array[String](["Gas mask"])
 
 [node name="Phase2Slots" type="Control" parent="."]
 visible = false
@@ -95,7 +97,7 @@ offset_left = 144.0
 offset_top = 20.0
 offset_right = 190.0
 offset_bottom = 66.0
-expected_item = Array[String](["Mini_oxygen", "Activated_coal", "Filter cotton"])
+expected_item = Array[String](["Mini oxygen", "Activated coal", "Filter cotton"])
 
 [node name="PuzzleSlot2" parent="Phase2Slots" instance=ExtResource("5_tso77")]
 layout_mode = 0
@@ -103,7 +105,7 @@ offset_left = 45.0
 offset_top = 144.0
 offset_right = 91.0
 offset_bottom = 190.0
-expected_item = Array[String](["Mini_oxygen", "Activated_coal", "Filter cotton"])
+expected_item = Array[String](["Mini oxygen", "Activated coal", "Filter cotton"])
 
 [node name="PuzzleSlot3" parent="Phase2Slots" instance=ExtResource("5_tso77")]
 layout_mode = 0
@@ -111,7 +113,7 @@ offset_left = -38.0
 offset_top = 144.0
 offset_right = 8.0
 offset_bottom = 190.0
-expected_item = Array[String](["Mini_oxygen", "Activated_coal", "Filter cotton"])
+expected_item = Array[String](["Mini oxygen", "Activated coal", "Filter cotton"])
 
 [node name="SuccessAnim" type="AnimatedSprite2D" parent="."]
 visible = false

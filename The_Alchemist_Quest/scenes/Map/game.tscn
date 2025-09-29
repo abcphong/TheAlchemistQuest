@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b6hvy4ew7mftt"]
+[gd_scene load_steps=39 format=3 uid="uid://b6hvy4ew7mftt"]
 
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/game.gd" id="1_d4shp"]
 [ext_resource type="PackedScene" uid="uid://cxm3k6ck844do" path="res://The_Alchemist_Quest/scenes/Map/room 1.tscn" id="1_g8hxy"]
@@ -14,19 +14,23 @@
 [ext_resource type="Resource" uid="uid://dbmcr5tactoni" path="res://The_Alchemist_Quest/scripts/QuestManager/intro_room/intro_quest2.tres" id="5_xbq25"]
 [ext_resource type="Resource" uid="uid://bw1578owio0xx" path="res://The_Alchemist_Quest/scripts/QuestManager/intro_room/intro_quest3.tres" id="6_162mh"]
 [ext_resource type="PackedScene" uid="uid://de4tjmmo3avyw" path="res://The_Alchemist_Quest/scenes/dialog_area.tscn" id="8_h8yaq"]
+[ext_resource type="PackedScene" uid="uid://f6dbg7mqmc3q" path="res://The_Alchemist_Quest/scenes/puzzle/storage_room/puzzle_ui_task1.tscn" id="12_ssa7y"]
 [ext_resource type="PackedScene" uid="uid://bk3vj4l108qci" path="res://The_Alchemist_Quest/scenes/player/inventoryUI.tscn" id="13_uubka"]
 [ext_resource type="PackedScene" uid="uid://bvn2ijvv1708u" path="res://The_Alchemist_Quest/scenes/decor/lab_table_decor.tscn" id="14_2t3qg"]
 [ext_resource type="PackedScene" uid="uid://4ups773dxql4" path="res://The_Alchemist_Quest/scenes/player/inventory.tscn" id="14_in84n"]
 [ext_resource type="Script" path="res://The_Alchemist_Quest/scripts/player/user_interface.gd" id="14_o5qgc"]
 [ext_resource type="PackedScene" uid="uid://buat83l2xi2kj" path="res://The_Alchemist_Quest/scenes/decor/electrical_cabinet.tscn" id="15_upco7"]
+[ext_resource type="PackedScene" uid="uid://dxvn0lr6rd4kn" path="res://The_Alchemist_Quest/scenes/player/healthbar.tscn" id="16_iyy4c"]
 [ext_resource type="PackedScene" uid="uid://d23hco84jrdw5" path="res://The_Alchemist_Quest/scenes/player/hotbar.tscn" id="17_lfs5f"]
 [ext_resource type="PackedScene" uid="uid://bqnvj8y6g5s3x" path="res://The_Alchemist_Quest/scenes/lighting/dynamic_lighting.tscn" id="18_xxxxx"]
 [ext_resource type="Texture2D" uid="uid://38oqr3x6tr11" path="res://The_Alchemist_Quest/assets/decor/Intro_room_shelf.png" id="22_q5h17"]
 [ext_resource type="Texture2D" uid="uid://dwsi4p5nobe01" path="res://The_Alchemist_Quest/assets/item/Control_panel.png" id="23_14k8j"]
+[ext_resource type="PackedScene" uid="uid://c64et3qhtvjwv" path="res://The_Alchemist_Quest/scenes/puzzle/storage_room/storage_door.tscn" id="25_kn6jn"]
+[ext_resource type="AudioStream" uid="uid://dk16by1j24beh" path="res://The_Alchemist_Quest/assets/audio/music/BGM_2.wav" id="27_qhi2h"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bugtt"]
 normal = Vector2(0.120195, 0.99275)
-distance = -39.1836
+distance = 7.99992
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_i2ae1"]
 normal = Vector2(0.0167434, -0.99986)
@@ -40,10 +44,10 @@ normal = Vector2(-0.99275, 0.120196)
 distance = 67.0004
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ila7f"]
-size = Vector2(43.9785, 9.94835)
+size = Vector2(43.9785, 13.9742)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ch4vy"]
-size = Vector2(670.982, 36.2417)
+size = Vector2(673.49, 39.3612)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qicrj"]
 size = Vector2(56.9752, 31.1144)
@@ -73,7 +77,7 @@ quest_sequence = Array[ExtResource("3_d8lrq")]([ExtResource("4_3ir28"), ExtResou
 
 [node name="LabWorkbench" parent="." groups=["Workbench"] instance=ExtResource("2_xkxkf")]
 position = Vector2(395, 83)
-puzzle_scenes = Array[PackedScene]([ExtResource("3_vv2fc"), ExtResource("4_xrwxv"), ExtResource("5_grem8")])
+puzzle_scenes = Array[PackedScene]([ExtResource("3_vv2fc"), ExtResource("4_xrwxv"), ExtResource("5_grem8"), ExtResource("12_ssa7y")])
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 script = ExtResource("14_o5qgc")
@@ -95,6 +99,9 @@ offset_bottom = 219.0
 [node name="Inventory" parent="UserInterface/InventoryContainer" instance=ExtResource("14_in84n")]
 visible = false
 position = Vector2(0, 0)
+
+[node name="Healthbar" parent="UserInterface" instance=ExtResource("16_iyy4c")]
+position = Vector2(-11, 1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(204, 184)
@@ -120,16 +127,16 @@ rotation = 0.137231
 shape = SubResource("WorldBoundaryShape2D_7gosb")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-161.889, -67.7201)
+position = Vector2(-161.923, -65.7075)
 rotation = 0.0167443
 shape = SubResource("RectangleShape2D_ila7f")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 position = Vector2(-27.2809, 16.5455)
-polygon = PackedVector2Array(-163.901, -126.762, -85.9282, -124.456, -33.1318, -171.579, -32.7012, -137.567, -83.3975, -96.4099, -164.386, -97.7661)
+polygon = PackedVector2Array(-163.901, -126.762, -85.9282, -124.456, -33.1318, -171.579, -32.7012, -137.567, -83.5481, -87.4111, -165.553, -87.7842)
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(649.165, -64.1397)
+position = Vector2(647.884, -62.6021)
 rotation = 0.0174533
 shape = SubResource("RectangleShape2D_ch4vy")
 
@@ -174,7 +181,7 @@ z_index = 6
 position = Vector2(182, 72)
 
 [node name="ElectricalCabinet" parent="." instance=ExtResource("15_upco7")]
-position = Vector2(77, 109)
+position = Vector2(78, 107)
 dialog_file = "res://The_Alchemist_Quest/assets/json/intro_room/intro_dialoge.json"
 
 [node name="Shelf" parent="." instance=ExtResource("2_tnc1f")]
@@ -190,3 +197,11 @@ z_index = 6
 position = Vector2(473, 85)
 scale = Vector2(0.81, 0.81)
 texture = SubResource("AtlasTexture_u3aj8")
+
+[node name="StorageDoor" parent="." instance=ExtResource("25_kn6jn")]
+position = Vector2(578, 132)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("27_qhi2h")
+autoplay = true

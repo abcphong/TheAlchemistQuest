@@ -1,15 +1,25 @@
 extends CanvasLayer
+signal puzzle_solved  # 🔔 Thêm signal để báo puzzle hoàn thành
 
 @onready var slot_container = $InventoryContainer/Inventory/GridContainer
 @onready var success_anim = $SuccessAnim  # Optional: add a success animation node if you want
 var inventory_ref = null
+@export var guide_dialog_key: String = "Puzzle_Guide_Introroom_Task2"
+@export_file("*.json") var guide_dialog_file: String = "res://The_Alchemist_Quest/assets/json/intro_room/intro_dialoge.json"
 
 func _ready():
 	layer = 5  # ✅ Set layer for consistent z-index behavior
 	if has_node("SuccessAnim"):
 		success_anim.visible = false
+		# Kết nối khi animation kết thúc để emit puzzle_solved
+		if not success_anim.is_connected("animation_finished", Callable(self, "_on_success_anim_done")):
+			success_anim.connect("animation_finished", Callable(self, "_on_success_anim_done"))
 	add_to_group("PuzzleSlot")
 
+	# Hiển thị hướng dẫn puzzle khi mở
+	if guide_dialog_file:
+		DialogPlayer.set_dialog_file(guide_dialog_file)
+		SignalBus.emit_signal("display_puzzle_dialog", guide_dialog_key, null)
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		queue_free()
@@ -22,6 +32,10 @@ func check_all_slots_filled():
 	if has_node("SuccessAnim"):
 		success_anim.visible = true
 		success_anim.play("complete")
+	else:
+		# Không có animation -> emit ngay
+		emit_signal("puzzle_solved")
+		queue_free()
 		
 # Hàm nhận inventory từ player
 func set_inventory(inventory_data):
@@ -50,3 +64,8 @@ func update_ui():
 				slot.initialize_item("", 0)
 		else:
 			slot.initialize_item("", 0)
+
+func _on_success_anim_done():
+	# Khi animation complete, báo hoàn thành cho lab_workbench
+	emit_signal("puzzle_solved")
+	queue_free()
